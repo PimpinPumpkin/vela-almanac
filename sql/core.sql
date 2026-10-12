@@ -232,6 +232,7 @@ create or replace table storefront_source as
     ('abc_ky_jefferson', 'licensed_premises', false, false),
     ('lottery_ny', 'grocery_or_convenience_store', false, false),
     ('co_tobacco', 'grocery_or_convenience_store', false, true),
+    ('cpa_tx_tobacco', 'grocery_or_convenience_store', true, true),
     -- registers that give only an address; see "pinned" below
     ('tabc_tx', 'licensed_premises', true, true),
     ('abc_nc', 'licensed_premises', true, true),

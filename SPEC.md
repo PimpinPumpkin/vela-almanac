@@ -264,13 +264,14 @@ placed on that point. Such a register is held to more: no neighbor within
 Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
 not sit at the door of a fuel station, supermarket, stadium, campus or
 hospital; and names of counters inside stores, institutions, food service
-contractors and businesses at an apartment are left out. Six registers
-are allowed, all liquor licenses, because a licensed premises is a
-storefront by definition:
+contractors and businesses at an apartment are left out. Seven registers
+are allowed, liquor licenses and one tobacco retailer list, because a
+licensed premises is a storefront by definition:
 
 | register | box | added | read | then found in OSM |
 | --- | --- | --- | --- | --- |
 | Texas TABC | Houston | 562 | 38 of 40 a storefront of its own | 40 |
+| Texas tobacco retailers (Comptroller) | Houston | 514 | 38 of 40: food marts, smoke shops and liquor stores | 37 |
 | Washington LCB | Seattle | 128 | 37 of 40; the others are wineries at a home address | 42 |
 | North Carolina ABC | Charlotte | 94 | 35 of 40 after contractors and home addresses were filtered out; the misses are a wine distributor's office and second listings under a shorter name | 24 |
 | Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
