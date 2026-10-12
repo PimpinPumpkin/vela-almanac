@@ -35,6 +35,11 @@ insert into cases values
   -- string similarity under 0.95 is not enough: two embassies, one street
   (20, 'Embassy of Albania', null, 38.9140, -77.0470, 'Embassy of Mali', null, 38.9141, -77.0471, null),
   (21, 'Royal Tobacco', '2604 Connecticut Ave NW', 38.9240, -77.0520, 'Royal Tobaco', '2604 Connecticut Avenue Northwest', 38.9240, -77.0521, 'number'),
+  -- bracketed asides and legal forms are not part of the name
+  (40, 'Hillside Heights (UIP Properties)', '5237 Marlboro Pike', 38.8700, -76.9200, 'Hillside Heights', '5237 Marlboro Pike #201', 38.8701, -76.9200, 'number'),
+  (41, 'Outten & Golden LLP', '1225 New York Ave NW Ste 1200', 38.9003, -77.0290, 'Outten & Golden', '1225 New York Ave NW Suite 1200', 38.9004, -77.0291, 'number'),
+  (42, 'Washington Eye Doctors, Pc', '900 17th St NW Ste 400', 38.9010, -77.0390, 'Washington Eye Doctors', '900 17th St NW #400', 38.9011, -77.0391, 'number'),
+  (43, 'PC Repair Shop', '10 Main St', 38.9000, -77.0000, 'Repair Shop', '10 Main St', 38.9000, -77.0000, null),
   -- a branch is not the cash machine at the same address
   (22, 'Bank of America', '4301 49th St NW', 38.9450, -77.0960, 'Bank of America ATM', '4301 49th St NW', 38.9450, -77.0960, null),
   -- a credit union is not the agency it is named after

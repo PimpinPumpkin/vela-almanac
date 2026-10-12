@@ -153,8 +153,9 @@ One matcher, `match_pairs` in `sql/lib.sql`, is used for AllThePlaces to
 Overture, OSM to core, and evidence to places.
 
 **Name.** Lowercase, strip accents and punctuation, `&` becomes `and`. Then
-drop legal words (the, inc, llc, ltd, corp, company, co, national
-association, na, branch) and trailing store numbers. Every spelling of
+drop text in brackets, legal words (the, inc, llc, llp, pllc, ltd, corp,
+company, co, national association, na, branch; pc and apc at the end of a
+name) and trailing store numbers. Every spelling of
 "credit union" (FCU, Federal Credit Union) becomes one word, so a credit
 union matches itself and not the agency it is named after.
 
@@ -193,12 +194,35 @@ fail `number`; they are more than 30 m apart or fail `spot`.
   the base has duplicate listings of the same shop. Without a `number`
   match, only the best single place gets the record.
 
-**Duplicates inside Overture.** The same matcher runs Overture against
-itself, but only the strictest case merges: same house number, within
-250 m, identical normalized name. In the District of Columbia box that
-merges 303 of 94,188 rows; 40 merged pairs were read and all 40 are the same
-business (often a store and the money transfer counter inside it). The
-looser cases are rejected, section 9.
+**Duplicates inside Overture.** Two cases merge. The smallest id of a
+group is the place id; the member table lists the others with the rule
+that merged them.
+
+- `duplicate`: the matcher run on Overture against itself, strictest case
+  only: same house number, within 250 m, identical normalized name. In the
+  District of Columbia box that merges 319 of 94,188 rows; 40 merged pairs
+  were read and all 40 are the same business (often a store and the money
+  transfer counter inside it). Looser name rules are rejected, section 9.
+- `fuel lot`: two fuel stations with the same house number within 60 m,
+  whatever they are called. Overture keeps a row for each brand a
+  forecourt has had ("Shell", "BP" and "Bladensburg Amoco" at one
+  address). 40 pairs were read in each of the DC, Sacramento and Houston
+  boxes: 38, 40 and 40 are one lot, the rest a repair shop listed as a
+  station on the same lot. It merges 137 of 440 fuel rows in the DC box,
+  114 of 494 in Sacramento and 402 of 1,598 in Houston, and the share of
+  fuel stations with a status goes from 49% to 65%, 53% to 62% and 50% to
+  62%.
+
+A merged fuel lot takes the name of one listing: not one named by its
+street address, then the one the brand's own locator (AllThePlaces) lists
+there, then the one Overture is surest of. A locator decides about half the
+lots. Checked against OSM, which the core layer may not read: where OSM
+names the station, the kept name agrees on 240 lots and a dropped name
+would have on 61, and 31 of those 61 are the locator disagreeing with OSM.
+The other names stay as aliases for matching, so a register or locator
+that still uses one finds the place and does not mint a second. A
+Foursquare closing date or an OSM history event recorded under a dropped
+name does not close the place.
 
 **Places minted from a register.** Some registers list the storefront
 itself: FDIC branches, SNAP authorized stores, DC and New York licensed
@@ -740,6 +764,8 @@ evidence from a different source for the same place.
 | A bank branch record matching the bank's ATM | 3 of 40 FDIC closings landed on an ATM or mortgage desk listing. | A name with ATM on one side only never matches. |
 | Wikidata P576 on offices | 4 hits across two boxes, 2 of them a company merger date on an office building. | Skipped when the OSM feature is `office=*`. The 2 that remain (a hospital, a school) are right. |
 | Merging Overture duplicates on anything looser than an identical name | Same house number with a leading-words or near-spelling match: about 10 of 21 read were a part and its whole (a gift shop and its hospital, two advisors at one bank). No house number: mostly junk pages sharing a point. Different numbers within 30 m: 13 pairs, several wrong. | Only same number plus identical name merges. |
+| Merging Overture rows within 60 m whose names differ only by generic words ("Safeway" and "Safeway Pharmacy"), as Vela's map bake does | DC box, 228 pairs, 60 read: 24 one business, 30 a part and its whole (33 pairs are a cash machine and its branch, 28 a pharmacy and its store), 4 different businesses (Global Integrity and Global Financial Integrity in one suite). | Right for drawing one pin, wrong for a list of places: the part has its own license and hours. Left to readers. |
+| Merging Overture rows within 60 m with identical names and different house numbers | DC box, 26 pairs read: at least 5 are two places (two Starbucks 80 m apart, two garages of one operator, two offices of a practice that Overture put on one point). | Not merged. The same pairs with one house number, or one missing on a side, were all right and differ only by a bracketed aside or a legal form, which name cleanup now drops. |
 | DC alcohol license cancellation means closed, for every license type | 283 places matched. Independent: open 18, closed 60. The open ones were grocery stores, hotels and places that had swapped one license for another. | Kept only for restaurants, taverns, nightclubs and clubs, and skipped when the same trade name has an active license at the address. After that: open 8, closed 54, in line with the Foursquare and OSM signals. |
 | France: a closed SIRENE establishment means the place closed | Paris box, places whose newest SIRENE record was a closure: independent evidence said open 1,082, closed 647. Joined by SIRET id it was still open 130, closed 40. | A SIRET closes when a shop changes owner or legal form. Closed establishments are not emitted. |
 | France: dating an active SIRENE record by the register's processing date | Nearly every record was processed in the last year. Dated that way, an active entry overrode 159 hand-tagged OSM closures and 152 Foursquare ones. | Dated by dateDebut, the last real change. Overrides fell to 39 and 14. Most SIRENE records are then old and inform `open_score` without setting a status. |

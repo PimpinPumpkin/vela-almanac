@@ -7,14 +7,30 @@ create or replace table ovt_all as
   select 'ovt:' || id as id, * exclude (id), norm_name(name) as nn, house_number(address) as hn
   from ovt;
 
--- Duplicate listings inside Overture. Only the strictest case merges: same
--- house number, within 250 m, identical normalized name. Looser pairs were
--- read and are mostly a part and its whole (a gift shop and its hospital),
--- see SPEC.md section 9. Groups are closed over chains of pairs by passing
--- the smallest id along the pairs three times; the smallest id is kept.
+-- Duplicate listings inside Overture. Two cases merge.
+-- 1. Same house number, within 250 m, identical normalized name. Looser
+--    name pairs were read and are mostly a part and its whole (a gift shop
+--    and its hospital), see SPEC.md section 9.
+-- 2. Two fuel stations with the same house number within 60 m, whatever
+--    they are called. A forecourt is one per lot, and Overture keeps a row
+--    for every brand the lot has had ("Shell", "BP", "Bladensburg Amoco").
+-- Groups are closed over chains of pairs by passing the smallest id along
+-- the pairs three times; the smallest id is kept as the place id.
+create or replace macro is_fuel(category) as category in ('gas_station', 'fueling_station');
+create or replace table ovt_fuel_pair as
+  select a.id as a_id, b.id as b_id
+  from (select *, cell_y(lat) as cy, cell_x(lng) as cx from ovt_all where is_fuel(category) and hn is not null) a
+  join (select t.*, cell_y(t.lat) + dy.d as cy, cell_x(t.lng) + dx.d as cx
+        from ovt_all t, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
+        where is_fuel(t.category) and t.hn is not null) b
+    on a.cy = b.cy and a.cx = b.cx and a.hn = b.hn
+  where a.id <> b.id and a.nn <> b.nn and dist_m(a.lat, a.lng, b.lat, b.lng) <= 60;
+
 create or replace table ovt_pair as
   select a_id, b_id from match_pairs('ovt_all', 'ovt_all')
-  where a_id <> b_id and rule = 'number' and sim = 1.0;
+  where a_id <> b_id and rule = 'number' and sim = 1.0
+  union
+  select a_id, b_id from ovt_fuel_pair;
 
 create or replace table ovt_canon as
   with l0 as (select id, id as c from ovt_all),
@@ -26,7 +42,28 @@ create or replace table ovt_canon as
          from l2 l left join ovt_pair p on p.a_id = l.id left join l2 n on n.id = p.b_id group by l.id, l.c)
   select id, c as place_id from l3;
 
--- One row per Overture place: the kept listing, gaps filled from its duplicates.
+-- Which listing of a fuel lot names the place: one with a real name before
+-- one named by its street address ("2917 MLK AVE SE"), then the one the
+-- brand's own locator still lists there, then the one Overture is surest of. Every
+-- other group keeps the listing whose id it carries (the names are equal).
+create or replace table ovt_lead as
+  with fuel as (
+    select k.place_id, o.id, o.nn, o.confidence,
+           exists (select 1 from atp a
+                   where a.category = 'amenity=fuel' and abs(a.lat - o.lat) < 0.001 and abs(a.lng - o.lng) < 0.0013
+                     and (name_sim(norm_name(a.name), o.nn) >= 0.9 or name_sim(norm_name(a.brand), o.nn) >= 0.9)) as listed
+    from ovt_canon k join ovt_all o on o.id = k.id
+    where k.place_id in (select place_id from ovt_canon
+                         where id in (select a_id from ovt_fuel_pair))
+  )
+  select k.place_id, coalesce(f.id, k.place_id) as lead_id
+  from (select distinct place_id from ovt_canon) k
+  left join (select place_id, id from fuel
+             qualify row_number() over (partition by place_id order by regexp_matches(nn, '^[0-9]+ ') or regexp_matches(nn, ' (st|street|ave|avenue|rd|road|blvd|hwy|pike)( [nsew]{1,2})?$'), listed desc, confidence desc nulls last, id) = 1) f
+    using (place_id);
+
+-- One row per Overture place: the leading listing under the place id, gaps
+-- filled from its duplicates.
 create or replace table ovt_n as
   with fill as (
     select k.place_id,
@@ -40,12 +77,23 @@ create or replace table ovt_n as
     from ovt_canon k join ovt_all o on o.id = k.id group by k.place_id
   )
   select o.* replace (
+           l.place_id as id,
            coalesce(o.category, f.category) as category, coalesce(o.brand, f.brand) as brand,
            coalesce(o.brand_wikidata, f.brand_wikidata) as brand_wikidata,
            coalesce(o.postcode, f.postcode) as postcode, coalesce(o.phone, f.phone) as phone,
            coalesce(o.website, f.website) as website, f.operating_status as operating_status),
          f.has_fsq
-  from ovt_all o join fill f on f.place_id = o.id;
+  from ovt_lead l join ovt_all o on o.id = l.lead_id join fill f on f.place_id = l.place_id;
+
+-- The other names a merged fuel lot goes by. A register or a locator that
+-- still uses one of them must find the place, not mint a second one.
+create or replace table ovt_alias as
+  select distinct k.place_id as id, o.nn, o.hn, o.lat, o.lng, zip5(o.postcode) as zip, street_key(o.address) as sk
+  from ovt_canon k join ovt_lead l using (place_id) join ovt_all o on o.id = k.id
+  join ovt_all lead on lead.id = l.lead_id
+  where k.id <> l.lead_id and o.nn <> lead.nn;
+create or replace table ovt_names as
+  select id, nn, hn, lat, lng from ovt_n union all select id, nn, hn, lat, lng from ovt_alias;
 
 create or replace table atp_n as
   select 'atp:' || atp_id as id, * exclude (atp_id, housenumber),
@@ -56,14 +104,16 @@ create or replace table atp_n as
 -- Each AllThePlaces row joins the one Overture place it matches best.
 create or replace table atp_match as
   select a_id as place_id, b_id as atp_id, rule, dist, sim
-  from match_pairs('ovt_n', 'atp_n')
+  from match_pairs('ovt_names', 'atp_n')
   qualify row_number() over (
     partition by b_id
     order by case rule when 'number' then 1 when 'near' then 2 else 3 end, sim desc, dist) = 1;
 
 create or replace table core_member as
   select place_id, 'overture' as source, substr(id, 5) as source_id,
-         case when id = place_id then 'self' else 'duplicate' end as rule, 0.0 as dist, 1.0 as sim
+         case when id = place_id then 'self'
+              when id in (select a_id from ovt_fuel_pair) then 'fuel lot' else 'duplicate' end as rule,
+         0.0 as dist, 1.0 as sim
   from ovt_canon
   union all
   select coalesce(m.place_id, a.id), 'atp', substr(a.id, 5),
@@ -99,6 +149,11 @@ create or replace table core_place as
   where a.id not in (select atp_id from atp_match)
   );
 
+-- Places with every name they are matched under.
+create or replace table core_names as
+  select id, nn, hn, lat, lng, zip, sk from core_place
+  union all select id, nn, hn, lat, lng, zip, sk from ovt_alias;
+
 -- Evidence. Every row: place_id, source, source_id, state, date, rule, dist,
 -- plus the name and address the source used, kept for review.
 
@@ -114,13 +169,17 @@ create or replace macro matched_evidence(places) as table (
   select m.a_id as place_id, r.source, r.source_id, r.state, r.date, m.rule, m.dist,
          r.name as ev_name, r.address as ev_address
   from (
-    select * from match_pairs(places, 'register_pos')
+    select * from (
+      -- a place listed under two names can pass twice; keep its best pass
+      select * from match_pairs(places, 'register_pos')
+      qualify row_number() over (partition by a_id, b_id order by sim desc, dist) = 1)
     -- a shared house number may hit every listing of the place; without one, only the nearest
     qualify rule = 'number'
          or (max(rule = 'number') over (partition by b_id) = false
              and row_number() over (partition by b_id order by sim desc, dist) = 1)
     union all
-    select * from match_address(places, 'register_addr')
+    select * from (select * from match_address(places, 'register_addr'))
+    qualify row_number() over (partition by a_id, b_id order by sim desc) = 1
   ) m join register_n r on r.id = m.b_id
 );
 
@@ -129,16 +188,18 @@ create or replace table core_evidence as
   select k.place_id, 'fsq_closed' as source, f.fsq_place_id as source_id, 'closed' as state,
          f.date_closed as date, 'id' as rule, 0.0 as dist, f.name as ev_name, f.address as ev_address
   from ovt_all o join ovt_canon k on k.id = o.id join fsq_closed f on f.fsq_place_id = o.fsq_id
+  join ovt_n p on p.id = k.place_id
   -- An id outlives the business: Overture can keep the row and rename it for
-  -- the next tenant. The closure applies only while the names still agree.
-  where f.date_closed is not null and same_name(f.name, o.name)
+  -- the next tenant. The closure applies only while the names still agree,
+  -- and on a merged fuel lot only to the name the place now carries.
+  where f.date_closed is not null and same_name(f.name, o.name) and same_name(f.name, p.name)
   union all
   -- present in the chain's own store locator on the day it was collected
   select m.place_id, 'atp', a.id, 'open', a.collected, m.rule, m.dist, a.name, a.address
   from core_member m join atp_n a on a.id = 'atp:' || m.source_id
   where m.source = 'atp' and a.end_date is null and a.collected is not null
   union all
-  select * from matched_evidence('core_place');
+  select * from matched_evidence('core_names');
 
 -- Closures that only hold for independents. When a chain outlet's license or
 -- permit ends, the outlet usually carries on under a new franchisee, so
@@ -185,7 +246,7 @@ create or replace table born as
     select distinct u.id
     from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched) u
     join (select p.nn, p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
-          from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)) p
+          from core_names p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)) p
       on p.cy = u.cy and p.cx = u.cx
     where (dist_m(u.lat, u.lng, p.lat, p.lng) <= 200 and name_sim(u.nn, p.nn) >= 0.9)
        or (dist_m(u.lat, u.lng, p.lat, p.lng) <= 80
@@ -205,6 +266,8 @@ insert into core_place
          nullif(regexp_extract(address, ', ([A-Z]{2}) [0-9]{5}', 1), ''), zip, null, null,
          lat, lng, null, nn, hn, false, zip, sk
   from born;
+insert into core_names
+  select place_id, nn, hn, lat, lng, zip, sk from born;
 insert into core_member
   select place_id, source, source_id, 'self', 0.0, 1.0 from born;
 insert into core_evidence

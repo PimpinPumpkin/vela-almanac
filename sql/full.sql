@@ -11,7 +11,7 @@ create or replace table osm_n as
 -- Each OSM feature joins the one core place it matches best.
 create or replace table osm_match as
   select a_id as place_id, b_id as osm_id, rule, dist, sim
-  from match_pairs('core_place', 'osm_n')
+  from match_pairs('core_names', 'osm_n')
   qualify row_number() over (
     partition by b_id
     order by case rule when 'number' then 1 when 'near' then 2 else 3 end, sim desc, dist) = 1;
@@ -64,7 +64,8 @@ create or replace table osm_evidence as
   select k.place_id, 'osm_history', h.overture_id, 'closed', h.event_date, 'id', 0.0, h.event, null
   from openpois h join ovt_canon k on k.id = 'ovt:' || h.overture_id
   join ovt_all o on o.id = 'ovt:' || h.overture_id
-  where h.event in ('hard_delete', 'primary_tag_deleted', 'substantial_rename') and h.event_date is not null
+  join ovt_n p on p.id = k.place_id
+  where same_name(o.name, p.name) and h.event in ('hard_delete', 'primary_tag_deleted', 'substantial_rename') and h.event_date is not null
     -- the place must still carry the name OpenPOIs matched the event to,
     -- and must not already be the business the OSM feature was renamed to
     and same_name(h.overture_name, o.name)

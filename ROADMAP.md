@@ -103,7 +103,11 @@ Done when "everything else" passes 15% in states with two or more of these.
 - **3.4 Names and categories for places minted from registers.** Done for
   names and streets: title case, store numbers stripped. Still to do: carry
   the register's own business type.
-- **3.5 Duplicates inside Overture** beyond exact name matches.
+- **3.5 Duplicates inside Overture.** Done for fuel: the rows a forecourt
+  has under each brand it has had are one place (SPEC.md section 6). The
+  generic-word fold Vela's map bake uses was measured and left to readers
+  (section 9). Still to do: use OSM to pick the name of a merged lot in
+  the full layer, and look for other kinds of place that are one per lot.
 - **3.6 Listings only Overture has.** First step done: the source Overture
   took a place from is published and sets the starting score of a place
   with no evidence (SPEC.md section 7). Still to do: fit those numbers

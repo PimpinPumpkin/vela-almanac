@@ -8,17 +8,22 @@ create or replace macro clean_name(s) as
     regexp_replace(regexp_replace(lower(strip_accents(s)), '[''’`.]', '', 'g'), '&', ' and ', 'g'),
     '[^a-z0-9]+', ' ', 'g'));
 
--- clean_name minus legal suffixes, articles and trailing store numbers.
--- Falls back to clean_name when nothing would be left.
+-- clean_name minus bracketed asides, legal suffixes, articles and trailing
+-- store numbers: "Hillside Heights (UIP Properties)" and "Outten & Golden
+-- LLP" are "hillside heights" and "outten and golden". "PC" and "APC" count
+-- as a legal form only at the end of a name. Falls back to clean_name when
+-- nothing would be left.
 create or replace macro norm_name(s) as
   coalesce(
     nullif(trim(regexp_replace(
       regexp_replace(
         -- every way of writing "credit union" becomes one word, so that
         -- "Justice FCU" and "Justice Federal Credit Union" are the same name
-        regexp_replace(regexp_replace(clean_name(s), '( [0-9]+)+$', ''),
+        regexp_replace(regexp_replace(regexp_replace(
+                         clean_name(regexp_replace(s, '\([^)]*\)', ' ', 'g')), '( [0-9]+)+$', ''),
+                         ' (pc|apc)$', ''),
                        '\b(federal credit union|credit union|fcu)\b', 'cu', 'g'),
-        '\b(the|inc|incorporated|llc|ltd|corp|corporation|company|co|national association|na|branch|sarl|sas|sasu|eurl|sa|sci|snc|societe|ste|ets|etablissements)\b', ' ', 'g'),
+        '\b(the|inc|incorporated|llc|llp|pllc|ltd|corp|corporation|company|co|national association|na|branch|sarl|sas|sasu|eurl|sa|sci|snc|societe|ste|ets|etablissements)\b', ' ', 'g'),
       ' +', ' ', 'g')), ''),
     clean_name(s));
 
