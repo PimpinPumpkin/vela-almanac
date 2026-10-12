@@ -520,6 +520,16 @@ director, phone or email columns.
 - Found and not built yet: CMS's list of clinical laboratories (300,000
   rows, no positions).
 
+### City of San Diego, active business tax certificates
+- License: ODC Public Domain Dedication and License, as stated on the
+  dataset page.
+- Fetched from: `https://seshat.datasd.org/business_tax_certificates/sd_businesses_active_datasd.csv`,
+  linked on https://data.sandiego.gov/datasets/business-tax-certificates/
+- Used for: businesses with an unexpired certificate (open). Positions
+  come with the data.
+- Privacy: the owner's name is not read, mailbox addresses are left out,
+  and nothing creates a place from this source.
+
 ### Allegheny County Health Department, food facility inspections
 - License: Creative Commons Zero, as stated on the dataset.
 - Fetched from: `https://data.wprdc.org/datastore/dump/1c9cf8d8-f3db-4364-b925-d7078c2fb02f`

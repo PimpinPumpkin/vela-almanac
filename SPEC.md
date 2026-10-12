@@ -414,6 +414,7 @@ rows are the same place.
 | Detroit restaurant establishments, Alameda County restaurant inspections | number | 40 of 40 each (Detroit, Oakland) | |
 | Allegheny County food facility inspections | number, address | 40 of 40 (Pittsburgh) | geocoded; independent food places in the box with a status went from 33% to 42% |
 | Riverside County food facilities, California licensed health facilities, Colorado tobacco retailers, Los Angeles County business licenses | number | 40 of 40 each (Riverside, Los Angeles, Denver, Los Angeles) | a store inside a fuel station finds the station through the lot's other names |
+| San Diego business tax certificates | number | 40 of 40 (San Diego) | places in the box with a status went from 11% to 18% |
 | East Baton Rouge businesses | number | 40 of 40 (Baton Rouge) | geocoded; places in the box with a status went from 8% to 24% |
 | Norfolk business licenses | number | 40 of 40 (Norfolk) | places in the box with a status went from 9% to 14% |
 | Berkeley business licenses | number, spot | 40 of 40 (Berkeley) | half geocoded; 15% to 20% |
@@ -655,7 +656,7 @@ signal at all.
 | moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny | open | day the table was last updated | matcher |
 | wm_nyc | open | day of the shop's newest test in the last two years | matcher |
 | austin_food, cincinnati_food, boulder_food, marin_food | open | day of the newest inspection in the last two years | matcher (Austin geocoded) |
-| la_biz, sf_biz, brla_biz, norfolk_biz, berkeley_biz | open | day the table was last updated | matcher (Baton Rouge and Berkeley geocoded) |
+| la_biz, sf_biz, biz_sandiego, brla_biz, norfolk_biz, berkeley_biz | open | day the table was last updated | matcher (Baton Rouge and Berkeley geocoded) |
 | lottery_tx | open | end of the retailer's last month with sales | matcher, positions from the Census geocoder |
 | childcare_pa, childcare_tx | open | day the table was last updated | matcher, positions from the Census geocoder |
 | dph_ga_inspections, msdh_ms_food, adph_al_food | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
