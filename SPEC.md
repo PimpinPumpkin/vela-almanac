@@ -229,7 +229,12 @@ itself: FDIC branches, SNAP authorized stores, DC and New York licensed
 premises, New York City and Chicago inspected food businesses, New York
 salons, barber shops, repair shops, dealers and food stores, Delaware and
 Sacramento County inspected food establishments, Jefferson County,
-Kentucky licensed premises, and New York lottery retailers. A row from one
+Kentucky licensed premises, New York lottery retailers, and Colorado
+tobacco retailers (held to the stricter duplicate tests below, because a
+station's shop is often licensed under a name the map does not use: 82
+added in the Denver box, 34 of 40 read before those tests were a
+storefront of its own and 4 of the 6 misses were a fuel station already
+listed under its brand, which the tests now catch). A row from one
 of them becomes a new place when it is open, has a position, matched no
 place, and no listed place within 80 m has a similar name (leading words,
 Jaro-Winkler 0.7 or more, or same house number and same first word), and

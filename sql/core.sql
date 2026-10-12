@@ -218,26 +218,30 @@ delete from core_evidence
 -- longer name, and must not be added twice).
 create or replace table storefront_source as
   select * from (values
-    ('fdic_locations', 'bank', false),
-    ('snap_current', 'grocery_or_convenience_store', false),
-    ('abca_dc_active', 'licensed_premises', false),
-    ('sla_ny', 'licensed_premises', false),
-    ('dohmh_nyc', 'restaurant', false),
-    ('cdph_chicago', 'food_service', false),
-    ('dmv_ny', 'vehicle_repair_or_dealer', false),
-    ('dos_ny_salons', 'salon_or_barber_shop', false),
-    ('agm_ny', 'food_store', false),
-    ('dph_de', 'restaurant', false),
-    ('emd_sac', 'food_service', false),
-    ('abc_ky_jefferson', 'licensed_premises', false),
-    ('lottery_ny', 'grocery_or_convenience_store', false),
+    ('fdic_locations', 'bank', false, false),
+    ('snap_current', 'grocery_or_convenience_store', false, false),
+    ('abca_dc_active', 'licensed_premises', false, false),
+    ('sla_ny', 'licensed_premises', false, false),
+    ('dohmh_nyc', 'restaurant', false, false),
+    ('cdph_chicago', 'food_service', false, false),
+    ('dmv_ny', 'vehicle_repair_or_dealer', false, false),
+    ('dos_ny_salons', 'salon_or_barber_shop', false, false),
+    ('agm_ny', 'food_store', false, false),
+    ('dph_de', 'restaurant', false, false),
+    ('emd_sac', 'food_service', false, false),
+    ('abc_ky_jefferson', 'licensed_premises', false, false),
+    ('lottery_ny', 'grocery_or_convenience_store', false, false),
+    ('co_tobacco', 'grocery_or_convenience_store', false, true),
     -- registers that give only an address; see "pinned" below
-    ('tabc_tx', 'licensed_premises', true),
-    ('abc_nc', 'licensed_premises', true),
-    ('lcb_wa', 'licensed_premises', true),
-    ('abc_ks', 'licensed_premises', true),
-    ('abc_nj', 'licensed_premises', true),
-    ('bablo_me', 'licensed_premises', true)) t(source, category, pinned);
+    ('tabc_tx', 'licensed_premises', true, true),
+    ('abc_nc', 'licensed_premises', true, true),
+    ('lcb_wa', 'licensed_premises', true, true),
+    ('abc_ks', 'licensed_premises', true, true),
+    ('abc_nj', 'licensed_premises', true, true),
+    ('bablo_me', 'licensed_premises', true, true)) t(source, category, pinned, strict);
+-- pinned: the register gives only an address, and a row is placed on its address point.
+-- strict: the row is held to the harder duplicate tests below (every pinned register, and
+-- registers whose rows often sit at a fuel station already listed under its brand).
 
 -- Address points, one per house number, street and ZIP. Where a street
 -- name repeats inside a ZIP ("N Main" and "S Main") the points lie far
@@ -258,7 +262,7 @@ create or replace table born as
   with unmatched as (
     select r.* replace (case when s.pinned then a.lat else r.lat end as lat,
                         case when s.pinned then a.lng else r.lng end as lng),
-           s.category, s.pinned
+           s.category, s.pinned, s.strict
     from register_n r join storefront_source s using (source)
     left join addr_pt a on s.pinned and a.zip = r.zip and a.hn = r.hn and a.sk = r.sk
     where r.state = 'open'
@@ -297,7 +301,7 @@ create or replace table born as
            or (u.hn = p.hn and split_part(u.nn, ' ', 1) = split_part(p.nn, ' ', 1))
            -- an address-only register: any neighbor sharing a real word ("Airport Rd
            -- Chevron" beside "Chevron") is taken to be the same place
-           or (u.pinned and (list_has_any(name_words(u.nn), name_words(p.nn))
+           or (u.strict and (list_has_any(name_words(u.nn), name_words(p.nn))
                              or (length(p.nn) >= 3 and initials(u.nn) = p.nn)
                              or (length(u.nn) >= 3 and initials(p.nn) = u.nn)))))
     union
@@ -306,7 +310,7 @@ create or replace table born as
     -- shop, counter or stand inside it, which the map already has under
     -- the host's name.
     select distinct u.id
-    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched where pinned) u
+    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched where strict) u
     join (select p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
           from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
           where regexp_matches(coalesce(p.category, ''), 'gas_station|fueling|supermarket|grocery|stadium|arena|college|university|hospital|department_store|warehouse_club|school|airport|convention|casino')) p
