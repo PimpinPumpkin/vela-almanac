@@ -331,7 +331,14 @@ def main():
             os.remove(out.path + ".part")
             failed.append("%s (%s)" % (table.__name__, str(e)[:120]))
     if failed:
-        raise SystemExit("open_data_tables: " + "; ".join(failed))
+        print("open_data_tables: " + "; ".join(failed), file=sys.stderr)
+        # prepare.sh reads the names from this file, so the watch report flags the one source,
+        # not every source this reader writes
+        note = os.environ.get("ALMANAC_FAILED")
+        if not note:
+            raise SystemExit(1)
+        with open(note, "a") as f:
+            f.writelines(x.split(":")[0].split(" (")[0] + "\n" for x in failed)
 
 
 if __name__ == "__main__":

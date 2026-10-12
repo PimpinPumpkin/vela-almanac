@@ -11,6 +11,9 @@ cd "$ROOT"
 mkdir -p "$CACHE/evidence" "$CACHE/watch"
 rm -rf "$CACHE/evidence.prev" && cp -R "$CACHE/evidence" "$CACHE/evidence.prev"
 failed=()
+# a reader that writes many sources names the ones that failed here
+export ALMANAC_FAILED="$CACHE/watch/failed-sources.txt"
+: > "$ALMANAC_FAILED"
 # read a page at a time over hours, on their own schedule (.github/workflows/crawl.yml);
 # their files are already in the evidence folder
 SLOW=" usafoodsafety dph_ga_inspections adph_al_food osdh_ok_food "
@@ -19,6 +22,7 @@ for adapter in adapters/*.py; do
   echo "== $adapter"
   python3 "$adapter" || { echo "FAILED: $adapter"; failed+=("$(basename "$adapter" .py)"); }
 done
+while read -r source; do [ -n "$source" ] && failed+=("$source"); done < "$ALMANAC_FAILED"
 echo "== source watch"
 python3 tools/source_watch.py "$CACHE/evidence" "$CACHE/evidence.prev" "$CACHE/watch/sources.txt" "$CACHE/held" ${failed[@]+"${failed[@]}"}
 rm -rf "$CACHE/evidence.prev"
