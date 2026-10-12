@@ -8,6 +8,10 @@ create or replace macro clean_name(s) as
     regexp_replace(regexp_replace(lower(strip_accents(s)), '[''’`.]', '', 'g'), '&', ' and ', 'g'),
     '[^a-z0-9]+', ' ', 'g'));
 
+-- "Vanguard Restaurant Group LLC dba Fuego" trades as "Fuego"
+create or replace macro trade_name(s) as
+  regexp_replace(s, '^.+\s(dba|d/b/a|d\.b\.a\.?)[: ]\s*', '', 'i');
+
 -- clean_name minus bracketed asides, legal suffixes, articles and trailing
 -- store numbers: "Hillside Heights (UIP Properties)" and "Outten & Golden
 -- LLP" are "hillside heights" and "outten and golden". "PC" and "APC" count
@@ -20,12 +24,23 @@ create or replace macro norm_name(s) as
         -- every way of writing "credit union" becomes one word, so that
         -- "Justice FCU" and "Justice Federal Credit Union" are the same name
         regexp_replace(regexp_replace(regexp_replace(
-                         clean_name(regexp_replace(s, '\([^)]*\)', ' ', 'g')), '( [0-9]+)+$', ''),
+                         clean_name(regexp_replace(trade_name(s), '\([^)]*\)', ' ', 'g')), '( [0-9]+)+$', ''),
                          ' (pc|apc)$', ''),
                        '\b(federal credit union|credit union|fcu)\b', 'cu', 'g'),
         '\b(the|inc|incorporated|llc|llp|pllc|ltd|corp|corporation|company|co|national association|na|branch|sarl|sas|sasu|eurl|sa|sci|snc|societe|ste|ets|etablissements)\b', ' ', 'g'),
       ' +', ' ', 'g')), ''),
     clean_name(s));
+
+-- The words of a normalized name that can identify a business: three
+-- letters or more and not a word half the street shares.
+create or replace macro name_words(nn) as
+  list_filter(string_split(nn, ' '), lambda w: length(w) >= 3
+    and w not in ('restaurant', 'food', 'foods', 'store', 'shop', 'grill', 'cafe', 'pizza', 'market', 'house', 'kitchen',
+                  'express', 'center', 'street', 'avenue', 'north', 'south', 'east', 'west', 'and', 'bar', 'inn', 'new',
+                  'old', 'big', 'usa', 'los', 'las', 'del', 'mart', 'deli', 'mini', 'stop', 'one', 'two'));
+-- "kentucky fried chicken" -> "kfc"
+create or replace macro initials(nn) as
+  array_to_string(list_transform(string_split(nn, ' '), lambda w: w[1]), '');
 
 -- leading street number of an address, digits only
 create or replace macro house_number(addr) as
@@ -139,4 +154,4 @@ create or replace macro title_case(s) as
            when length(replace(w, chr(1), '')) between 2 and 4 and regexp_matches(w, '^[B-DF-HJ-NP-TV-XZ]+[-&/.]?' || chr(1) || '?$') then w
            else upper(w[1]) || lower(w[2:]) end), ' '), chr(1) || ' ', '') end;
 create or replace macro display_name(s) as
-  title_case(trim(regexp_replace(s, '\s*(#\s*[0-9]+[A-Z]?|\bSTORE\s+#?[0-9]+)\s*$', '')));
+  title_case(trim(regexp_replace(trade_name(s), '\s*(#\s*[0-9]+[A-Z]?|\bSTORE\s+#?[0-9]+)\s*$', '')));

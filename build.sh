@@ -10,6 +10,11 @@ step() { printf '%s  %s\n' "$(date +%T)" "$*" >&2; }
 [ -s "$OUT/overture.parquet" ] || { step overture; base/overture.sh "$REGION" >/dev/null; }
 [ -s "$OUT/atp.parquet" ]      || { step alltheplaces; base/atp.sh "$REGION" >/dev/null; }
 [ -s "$OUT/osm.parquet" ]      || { step osm; base/osm.sh "$REGION" >/dev/null; }
+# Address points are optional: without them, registers that come with no
+# position of their own match places as before and add none.
+[ -s "$OUT/addresses.parquet" ] || { step addresses; base/addresses.sh "$REGION" >/dev/null || rm -f "$OUT/addresses.parquet" "$OUT/addresses.parquet.part"; }
+ADDR_SQL="select null::varchar as number, null::varchar as street, null::varchar as postcode, null::double as lat, null::double as lng where false"
+[ -s "$OUT/addresses.parquet" ] && ADDR_SQL="select number, street, postcode, lat, lng from '$OUT/addresses.parquet'"
 step foursquare closing dates; FSQ_COUNTRY="$COUNTRY" signals/fsq_closed.sh >/dev/null
 # Registers are per country. US files sit in data/cache/evidence, another
 # country's in data/cache/evidence/<code>. prepare.sh fetches the US set.
@@ -72,6 +77,7 @@ alter table ovt add column if not exists category_group varchar;
 alter table ovt add column if not exists category_subgroup varchar;
 create table atp as select * from '$OUT/atp.parquet';
 create table osm as select * from '$OUT/osm.parquet';
+create table addr as $ADDR_SQL;
 -- extracts cached before the SIRET column existed
 alter table osm add column if not exists siret varchar;
 -- files cached before opening hours were kept

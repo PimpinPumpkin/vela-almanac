@@ -82,8 +82,15 @@ Salons, repair shops, small retail. 84% of all rows, 8% with a status.
 - **2.5 Geocode the address-only registers.** Done for California and Texas
   licenses with the Census geocoder: California went from 25% of licenses
   finding a place to 61%. Still to do: the federal address-only registers
-  (NPPES, IRS, CMS, NCUA), and a way to pin a geocoded point to the right
-  building so these registers can add missing places.
+  (NPPES, IRS, CMS, NCUA).
+- **2.6 Add places from address-only registers.** Built on 2026-10-12: a
+  row is pinned to its address point in the National Address Database and
+  may then add a place (SPEC.md section 6). On for the Texas, Washington
+  and North Carolina liquor registers. Next: read 40 for each other
+  state liquor register and turn on the ones that pass; find address
+  points for California, Florida and the other states the database
+  lacks; carry the register's own business type; read North Carolina
+  again after its filter.
 
 Done when "everything else" passes 15% in states with two or more of these.
 

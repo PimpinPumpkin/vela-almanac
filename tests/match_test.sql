@@ -94,3 +94,12 @@ select case when display_name('MARCO POLO BAR & GRILL #2') = 'Marco Polo Bar & G
                  and title_case('1312 NE 43RD ST') = '1312 NE 43rd St'
                  and title_case('100 A&P PLZ') = '100 A&P Plz'
             then 'ok 8 display name cases' else error('display name test failed') end as result;
+
+-- Trade names, and the words that tell one shop from its neighbor.
+select case when norm_name('Vanguard Restaurant Group LLC dba Fuego') = 'fuego'
+                 and display_name('SC HUNTSVILLE INC DBA SUPER CHIX #12') = 'Super Chix'
+                 and norm_name('DBA Coffee') = 'dba coffee'
+                 and list_has_any(name_words('airport rd chevron'), name_words('chevron'))
+                 and not list_has_any(name_words('hibachi express'), name_words('garden room restaurant'))
+                 and initials('kentucky fried chicken') = 'kfc'
+            then 'ok 6 trade name cases' else error('trade name test failed') end as result;

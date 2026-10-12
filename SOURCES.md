@@ -392,6 +392,15 @@ None states a license; rows are marked `none-stated`.
   answers 403; Riverside, Santa Clara, St. Louis County and Baltimore
   County sit behind challenge pages.
 
+### National Address Database, by way of Overture's address theme
+- License: US federal government work, public domain. Overture marks each
+  address with its source's license; only rows marked public domain, CC0
+  or PDDL are read (`base/addresses.sh`).
+- Fetched from: `s3://overturemaps-us-west-2/release/<release>/theme=addresses/type=address/`
+- Used for: the position of a register row that has only an address, when
+  that row adds a place. Not used to match, and no address is published
+  from it.
+
 ### Tables found by searching the open data catalog (2026-10-12)
 Read by `adapters/open_data_tables.py`, one source per table. Owner,
 contact, inspector, phone and email columns are not read; home day cares

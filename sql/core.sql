@@ -218,29 +218,67 @@ delete from core_evidence
 -- longer name, and must not be added twice).
 create or replace table storefront_source as
   select * from (values
-    ('fdic_locations', 'bank'),
-    ('snap_current', 'grocery_or_convenience_store'),
-    ('abca_dc_active', 'licensed_premises'),
-    ('sla_ny', 'licensed_premises'),
-    ('dohmh_nyc', 'restaurant'),
-    ('cdph_chicago', 'food_service'),
-    ('dmv_ny', 'vehicle_repair_or_dealer'),
-    ('dos_ny_salons', 'salon_or_barber_shop'),
-    ('agm_ny', 'food_store'),
-    ('dph_de', 'restaurant'),
-    ('emd_sac', 'food_service'),
-    ('abc_ky_jefferson', 'licensed_premises')) t(source, category);
+    ('fdic_locations', 'bank', false),
+    ('snap_current', 'grocery_or_convenience_store', false),
+    ('abca_dc_active', 'licensed_premises', false),
+    ('sla_ny', 'licensed_premises', false),
+    ('dohmh_nyc', 'restaurant', false),
+    ('cdph_chicago', 'food_service', false),
+    ('dmv_ny', 'vehicle_repair_or_dealer', false),
+    ('dos_ny_salons', 'salon_or_barber_shop', false),
+    ('agm_ny', 'food_store', false),
+    ('dph_de', 'restaurant', false),
+    ('emd_sac', 'food_service', false),
+    ('abc_ky_jefferson', 'licensed_premises', false),
+    ('lottery_ny', 'grocery_or_convenience_store', false),
+    -- registers that give only an address; see "pinned" below
+    ('tabc_tx', 'licensed_premises', true),
+    ('abc_nc', 'licensed_premises', true),
+    ('lcb_wa', 'licensed_premises', true)) t(source, category, pinned);
 
+-- Address points, one per house number, street and ZIP. Where a street
+-- name repeats inside a ZIP ("N Main" and "S Main") the points lie far
+-- apart and the address is left out.
+create or replace table addr_pt as
+  select zip5(postcode) as zip, house_number(number) as hn, street_key(number || ' ' || street) as sk,
+         avg(lat) as lat, avg(lng) as lng
+  from addr
+  group by all
+  having zip is not null and hn is not null and sk is not null
+     and max(lat) - min(lat) < 0.001 and max(lng) - min(lng) < 0.0013;
+
+-- A register row may add a place from the position the register gives, or,
+-- for a register that gives only addresses (pinned), from the address
+-- point of its house number, street and ZIP. A geocoder's guess along the
+-- street is good enough to match a place and not good enough to make one.
 create or replace table born as
   with unmatched as (
-    select r.*, s.category
-    from register_pos r join storefront_source s using (source)
+    select r.* replace (case when s.pinned then a.lat else r.lat end as lat,
+                        case when s.pinned then a.lng else r.lng end as lng),
+           s.category, s.pinned
+    from register_n r join storefront_source s using (source)
+    left join addr_pt a on s.pinned and a.zip = r.zip and a.hn = r.hn and a.sk = r.sk
     where r.state = 'open'
+      and case when s.pinned then a.lat else r.lat end is not null
       and not exists (select 1 from core_evidence e where e.source = r.source and e.source_id = r.source_id)
       -- a license held for a premises that has no name yet
       and r.name not ilike 'tbd%'
       -- a name that ends in a legal form is the company, not the sign on the door
-      and not regexp_matches(lower(r.name), '\b(inc|incorporated|corp|corporation|llc|lp|llp|ltd)\.?\s*[0-9]*$')
+      and not regexp_matches(lower(trade_name(r.name)), '\b(inc|incorporated|corp|corporation|llc|lp|llp|ltd)\.?\s*[0-9]*$')
+      -- An address-only register is held to more. A counter inside a store
+      -- ("Publix #1638 (Deli)", "AFC Sushi @ Publix") is not a place of its
+      -- own, and a kitchen in a school, church or hospital is that
+      -- institution, which a food register cannot name or classify.
+      -- A lottery agent is often licensed in the owner's own name. Only a
+      -- name that reads as a shop becomes a place; a person's name never does.
+      and (r.source <> 'lottery_ny'
+           or regexp_matches(r.name, '\b(deli|grocery|groc|news|newsstand|pharmacy|drugs?|mart|market|convenien\w*|store|liquors?|wine|check cashing|supermarket|food|shop|discount|cafe|coffee|smoke|vape|tobacco|station|gas|cards?|gifts?|stationery|candy|bodega|cents)\b|#\s*[0-9]', 'i'))
+      -- a food service contractor's license sits in someone else's building, and a
+      -- license at an apartment or a basement is a business run from home
+      and not (s.pinned and (regexp_matches(r.name, '\b(eurest|chartwells|aramark|sodexo|compass group|levy|delaware north|dining services|food services?|concessions?|hospitality group|distribut\w*|imports?|wholesale)\b', 'i')
+                             or regexp_matches(r.address, '\b(apt|bsmt|basement|lot|trlr)\b', 'i')))
+      and not (s.pinned and (regexp_matches(r.name, '[(@]| at | - (deli|bakery|meat|produce|seafood|starbucks|kitchen|cafe|cafeteria|concession)', 'i')
+                             or regexp_matches(r.name, '\b(school|elementary|academy|university|college|church|ministr|baptist|methodist|hospital|medical|nursing|rehab|senior|child|daycare|day care|preschool|learning|head start|ymca|club|lodge|vfw|concession|stand|catering|commissary|truck|mobile)', 'i')))
   ),
   lookalike as (
     select distinct u.id
@@ -252,7 +290,24 @@ create or replace table born as
        or (dist_m(u.lat, u.lng, p.lat, p.lng) <= 80
       and (jaro_winkler_similarity(u.nn, p.nn) >= 0.7
            -- same door and same first word: "Silk Lounge" and "Silk Restaurant and Lounge"
-           or (u.hn = p.hn and split_part(u.nn, ' ', 1) = split_part(p.nn, ' ', 1))))
+           or (u.hn = p.hn and split_part(u.nn, ' ', 1) = split_part(p.nn, ' ', 1))
+           -- an address-only register: any neighbor sharing a real word ("Airport Rd
+           -- Chevron" beside "Chevron") is taken to be the same place
+           or (u.pinned and (list_has_any(name_words(u.nn), name_words(p.nn))
+                             or (length(p.nn) >= 3 and initials(u.nn) = p.nn)
+                             or (length(u.nn) >= 3 and initials(p.nn) = u.nn)))))
+    union
+    -- An address-only register row at the door of a fuel station, a
+    -- supermarket, a stadium, a campus or a hospital is nearly always the
+    -- shop, counter or stand inside it, which the map already has under
+    -- the host's name.
+    select distinct u.id
+    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched where pinned) u
+    join (select p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
+          from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
+          where regexp_matches(coalesce(p.category, ''), 'gas_station|fueling|supermarket|grocery|stadium|arena|college|university|hospital|department_store|warehouse_club|school|airport|convention|casino')) p
+      on p.cy = u.cy and p.cx = u.cx
+    where dist_m(u.lat, u.lng, p.lat, p.lng) <= 80 and (p.hn = u.hn or dist_m(u.lat, u.lng, p.lat, p.lng) <= 30)
   )
   select 'alm:' || u.source || '/' || u.source_id as place_id, u.*
   from unmatched u

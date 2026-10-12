@@ -224,27 +224,52 @@ that still uses one finds the place and does not mint a second. A
 Foursquare closing date or an OSM history event recorded under a dropped
 name does not close the place.
 
-**Places minted from a register.** Some registers list the storefront
+**Places added from a register.** Some registers list the storefront
 itself: FDIC branches, SNAP authorized stores, DC and New York licensed
 premises, New York City and Chicago inspected food businesses, New York
 salons, barber shops, repair shops, dealers and food stores, Delaware and
-Sacramento County inspected food establishments, and Jefferson County,
-Kentucky licensed premises. A row
-from one of them becomes a new place when it is open, has a position,
-matched no place, and no listed place within 80 m has a similar name
-(leading words, Jaro-Winkler 0.7 or more, or same house number and same
-first word), and no place within 200 m has the same name. A register name
-that ends in a legal form (Inc, Corp, LLC) is a company, not a sign, and
-does not become a place. Registers without positions (California licenses, NCUA) do
-not mint. The place gets the register's name as written, a coarse category
-(bank, grocery_or_convenience_store, licensed_premises), and the register
-row as its first evidence.
+Sacramento County inspected food establishments, Jefferson County,
+Kentucky licensed premises, and New York lottery retailers. A row from one
+of them becomes a new place when it is open, has a position, matched no
+place, and no listed place within 80 m has a similar name (leading words,
+Jaro-Winkler 0.7 or more, or same house number and same first word), and
+no place within 200 m has the same name. A register name that ends in a
+legal form (Inc, Corp, LLC) is a company, not a sign, and does not become
+a place; the trade name after "dba" is used when there is one. A lottery
+agent licensed in a person's name is never added: only a name that reads
+as a shop is. The place gets the register's name in title case, a coarse
+category (bank, grocery_or_convenience_store, licensed_premises), and the
+register row as its first evidence.
 
-In the District of Columbia box this adds about 520 places to 94,000.
+In the District of Columbia box this adds about 450 places to 94,000.
 Forty were read against their most similar neighbor: 39 were new, 1 was a
 second listing of a place under a longer name (that case is now caught).
 About one in five then picked up an OSM feature in the full layer, which
 is independent confirmation that the place exists.
+
+**Registers that give only an address.** A geocoder's guess along the
+street is good enough to match a place and not good enough to make one.
+A row from an address-only register is added only when its house number,
+street and ZIP are an address point in the National Address Database
+(read from Overture's address theme, public domain rows only), and it is
+placed on that point. Such a register is held to more: no neighbor within
+80 m may share a real word with it or be its initials ("Airport Rd
+Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
+not sit at the door of a fuel station, supermarket, stadium, campus or
+hospital; and names of counters inside stores, institutions, food service
+contractors and businesses at an apartment are left out. Three registers
+are allowed, all liquor licenses, because a licensed premises is a
+storefront by definition:
+
+| register | box | added | read | then found in OSM |
+| --- | --- | --- | --- | --- |
+| Texas TABC | Houston | 562 | 38 of 40 a storefront of its own | 40 |
+| Washington LCB | Seattle | 128 | 37 of 40; the others are wineries at a home address | 42 |
+| North Carolina ABC | Charlotte | 94 | 32 of 40 before contractors and home addresses were filtered out; 4 of the 8 misses were contractor licenses, which the filter now drops; not read again since | 24 |
+
+The address database has no points for California, Florida or
+Mississippi and few for Oklahoma and New York City, so registers there
+add nothing this way. What was tried and refused is in section 9.
 
 **Join shape.** Candidates come from a grid hash join: cells are 0.004
 degrees of latitude by 0.008 of longitude, one side is copied into its nine
@@ -783,6 +808,9 @@ evidence from a different source for the same place.
 | A bank branch record matching the bank's ATM | 3 of 40 FDIC closings landed on an ATM or mortgage desk listing. | A name with ATM on one side only never matches. |
 | Wikidata P576 on offices | 4 hits across two boxes, 2 of them a company merger date on an office building. | Skipped when the OSM feature is `office=*`. The 2 that remain (a hospital, a school) are right. |
 | Merging Overture duplicates on anything looser than an identical name | Same house number with a leading-words or near-spelling match: about 10 of 21 read were a part and its whole (a gift shop and its hospital, two advisors at one bank). No house number: mostly junk pages sharing a point. Different numbers within 30 m: 13 pairs, several wrong. | Only same number plus identical name merges. |
+| Adding places from address-only food inspection registers (Alabama, Huntsville box) | 195 rows would be added. After three rounds of guards 37 were left, and 25 of the 37 were a storefront of its own. | The rest are campus dining halls, kiosks inside supermarkets, company cafeterias and day cares. An inspection list names kitchens, not storefronts. Used as evidence only. |
+| Adding places from address-only salon licenses (Texas TDLR, Houston box) | 565 would be added; 20 of 40 read were a storefront. | The other half are chair renters in salon suites, salons in a home, and licenses in a person's name. Used as evidence only. |
+| Adding places from NYC weights and measures tests | 94 would be added; most of 40 read are a person's name. | The test is recorded under the licensee, often an individual. A person's name must never become a place. Used as evidence only. |
 | New York health club filings as open evidence | New York City box: 6 of 50 found a place, and 2 of the 6 were a chain's head office and a condominium. | The filing is by the company, at the company's address. Not used. |
 | Merging Overture rows within 60 m whose names differ only by generic words ("Safeway" and "Safeway Pharmacy"), as Vela's map bake does | DC box, 228 pairs, 60 read: 24 one business, 30 a part and its whole (33 pairs are a cash machine and its branch, 28 a pharmacy and its store), 4 different businesses (Global Integrity and Global Financial Integrity in one suite). | Right for drawing one pin, wrong for a list of places: the part has its own license and hours. Left to readers. |
 | Merging Overture rows within 60 m with identical names and different house numbers | DC box, 26 pairs read: at least 5 are two places (two Starbucks 80 m apart, two garages of one operator, two offices of a practice that Overture put on one point). | Not merged. The same pairs with one house number, or one missing on a side, were all right and differ only by a bracketed aside or a legal form, which name cleanup now drops. |

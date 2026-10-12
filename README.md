@@ -1,13 +1,35 @@
 # Vela Almanac
 
-An open table of every place in the United States a person can walk into,
-rebuilt every month, that says for each one whether it is open, closed, or
-has gone quiet, and shows the dated record behind that answer.
+> **Not ready to use yet.** The files are published every month so the
+> work can be checked, but the columns, the ids and the rules still change
+> from one build to the next. Do not build on it yet.
 
-Maps go stale because nobody tells them when a shop closes. Regulators,
-licensing boards and the chains themselves do know, and they publish it.
-Vela Almanac collects what they publish. Each month it pulls from more
-than a hundred public sources and merges them into one row per place:
+An open table of every place in the United States a person can walk into,
+rebuilt every month, that **adds new businesses on its own**: a shop, bar
+or bank branch appears here when a regulator lists it, without anyone
+having to draw it on a map first.
+
+Open maps learn about a new business when a volunteer or the owner adds
+it, and about a closed one when somebody notices. Regulators, licensing
+boards and the chains themselves know sooner, and they publish it. Vela
+Almanac reads what they publish, more than a hundred public sources each
+month, and does three things with it:
+
+1. **Adds places no map has.** A newly licensed bar, a new bank branch, a
+   store newly authorized for food stamps or a new lottery retailer is in
+   its register the day the regulator lists it. When that row matches
+   nothing in Overture Maps, OpenStreetMap or any chain's store locator,
+   and no neighbor looks like the same shop under another name, it
+   becomes a place, with the register row as its proof.
+2. **Says whether each place is still open**, with the dated record
+   behind the answer: a license renewed, an inspection passed, a branch
+   closing filed.
+3. **Marks the listings nobody vouches for.** A third of the places in the
+   open map datasets exist in one upstream source and nowhere else. Each
+   place gets an `open_score` from 0 to 1 so a reader can dim or drop
+   them.
+
+What it reads:
 
 - **The open map datasets**: Overture Maps, OpenStreetMap, and AllThePlaces,
   which reads every chain's own store locator.
@@ -25,18 +47,19 @@ What comes out of the build of 2026-10-08, for all 50 states and DC:
 | | |
 | --- | ---: |
 | Places | 19.5 million |
+| Added from a register because no map dataset had them | 282,000 |
 | Confirmed open by a dated record from the last two years | 2.2 million |
 | Marked closed, with the date and the source | 148,000 |
-| Added from a register because no map dataset had them | 282,000 |
 
-Every place also gets an `open_score` from 0 to 1, so a reader can dim or
-drop the ones nobody has vouched for in years, and the listings that
-exist in one upstream source and nowhere else.
-
-The last row is the part a map cannot do on its own. A new bank branch, a
-newly licensed bar or a store newly authorized for food stamps appears in
-its register when the regulator lists it, which can be before anyone has
-added it to a map.
+Which registers may add a place is decided one at a time, by reading what
+each would add. Liquor licenses, bank branches and food stamp retailers
+pass: they list storefronts. Restaurant inspection lists and salon
+licenses do not, because they also list school kitchens, kiosks inside
+supermarkets and people renting a chair, so those are used only as proof
+that a known place is open. A register that gives an address and no
+position adds a place only where the address is a known address point, so
+nothing is dropped in the middle of a street. The numbers for each are in
+[SPEC.md](SPEC.md), sections 6 and 9.
 
 Nothing is guessed. A place is only called closed when a source says so
 with a date and nothing newer says otherwise, and every rule in the build
@@ -136,7 +159,7 @@ build.sh            build one region end to end
 stats.sh            print the numbers for a built region
 review.sh           print a fixed sample of matches for a person to read
 regions.tsv         region boxes and which OSM extracts cover them
-base/               importers: overture.sh, atp.sh + atp.py, osm.sh + osm.jq
+base/               importers: overture.sh, addresses.sh, atp.sh + atp.py, osm.sh + osm.jq
 signals/            closing signals joined by id: fsq_closed.sh, wikidata_p576.py
 adapters/           one file per register. Federal: fdic, ncua, snap, epa_ust,
                     cms, nces, nppes, irs. State and city: abc_ca, abca_dc, bbl_dc,
