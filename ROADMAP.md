@@ -4,10 +4,15 @@ What gets built next, in order, and what counts as done. The aim is the
 coverage and freshness people expect from a commercial map, from open
 sources only, United States first.
 
-Where things stand (build of 2026-10-08): 19.5 million places, 12.2% with a
-dated status. Banks 66%, chain restaurants 65%, gas stations 49%, grocery
-49%, pharmacies 40%, independent restaurants 33%, bars 27%, everything
-else 8%. The first monthly change file exists.
+Where things stand (build of 2026-10-12): 19.5 million places, 13.1% with a
+dated status, 295,000 of them added from a register. Banks 66%, chain
+restaurants 61%, gas stations 57% (fewer rows than before: the listings a
+forecourt has under each of its brands are now one place), grocery 49%,
+pharmacies 41%, independent restaurants 35%, bars 28%, everything else 9%.
+The city business lists added on 2026-10-12 (Los Angeles, San Francisco,
+Miami-Dade, Broward and others) are in that build. Each doubles or
+triples coverage inside its city and moves the national figure by a
+fraction of a point: the long tail closes city by city.
 
 ## How every item is done
 
