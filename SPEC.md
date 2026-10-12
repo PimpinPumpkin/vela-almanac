@@ -259,7 +259,7 @@ placed on that point. Such a register is held to more: no neighbor within
 Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
 not sit at the door of a fuel station, supermarket, stadium, campus or
 hospital; and names of counters inside stores, institutions, food service
-contractors and businesses at an apartment are left out. Three registers
+contractors and businesses at an apartment are left out. Six registers
 are allowed, all liquor licenses, because a licensed premises is a
 storefront by definition:
 
@@ -268,10 +268,13 @@ storefront by definition:
 | Texas TABC | Houston | 562 | 38 of 40 a storefront of its own | 40 |
 | Washington LCB | Seattle | 128 | 37 of 40; the others are wineries at a home address | 42 |
 | North Carolina ABC | Charlotte | 94 | 35 of 40 after contractors and home addresses were filtered out; the misses are a wine distributor's office and second listings under a shorter name | 24 |
+| Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
+| New Jersey ABC | Newark | 25 | 29 of 31 read before placeholder names ("NONE", "Not Available") and double listings were removed | 2 |
+| Maine BABLO | Portland | 29 | 27 of 29; the others are a delivery warehouse and a hotel | 1 |
 
-The address database has no points for California, Florida or
-Mississippi and few for Oklahoma and New York City, so registers there
-add nothing this way. What was tried and refused is in section 9.
+The address database has no points for California, Florida, Mississippi,
+Colorado, Idaho or Oregon and few for Oklahoma, Wisconsin and New York
+City, so registers there add nothing this way. What was tried and refused is in section 9.
 
 **Join shape.** Candidates come from a grid hash join: cells are 0.004
 degrees of latitude by 0.008 of longitude, one side is copied into its nine
@@ -820,6 +823,9 @@ evidence from a different source for the same place.
 | Wikidata P576 on offices | 4 hits across two boxes, 2 of them a company merger date on an office building. | Skipped when the OSM feature is `office=*`. The 2 that remain (a hospital, a school) are right. |
 | Merging Overture duplicates on anything looser than an identical name | Same house number with a leading-words or near-spelling match: about 10 of 21 read were a part and its whole (a gift shop and its hospital, two advisors at one bank). No house number: mostly junk pages sharing a point. Different numbers within 30 m: 13 pairs, several wrong. | Only same number plus identical name merges. |
 | Adding places from address-only food inspection registers (Alabama, Huntsville box) | 195 rows would be added. After three rounds of guards 37 were left, and 25 of the 37 were a storefront of its own. | The rest are campus dining halls, kiosks inside supermarkets, company cafeterias and day cares. An inspection list names kitchens, not storefronts. Used as evidence only. |
+| Adding places from the Nebraska liquor roster (Omaha box) | 69 would be added; 28 of 40 read were a storefront. | The roster holds special licenses of foundations, a parish office, a fraternity house and a sports commission. Evidence only until the license class is read. |
+| Adding places from Missouri alcohol licenses (Kansas City box) | 63 would be added; 33 of 40 read were a storefront. | Two were a person's name, others a vending company and a food contractor. Evidence only. |
+| Adding places from Arkansas alcohol permits (Little Rock box) | 34 would be added; 27 were a storefront. | The rest carry the permit holder's company name ("Foxden USP Opco" for three U.S. Pizza branches already listed). Evidence only. |
 | Adding places from address-only salon licenses (Texas TDLR, Houston box) | 565 would be added; 20 of 40 read were a storefront. | The other half are chair renters in salon suites, salons in a home, and licenses in a person's name. Used as evidence only. |
 | Adding places from NYC weights and measures tests | 94 would be added; most of 40 read are a person's name. | The test is recorded under the licensee, often an individual. A person's name must never become a place. Used as evidence only. |
 | New York health club filings as open evidence | New York City box: 6 of 50 found a place, and 2 of the 6 were a chain's head office and a condominium. | The filing is by the company, at the company's address. Not used. |

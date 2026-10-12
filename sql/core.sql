@@ -234,18 +234,21 @@ create or replace table storefront_source as
     -- registers that give only an address; see "pinned" below
     ('tabc_tx', 'licensed_premises', true),
     ('abc_nc', 'licensed_premises', true),
-    ('lcb_wa', 'licensed_premises', true)) t(source, category, pinned);
+    ('lcb_wa', 'licensed_premises', true),
+    ('abc_ks', 'licensed_premises', true),
+    ('abc_nj', 'licensed_premises', true),
+    ('bablo_me', 'licensed_premises', true)) t(source, category, pinned);
 
 -- Address points, one per house number, street and ZIP. Where a street
 -- name repeats inside a ZIP ("N Main" and "S Main") the points lie far
 -- apart and the address is left out.
 create or replace table addr_pt as
-  select zip5(postcode) as zip, house_number(number) as hn, street_key(number || ' ' || street) as sk,
-         avg(lat) as lat, avg(lng) as lng
-  from addr
-  group by all
-  having zip is not null and hn is not null and sk is not null
-     and max(lat) - min(lat) < 0.001 and max(lng) - min(lng) < 0.0013;
+  select zip, hn, sk, avg(lat) as lat, avg(lng) as lng
+  from (select zip5(postcode) as zip, house_number(number) as hn, street_key(number || ' ' || street) as sk, lat, lng
+        from addr)
+  where zip is not null and hn is not null and sk is not null
+  group by zip, hn, sk
+  having max(lat) - min(lat) < 0.001 and max(lng) - min(lng) < 0.0013;
 
 -- A register row may add a place from the position the register gives, or,
 -- for a register that gives only addresses (pinned), from the address
@@ -262,7 +265,7 @@ create or replace table born as
       and case when s.pinned then a.lat else r.lat end is not null
       and not exists (select 1 from core_evidence e where e.source = r.source and e.source_id = r.source_id)
       -- a license held for a premises that has no name yet
-      and r.name not ilike 'tbd%'
+      and r.name not ilike 'tbd%' and lower(trim(r.name)) not in ('none', 'na', 'n/a', 'not available', 'unknown', 'vacant')
       -- a name that ends in a legal form is the company, not the sign on the door
       and not regexp_matches(lower(trade_name(r.name)), '\b(inc|incorporated|corp|corporation|llc|lp|llp|ltd)\.?\s*[0-9]*$')
       -- An address-only register is held to more. A counter inside a store
