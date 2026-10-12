@@ -19,6 +19,7 @@ not read.
 Milwaukee's data is CC BY (City of Milwaukee). The others state no
 license. Layer addresses are in SOURCES.md.
 """
+import csv
 import datetime
 import os
 import sys
@@ -92,11 +93,28 @@ def text(v):
     return "" if v is None else " ".join(str(v).split())
 
 
+def split_shared_file():
+    """Every source used to share city_layers.csv. Cut it into one file per source, so a source whose
+    server is down today still has last run's rows and nothing is counted twice."""
+    shared = os.path.join(EVIDENCE, "city_layers.csv")
+    if not os.path.exists(shared):
+        return
+    with open(shared, newline="") as f:
+        rows = list(csv.reader(f))
+    for source in sorted({r[0] for r in rows[1:]}):
+        own = os.path.join(EVIDENCE, source + ".csv")
+        if not os.path.exists(own):
+            with open(own, "w", newline="") as f:
+                csv.writer(f).writerows([rows[0]] + [r for r in rows[1:] if r[0] == source])
+    os.remove(shared)
+
+
 def main():
     """Each source is written to its own file, so one city's server being down leaves the others fresh
     and that city on last run's file."""
     only = os.environ.get("LAYERS", "").split()
     failed = []
+    split_shared_file()
     for source, (layers, where, ids, names, street, city, state, zip_field, dated) in sorted(SOURCES.items()):
         if only and source not in only:
             continue
@@ -129,10 +147,6 @@ def main():
             out.f.close()
             os.remove(out.path + ".part")
             failed.append("%s: %s" % (source, str(e)[:120]))
-    # the single file every source used to share
-    old = os.path.join(EVIDENCE, "city_layers.csv")
-    if not failed and not only and os.path.exists(old):
-        os.remove(old)
     if failed:
         raise SystemExit("city_layers, sources that failed: " + "; ".join(failed))
 
