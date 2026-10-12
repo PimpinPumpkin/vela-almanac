@@ -27,6 +27,7 @@ Nothing is done to get around these. They may open up, or answer a request.
 - **Virginia ABC** license search: 403.
 - **Arizona DLLC** license query: challenge page.
 - **Alaska AMCO** and Alaska business license downloads: 403.
+- **Maine health inspection search**: a reCAPTCHA on the search button.
 - **Kansas Department of Agriculture**, **Rhode Island DOH lists**,
   **Colorado DORA roster generator**, **New Hampshire liquor**: 403.
 
@@ -57,12 +58,12 @@ Nothing is done to get around these. They may open up, or answer a request.
 - **Wyoming food inspections** (`wda.safefoodinspection.com`): the same
   system as eight states already read, but every search answers with a
   server error. Try again later.
-- **Georgia restaurants** (`ga.healthinspections.us`): an open data feed,
-  five establishments a request, so several thousand requests. Fits the
-  slow workflow.
 - **Kentucky restaurants**, **Illinois counties**, **Salt Lake County** on
   `public.cdpehs.com` (the same vendor as North Carolina, different pages).
-- **Alabama, Mississippi, Oklahoma, Maine** state restaurant score sites.
+  The whole host answered 502 on 2026-10-12, North Carolina included; find
+  the pages once it is back.
+- **Oklahoma inspection dates.** The list is read without them. A request
+  per establishment would date each one (about 25,000 requests).
 - **Minnesota AGED** liquor license lookup (a JavaScript app).
 - **Illinois ILCC** license lookup (a Salesforce site).
 - **Anchorage** and **Columbus**-style county portals (one request lists

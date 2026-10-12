@@ -352,6 +352,10 @@ rows are the same place.
 | Tennessee retail food stores (paged list) | number | 29 of 30 (Nashville) | geocoded |
 | Vermont and Kansas food inspections (shared Food Safety system) | number | 30 of 30 each (Burlington, Wichita) | the same reader serves six more states, 112,000 establishments in all; geocoded |
 | North Carolina inspections (county search pages) | number | 30 of 30 (Charlotte) | 38,000 establishments; geocoded |
+| Mississippi food facility inspections (date export) | number, address | 42 of 45 (Jackson) | the doubtful three share a first word with a neighbor at the address ("Twilight" and "Twilight Kristylz"); 15,000 establishments; geocoded; independent food places in the box with a status went from 5% to 24% |
+| Alabama food establishment scores (search form) | number, address | 40 of 42 (Huntsville) | the other two are a store's bakery or meat counter landing on the store's pharmacy; geocoded; independent food places in the box with a status went from 12% to 30% |
+| Georgia environmental health inspections (permit feed) | number, address | 38 of 40 (Atlanta) | the other two are a kitchen inside an office or campus landing on the organization; geocoded; independent food places in the box with a status went from 14% to 26% |
+| Oklahoma food service establishments (county search pages) | number, address | 40 of 40 (Oklahoma City) | the list has no dates, so rows are dated the day they are read; the detail pages of 40 establishments drawn at random showed a newest inspection within a year for 32 and within two for 38; geocoded; independent food places in the box with a status went from 6% to 33% |
 | Pennsylvania retail sales licenses | number | 28 of 30 (Philadelphia) | both misses are a hospital department taking the hospital's license |
 | Delaware business licenses | number | 30 of 30 (Delaware) | geocoded; took the state from 8% of places with a status to 19% |
 | Texas salon and barber establishments | number | 20 of 20 (Houston) | geocoded; nail salons in the box went from 7% with a status to 52% |
@@ -580,6 +584,8 @@ signal at all.
 | tda_tn_food | open | day the list was read, current licenses | matcher, positions from the Census geocoder |
 | foodsafety_ak, _ar, _ia, _ks, _nd, _pa, _sd, _vt | open | day of the establishment's most recent inspection | matcher, positions from the Census geocoder |
 | dhhs_nc_inspections | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
+| dph_ga_inspections, msdh_ms_food, adph_al_food | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
+| osdh_ok_food | open | day the list was read | matcher, positions from the Census geocoder |
 | rev_pa | open | day the dataset was last updated, unexpired licenses only | matcher |
 | biz_de | open | day the dataset was last updated, current licenses only | matcher, positions from the Census geocoder |
 | tdlr_tx | open | day the dataset was last updated, unexpired establishment licenses only | matcher, positions from the Census geocoder |

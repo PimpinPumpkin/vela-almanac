@@ -13,7 +13,7 @@ rm -rf "$CACHE/evidence.prev" && cp -R "$CACHE/evidence" "$CACHE/evidence.prev"
 failed=()
 # read a page at a time over hours, on their own schedule (.github/workflows/crawl.yml);
 # their files are already in the evidence folder
-SLOW=" usafoodsafety "
+SLOW=" usafoodsafety dph_ga_inspections "
 for adapter in adapters/*.py; do
   case "$SLOW" in *" $(basename "$adapter" .py) "*) echo "== $adapter (slow, not run here)"; continue ;; esac
   echo "== $adapter"

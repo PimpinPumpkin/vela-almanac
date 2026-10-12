@@ -364,11 +364,29 @@ None states a license; rows are marked `none-stated`.
   None has a robots.txt. A search shows at most 500 establishments;
   Pennsylvania's large counties are split by inspection date to fit. Phone
   numbers are not read.
-- Mapped and not read yet: Georgia's statewide system
-  (`ga.healthinspections.us/stateofgeorgia/`, five establishments a
-  request); Kentucky, Illinois counties and Salt Lake County on
-  `public.cdpehs.com` (other pages of the vendor North Carolina uses); Alabama, Mississippi, Oklahoma and Maine state
-  sites. See FOLLOWUPS.md.
+- Georgia environmental health inspections, all counties:
+  `https://ga.healthinspections.us/stateofgeorgia/API/index.cfm/facilities/<page>`,
+  five permits a request, newest inspection first, read to the end
+  (about six thousand requests) by `adapters/dph_ga_inspections.py` on
+  the slow schedule. Food service and tourist accommodation permits are
+  kept, swimming pools are not. No robots.txt. Phone numbers are not read.
+- Mississippi food facility inspections:
+  `https://apps.msdh.ms.gov/food/FacilityListingDatesExport.aspx`, an
+  export of every inspection between two dates; two years are read two
+  months at a time (a dozen requests). No robots.txt. Grades are not read.
+- Alabama food establishment scores: `https://foodscores.state.al.us/`,
+  asked county by county and kind by kind (about 700 requests). The site
+  keeps its session in the address. No robots.txt. Scores are not read.
+- Oklahoma food service establishments:
+  `https://www.phin.state.ok.us/inspections/`, county by county, 15 a
+  page (about 1,700 requests). The list has no dates; an establishment's
+  inspections are a request each and are not read. No robots.txt.
+- Mapped and not read yet: Kentucky, Illinois counties and Salt Lake
+  County on `public.cdpehs.com` (other pages of the vendor North Carolina
+  uses; the whole host answered 502 on 2026-10-12). See FOLLOWUPS.md.
+- Maine's health inspection search
+  (`apps.web.maine.gov/online/hip_search/`) puts a reCAPTCHA on its
+  search button. Left alone.
 - Closed to this project: `inspections.myhealthdepartment.com` (Tennessee
   and Virginia restaurants, Hawaii, Oregon, Cuyahoga County and others)
   answers 403; Riverside, Santa Clara, St. Louis County and Baltimore

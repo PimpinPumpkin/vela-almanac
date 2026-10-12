@@ -154,8 +154,9 @@ adapters/           one file per register. Federal: fdic, ncua, snap, epa_ust,
                     mda_mn_food, dca_ca, dpor_va, pharmacy_boards, hrsa,
                     childcare_centers, city_layers, abc_nc, abc_ky,
                     abc_ks, plcb_pa, tda_tn_food, dhhs_nc_inspections,
-                    usafoodsafety (slow, on
-                    its own schedule). France: sirene.sh
+                    msdh_ms_food, adph_al_food, osdh_ok_food,
+                    usafoodsafety and dph_ga_inspections (slow, on
+                    their own schedule). France: sirene.sh
 sql/                lib.sql (matcher), core.sql, full.sql, status.sql, publish.sql
 tests/              matcher threshold tests
 reports/            numbers from the last build of each region

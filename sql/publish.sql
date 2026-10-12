@@ -13,7 +13,8 @@ create or replace macro license_of(source) as
                     'biz_lasvegas', 'dchd_omaha_food', 'mpls_food', 'mpls_liquor', 'llb_baltimore', 'cph_columbus_food',
                     'mdard_mi_food', 'dph_sc_food', 'mda_mn_food', 'dpor_va', 'bop_tx', 'bop_oh',
                     'phx_liquor', 'nash_beer', 'anc_liquor', 'sux_food', 'hsv_liquor', 'det_biz', 'det_liquor',
-                    'abc_nc', 'abc_ky', 'abc_ks', 'plcb_pa', 'tda_tn_food', 'dhhs_nc_inspections')
+                    'abc_nc', 'abc_ky', 'abc_ks', 'plcb_pa', 'tda_tn_food', 'dhhs_nc_inspections',
+                    'dph_ga_inspections', 'msdh_ms_food', 'adph_al_food', 'osdh_ok_food')
          or source like 'foodsafety_%'
          or source like 'dca_ca_%' or (source like 'childcare_%' and source not in ('childcare_ca', 'childcare_co'))
          or source like 'dbpr_fl_%' then 'none-stated'
