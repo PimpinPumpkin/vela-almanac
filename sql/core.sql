@@ -272,7 +272,8 @@ create or replace table born as
       -- A lottery agent is often licensed in the owner's own name. Only a
       -- name that reads as a shop becomes a place; a person's name never does.
       and (r.source <> 'lottery_ny'
-           or regexp_matches(r.name, '\b(deli|grocery|groc|news|newsstand|pharmacy|drugs?|mart|market|convenien\w*|store|liquors?|wine|check cashing|supermarket|food|shop|discount|cafe|coffee|smoke|vape|tobacco|station|gas|cards?|gifts?|stationery|candy|bodega|cents)\b|#\s*[0-9]', 'i'))
+           -- a sidewalk newsstand carries its holder's name
+           or not regexp_matches(r.name, 'news', 'i') and regexp_matches(r.name, '\b(deli|grocery|groc|pharmacy|drugs?|mart|market|convenien\w*|store|liquors?|wine|check cashing|supermarket|food|shop|discount|cafe|coffee|smoke|vape|tobacco|station|gas|cards?|gifts?|stationery|candy|bodega|cents)\b|#\s*[0-9]', 'i'))
       -- a food service contractor's license sits in someone else's building, and a
       -- license at an apartment or a basement is a business run from home
       and not (s.pinned and (regexp_matches(r.name, '\b(eurest|chartwells|aramark|sodexo|compass group|levy|delaware north|dining services|food services?|concessions?|hospitality group|distribut\w*|imports?|wholesale)\b', 'i')
@@ -313,7 +314,9 @@ create or replace table born as
   from unmatched u
   where u.id not in (select id from lookalike)
   -- one register can list a premises twice, and two registers can list the same shop
-  qualify row_number() over (partition by u.nn, u.hn, cell_y(u.lat), cell_x(u.lng) order by u.source, u.source_id) = 1;
+  -- (the same name and house number within a few kilometers: a register that lists one
+  -- premises under two ZIPs puts its rows on two address points)
+  qualify row_number() over (partition by u.nn, u.hn, round(u.lat, 1), round(u.lng, 1) order by u.source, u.source_id) = 1;
 
 insert into core_place
   select place_id, display_name(name), category, null, null,

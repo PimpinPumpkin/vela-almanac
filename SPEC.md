@@ -237,7 +237,9 @@ no place within 200 m has the same name. A register name that ends in a
 legal form (Inc, Corp, LLC) is a company, not a sign, and does not become
 a place; the trade name after "dba" is used when there is one. A lottery
 agent licensed in a person's name is never added: only a name that reads
-as a shop is. The place gets the register's name in title case, a coarse
+as a shop is, and newsstands, which carry their holder's name, are left
+out (of 40 read after that rule, the rest were delis, groceries,
+pharmacies and liquor stores). The place gets the register's name in title case, a coarse
 category (bank, grocery_or_convenience_store, licensed_premises), and the
 register row as its first evidence.
 
@@ -265,7 +267,7 @@ storefront by definition:
 | --- | --- | --- | --- | --- |
 | Texas TABC | Houston | 562 | 38 of 40 a storefront of its own | 40 |
 | Washington LCB | Seattle | 128 | 37 of 40; the others are wineries at a home address | 42 |
-| North Carolina ABC | Charlotte | 94 | 32 of 40 before contractors and home addresses were filtered out; 4 of the 8 misses were contractor licenses, which the filter now drops; not read again since | 24 |
+| North Carolina ABC | Charlotte | 94 | 35 of 40 after contractors and home addresses were filtered out; the misses are a wine distributor's office and second listings under a shorter name | 24 |
 
 The address database has no points for California, Florida or
 Mississippi and few for Oklahoma and New York City, so registers there
