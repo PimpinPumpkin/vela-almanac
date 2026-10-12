@@ -51,8 +51,8 @@ Nothing is done to get around these. They may open up, or answer a request.
 - **Philadelphia restaurant inspections.** The state lookup lists the city
   as a jurisdiction but returns nothing for it (24 establishments in the
   whole county), so the 43,000 Pennsylvania establishments read are the
-  rest of the state. Philadelphia needs its own source; so, probably,
-  does Allegheny County.
+  rest of the state. Philadelphia needs its own source. (Allegheny
+  County's own list was added on 2026-10-12.)
 - **South Dakota inside Sioux Falls** is the city's own list (already read);
   the state list has almost nothing there, as expected.
 - **Wyoming food inspections** (`wda.safefoodinspection.com`): the same

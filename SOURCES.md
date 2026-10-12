@@ -520,6 +520,14 @@ director, phone or email columns.
 - Found and not built yet: CMS's list of clinical laboratories (300,000
   rows, no positions).
 
+### Allegheny County Health Department, food facility inspections
+- License: Creative Commons Zero, as stated on the dataset.
+- Fetched from: `https://data.wprdc.org/datastore/dump/1c9cf8d8-f3db-4364-b925-d7078c2fb02f`
+  (Western Pennsylvania Regional Data Center)
+- Used for: food facilities with an active permit (open, dated by the
+  newest inspection in two years), with positions from the Census
+  geocoder. This is the county the state's lookup leaves out.
+
 ### City and county layers added 2026-10-12
 Found by searching ArcGIS Hub; read by `adapters/city_layers.py`, which
 now writes one file per source. None states a license; rows are marked

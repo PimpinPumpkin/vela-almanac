@@ -177,7 +177,7 @@ adapters/           one file per register. Federal: fdic, ncua, snap, epa_ust,
                     mda_mn_food, dca_ca, dpor_va, pharmacy_boards, hrsa,
                     childcare_centers, city_layers, abc_nc, abc_ky,
                     abc_ks, plcb_pa, tda_tn_food, dhhs_nc_inspections,
-                    msdh_ms_food, open_data_tables, and four that are
+                    msdh_ms_food, achd_pa_food, open_data_tables, and four that are
                     slow and run on their own schedule:
                     usafoodsafety, dph_ga_inspections, adph_al_food,
                     osdh_ok_food. France: sirene.sh

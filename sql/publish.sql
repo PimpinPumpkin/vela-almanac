@@ -4,7 +4,7 @@ create or replace macro license_of(source) as
   case
     when source = 'overture' then 'CDLA-Permissive-2.0'
     when source in ('fsq', 'fsq_closed') then 'Apache-2.0'
-    when source in ('atp', 'wikidata_p576', 'biz_nola', 'childcare_tx', 'la_biz') then 'CC0-1.0'
+    when source in ('atp', 'wikidata_p576', 'biz_nola', 'childcare_tx', 'la_biz', 'achd_pa_food') then 'CC0-1.0'
     when source like 'osm%' or source in ('dol_wa', 'marin_food') then 'ODbL-1.0'
     when source like 'abca_dc%' or source in ('bbl_dc', 'childcare_ca', 'mke_food', 'mke_liquor') then 'CC-BY-4.0'
     when source in ('abc_ca', 'tabc_tx', 'dbpr_fl_food', 'abt_fl', 'atc_mo', 'olcc_or', 'tdlr_tx',
