@@ -425,6 +425,10 @@ are left out.
 - New York City weights, measures and other tests (scales, fuel pumps,
   laundry dryers): `https://data.cityofnewyork.us/d/8fei-z6rz`. NYC Open
   Data terms. Pedicabs, fuel trucks and mobile vendors are left out.
+- San Francisco registered business locations: `https://data.sf.gov/d/g8m3-pdis`
+  (101,000 locations with no end date, with positions). ODC Public Domain
+  Dedication and License. Owner names and mailing addresses are not read.
+  Locations with an end date are held, not used.
 - Los Angeles listing of active businesses: `https://data.lacity.org/d/6rrh-rzua`
   (632,000 rows, with positions). CC0.
 - Austin food establishment inspection scores:

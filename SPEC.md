@@ -393,6 +393,7 @@ rows are the same place.
 | New York lottery retailers | number, spot, near | 40 of 40 (New York City) | delis, pharmacies and newsstands; 412 of the 1,032 in the box find a place |
 | New York City weights and measures tests | number | 40 of 40 (New York City) | grocers, laundromats, cleaners and fuel stations, dated by the test |
 | Los Angeles active businesses | number | 40 of 40 (Los Angeles) | 24,700 of the 263,000 accounts in the box find a place; places in the box with a status went from 9% to 21% |
+| San Francisco registered business locations | number | 40 of 40 (San Francisco) | 19,500 of the 100,600 locations in the box find a place; places in the box with a status went from 13% to 27% |
 | East Baton Rouge businesses | number | 40 of 40 (Baton Rouge) | geocoded; places in the box with a status went from 8% to 24% |
 | Norfolk business licenses | number | 40 of 40 (Norfolk) | places in the box with a status went from 9% to 14% |
 | Berkeley business licenses | number, spot | 40 of 40 (Berkeley) | half geocoded; 15% to 20% |
@@ -633,7 +634,7 @@ signal at all.
 | moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny | open | day the table was last updated | matcher |
 | wm_nyc | open | day of the shop's newest test in the last two years | matcher |
 | austin_food, cincinnati_food, boulder_food, marin_food | open | day of the newest inspection in the last two years | matcher (Austin geocoded) |
-| la_biz, brla_biz, norfolk_biz, berkeley_biz | open | day the table was last updated | matcher (Baton Rouge and Berkeley geocoded) |
+| la_biz, sf_biz, brla_biz, norfolk_biz, berkeley_biz | open | day the table was last updated | matcher (Baton Rouge and Berkeley geocoded) |
 | lottery_tx | open | end of the retailer's last month with sales | matcher, positions from the Census geocoder |
 | childcare_pa, childcare_tx | open | day the table was last updated | matcher, positions from the Census geocoder |
 | dph_ga_inspections, msdh_ms_food, adph_al_food | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
@@ -828,6 +829,7 @@ evidence from a different source for the same place.
 | Adding places from Arkansas alcohol permits (Little Rock box) | 34 would be added; 27 were a storefront. | The rest carry the permit holder's company name ("Foxden USP Opco" for three U.S. Pizza branches already listed). Evidence only. |
 | Adding places from address-only salon licenses (Texas TDLR, Houston box) | 565 would be added; 20 of 40 read were a storefront. | The other half are chair renters in salon suites, salons in a home, and licenses in a person's name. Used as evidence only. |
 | Adding places from NYC weights and measures tests | 94 would be added; most of 40 read are a person's name. | The test is recorded under the licensee, often an individual. A person's name must never become a place. Used as evidence only. |
+| San Francisco: a business location with an end date means closed | San Francisco box, places with no brand and no live location under the same name: independent closed 102, open after the end date 72. | 59%, far below the signals that are kept. The end date marks one registration ending; the shop often carries on under a new one. Held, not emitted. |
 | New York health club filings as open evidence | New York City box: 6 of 50 found a place, and 2 of the 6 were a chain's head office and a condominium. | The filing is by the company, at the company's address. Not used. |
 | Merging Overture rows within 60 m whose names differ only by generic words ("Safeway" and "Safeway Pharmacy"), as Vela's map bake does | DC box, 228 pairs, 60 read: 24 one business, 30 a part and its whole (33 pairs are a cash machine and its branch, 28 a pharmacy and its store), 4 different businesses (Global Integrity and Global Financial Integrity in one suite). | Right for drawing one pin, wrong for a list of places: the part has its own license and hours. Left to readers. |
 | Merging Overture rows within 60 m with identical names and different house numbers | DC box, 26 pairs read: at least 5 are two places (two Starbucks 80 m apart, two garages of one operator, two offices of a practice that Overture put on one point). | Not merged. The same pairs with one house number, or one missing on a side, were all right and differ only by a bracketed aside or a legal form, which name cleanup now drops. |

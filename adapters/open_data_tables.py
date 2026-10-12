@@ -39,6 +39,9 @@ wm_nyc            New York City: a shop whose scales, pumps or dryers the
                   city tested, open as of its newest test in the last two
                   years. NYC Open Data terms.
 la_biz            Los Angeles: an active business tax account. CC0.
+sf_biz            San Francisco: a registered business location with no
+                  end date. PDDL. Locations with an end date are held,
+                  not used.
 
 Tables without inspection or issue dates are dated the day the table was
 last updated. Owner, contact person, inspector, phone and email columns
@@ -280,7 +283,33 @@ def lottery_tx(out):
                 None, None, "open", day(r.get("seen")))
 
 
-TABLES = [lottery_tx, lottery_ny, wm_nyc, cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa,
+def sf_biz(out):
+    host, table = "data.sf.gov", "g8m3-pdis"
+    as_of = updated(host, table)
+    seen = set()
+    for r in rows(host, table, where="city = 'San Francisco' and location_end_date is null and dba_end_date is null",
+                  select="uniqueid,dba_name,full_business_address,business_zip,location"):
+        key = ((r.get("dba_name") or "").upper(), r.get("full_business_address"))
+        if key in seen:
+            continue
+        seen.add(key)
+        lat, lng = point(r.get("location"))
+        out.row("sf_biz", r.get("uniqueid"), r.get("dba_name"),
+                address(r.get("full_business_address"), "San Francisco", "CA %s" % (r.get("business_zip") or "")[:5]),
+                lat, lng, "open", as_of)
+    # Locations the city has an end date for are kept aside, not used: where another source
+    # could check them, it called 102 closed and 72 still open (SPEC.md section 9).
+    held = Writer("sf_biz_ended", held=True)
+    for r in rows(host, table, where="city = 'San Francisco' and location_end_date >= '%s'" % SINCE,
+                  select="uniqueid,dba_name,full_business_address,business_zip,location,location_end_date"):
+        lat, lng = point(r.get("location"))
+        held.row("sf_biz_ended", r.get("uniqueid"), r.get("dba_name"),
+                 address(r.get("full_business_address"), "San Francisco", "CA %s" % (r.get("business_zip") or "")[:5]),
+                 lat, lng, "closed", day(r.get("location_end_date")))
+    held.close()
+
+
+TABLES = [sf_biz, lottery_tx, lottery_ny, wm_nyc, cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa,
           childcare_tx, nj_inspection, la_biz, austin_food, cincinnati_food, boulder_food, marin_food, brla_biz,
           norfolk_biz, berkeley_biz]
 NO_POSITIONS = {lottery_tx, austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}

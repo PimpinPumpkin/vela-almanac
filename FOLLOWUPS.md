@@ -92,6 +92,7 @@ Nothing is done to get around these. They may open up, or answer a request.
 - Pennsylvania licenses in safekeeping. First look, Philadelphia box: of
   23 that matched a place, other sources called 3 closed and 9 open.
 - California delinquent salon and repair shop licenses (not collected yet).
+- San Francisco business locations with an end date (59% right on first look).
 
 ## Low priority, known to work
 
