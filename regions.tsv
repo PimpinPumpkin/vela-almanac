@@ -38,6 +38,14 @@ new-orleans-box	29.90	-90.14	30.03	-89.98	louisiana
 paris-box	48.815	2.224	48.902	2.470	/europe/france/ile-de-france	-	FR
 jackson-ms-box	32.22	-90.30	32.42	-90.05	mississippi
 atlanta-box	33.65	-84.55	33.89	-84.29	georgia
+la-box	33.95	-118.42	34.12	-118.18	california/socal
+baton-rouge-box	30.35	-91.22	30.55	-91.00	louisiana
+norfolk-box	36.82	-76.34	36.97	-76.17	virginia
+berkeley-box	37.84	-122.32	37.91	-122.23	california/norcal
+austin-box	30.18	-97.85	30.42	-97.62	texas
+cincinnati-box	39.07	-84.62	39.22	-84.38	ohio
+boulder-box	39.95	-105.32	40.10	-105.15	colorado
+marin-box	37.85	-122.60	38.12	-122.45	california/norcal
 delaware	38.45	-75.79	39.84	-75.04	delaware	DE
 kentucky	36.49	-89.58	39.15	-81.96	kentucky	KY
 # Every other state and DC. Boxes are the Census outline plus a small margin.

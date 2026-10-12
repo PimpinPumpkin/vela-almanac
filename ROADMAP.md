@@ -221,7 +221,8 @@ Set by the owner on 2026-10-06.
 
 - **Test areas.** The fixed ones (a District of Columbia box, Sacramento and
   Davis, Delaware, Kentucky, Paris) plus, for any other state, a box around
-  that state's largest city.
+  that state's largest city. A table that covers one city or county is
+  tested in that city (2026-10-12).
 - **Keys.** None for now. Sources that need a key wait.
 - **Licenses.** Public domain, CC0, ODbL, CC BY and open government
   licences (Licence Ouverte, OGL) and Common Crawl's terms of use may be

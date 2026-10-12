@@ -24,6 +24,7 @@ create or replace macro license_of(source) as
     when source in ('dohmh_nyc', 'dcwp_nyc', 'childcare_nyc', 'wm_nyc') then 'NYC-Open-Data-terms'
     when source like 'cdph_chicago%' or source like 'bacp_chicago%' then 'Chicago-Data-Portal-terms'
     when source in ('isd_boston_food', 'isd_boston_inspection', 'lb_boston', 'childcare_co', 'cambridge_food') then 'PDDL-1.0'
+    when source = 'lottery_tx' then 'Texas-Lottery-terms'
     when source = 'sirene' then 'etalab-2.0'
     -- everything else is a US federal register or a table its publisher marks public domain
     else 'US-public-domain'

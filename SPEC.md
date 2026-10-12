@@ -387,6 +387,12 @@ rows are the same place.
 | Texas licensed child care centers | number | 39 of 40 (Houston) | geocoded |
 | New York lottery retailers | number, spot, near | 40 of 40 (New York City) | delis, pharmacies and newsstands; 412 of the 1,032 in the box find a place |
 | New York City weights and measures tests | number | 40 of 40 (New York City) | grocers, laundromats, cleaners and fuel stations, dated by the test |
+| Los Angeles active businesses | number | 40 of 40 (Los Angeles) | 24,700 of the 263,000 accounts in the box find a place; places in the box with a status went from 9% to 21% |
+| East Baton Rouge businesses | number | 40 of 40 (Baton Rouge) | geocoded; places in the box with a status went from 8% to 24% |
+| Norfolk business licenses | number | 40 of 40 (Norfolk) | places in the box with a status went from 9% to 14% |
+| Berkeley business licenses | number, spot | 40 of 40 (Berkeley) | half geocoded; 15% to 20% |
+| Austin, Cincinnati, Boulder County and Marin County food inspections | number | 40 of 40 each, in their own cities | stadium and hotel kitchens land on the stadium or hotel |
+| Texas lottery retailers | number, address | 40 of 40 (Houston) | geocoded; a store inside a fuel station finds the station through the lot's other names |
 | New Jersey private inspection facilities | number | 17 of 17 (Newark) | repair shops; one finds its fuel station through the lot's other name |
 | Georgia environmental health inspections (permit feed) | number, address | 38 of 40 (Atlanta) | the other two are a kitchen inside an office or campus landing on the organization; geocoded; independent food places in the box with a status went from 14% to 26% |
 | Oklahoma food service establishments (county search pages) | number, address | 40 of 40 (Oklahoma City) | the list has no dates, so rows are dated the day they are read; the detail pages of 40 establishments drawn at random showed a newest inspection within a year for 32 and within two for 38; geocoded; independent food places in the box with a status went from 6% to 33% |
@@ -621,6 +627,9 @@ signal at all.
 | cambridge_food | open | day the permit was issued, last two years | matcher |
 | moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny | open | day the table was last updated | matcher |
 | wm_nyc | open | day of the shop's newest test in the last two years | matcher |
+| austin_food, cincinnati_food, boulder_food, marin_food | open | day of the newest inspection in the last two years | matcher (Austin geocoded) |
+| la_biz, brla_biz, norfolk_biz, berkeley_biz | open | day the table was last updated | matcher (Baton Rouge and Berkeley geocoded) |
+| lottery_tx | open | end of the retailer's last month with sales | matcher, positions from the Census geocoder |
 | childcare_pa, childcare_tx | open | day the table was last updated | matcher, positions from the Census geocoder |
 | dph_ga_inspections, msdh_ms_food, adph_al_food | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | osdh_ok_food | open | day the list was read | matcher, positions from the Census geocoder |

@@ -2,8 +2,7 @@
 """City, county and state tables on open data portals (Socrata).
 
 One source per table, each written to its own file so one portal being
-down does not lose the others. The first seven below are written but
-wait for a test area (see WAITING); set TABLES to their names to run them.
+down does not lose the others. Set TABLES to a few names to read only those.
 
 austin_food       Austin, Texas: a food establishment, open as of its
                   newest inspection in the last two years. Public domain.
@@ -32,11 +31,14 @@ childcare_tx      Texas: a licensed child care center. CC0.
 nj_inspection     New Jersey: a private vehicle inspection facility (a
                   repair shop licensed to inspect). No license stated.
 lottery_ny        New York State: a lottery retailer. OPEN-NY terms.
+lottery_tx        Texas: a lottery retailer, open as of its last month with
+                  sales. The table's terms are the Texas Lottery's own
+                  (texaslottery.com copyright page); the owner decided on
+                  2026-10-12 to use it.
 wm_nyc            New York City: a shop whose scales, pumps or dryers the
                   city tested, open as of its newest test in the last two
                   years. NYC Open Data terms.
 la_biz            Los Angeles: an active business tax account. CC0.
-                  Waiting, like the first seven.
 
 Tables without inspection or issue dates are dated the day the table was
 last updated. Owner, contact person, inspector, phone and email columns
@@ -266,18 +268,29 @@ def la_biz(out):
                 address(r.get("street_address"), r.get("city"), "CA %s" % (r.get("zip_code") or "")[:5]), lat, lng, "open", as_of)
 
 
-TABLES = [lottery_ny, wm_nyc, cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa, childcare_tx, nj_inspection]
-# Written and run, not read yet: each can only be tested in its own city or
-# county, and none of those is an agreed test area. Not run by the build.
-WAITING = [la_biz, austin_food, cincinnati_food, boulder_food, marin_food, brla_biz, norfolk_biz, berkeley_biz]
-NO_POSITIONS = {austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}
+def lottery_tx(out):
+    host, table = "data.texas.gov", "beka-uwfq"
+    # one row per retailer, game and month: ask the portal for each retailer's last month with sales
+    recent = (datetime.date.today() - datetime.timedelta(days=400)).isoformat()
+    for r in rows(host, table, where="month_end_date >= '%s' and net_sales_amount > 0 and location_state = 'TX'" % recent,
+                  select="retailer_number,location_name,location_address,location_city,location_zip,max(month_end_date) as seen",
+                  group="retailer_number,location_name,location_address,location_city,location_zip", order="retailer_number"):
+        out.row("lottery_tx", r.get("retailer_number"), r.get("location_name"),
+                address(r.get("location_address"), r.get("location_city"), "TX %s" % (r.get("location_zip") or "")[:5]),
+                None, None, "open", day(r.get("seen")))
+
+
+TABLES = [lottery_tx, lottery_ny, wm_nyc, cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa,
+          childcare_tx, nj_inspection, la_biz, austin_food, cincinnati_food, boulder_food, marin_food, brla_biz,
+          norfolk_biz, berkeley_biz]
+NO_POSITIONS = {lottery_tx, austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}
 
 
 def main():
     only = os.environ.get("TABLES", "").split()
     failed = []
-    for table in TABLES + WAITING:
-        if table.__name__ not in only if only else table in WAITING:
+    for table in TABLES:
+        if only and table.__name__ not in only:
             continue
         out = Writer(table.__name__)
         try:

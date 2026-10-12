@@ -3,26 +3,6 @@
 Sources that exist and could not be used yet, and what would unblock each.
 Newest findings first within a group. SOURCES.md has the addresses.
 
-## Needs a test area
-
-Written, run once, and held out of the build because each can only be read
-in its own city or county and none is an agreed test area (the rule is the
-fixed areas plus each state's largest city). `adapters/open_data_tables.py`
-lists them under WAITING.
-
-- Austin food inspections (5,800), Cincinnati food licenses (2,300),
-  Boulder County restaurants (560), Marin County food facilities (1,200).
-- East Baton Rouge businesses (25,700), Norfolk business licenses
-  (10,200), Berkeley business licenses (10,400).
-- Los Angeles active businesses (632,000, with positions, CC0). The
-  biggest long-tail table found so far.
-
-## Needs a license decision
-
-- **Texas lottery sales by retailer** (`data.texas.gov/d/beka-uwfq`): every
-  lottery retailer in Texas with its last month of sales. "See Terms of
-  Use", pointing at the Texas Lottery's copyright page.
-
 ## Needs someone to ask
 
 - **Maricopa County, Arizona: food permits** (105,000, with positions; all

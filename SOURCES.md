@@ -425,19 +425,27 @@ are left out.
 - New York City weights, measures and other tests (scales, fuel pumps,
   laundry dryers): `https://data.cityofnewyork.us/d/8fei-z6rz`. NYC Open
   Data terms. Pedicabs, fuel trucks and mobile vendors are left out.
-- Written and waiting for a test area, not in the build: Austin food
-  inspection scores (`datahub.austintexas.gov/d/ecmv-9xxi`), Cincinnati
-  food safety (`data.cincinnati-oh.gov/d/rg6p-b3h3`), Boulder County
-  restaurant inspections (`data.colorado.gov/d/6ytb-f2cq`), Marin County
-  food facility inspections (`data.marincounty.gov/d/73zb-z5me`, ODbL),
-  East Baton Rouge businesses (`data.brla.gov/d/xw6s-bcqm`), Norfolk
-  business licenses (`data.norfolk.gov/d/dpi6-sct5`), Berkeley business
-  licenses (`data.cityofberkeley.info/d/rwnf-bu3w`), Los Angeles active
-  businesses (`data.lacity.org/d/6rrh-rzua`, CC0, 632,000 rows).
-- Not used, license to be decided: Texas lottery sales by retailer
-  (`data.texas.gov/d/beka-uwfq`) would date every lottery retailer in the
-  state by its last month with sales, but the table says "See Terms of
-  Use" and points at the Texas Lottery's copyright page.
+- Los Angeles listing of active businesses: `https://data.lacity.org/d/6rrh-rzua`
+  (632,000 rows, with positions). CC0.
+- Austin food establishment inspection scores:
+  `https://datahub.austintexas.gov/d/ecmv-9xxi`. Public domain.
+- Cincinnati food safety program: `https://data.cincinnati-oh.gov/d/rg6p-b3h3`.
+  Public domain.
+- Boulder County restaurant inspections: `https://data.colorado.gov/d/6ytb-f2cq`.
+  Public domain.
+- Marin County food facility inspections:
+  `https://data.marincounty.gov/d/73zb-z5me`. ODbL.
+- East Baton Rouge Parish registered businesses:
+  `https://data.brla.gov/d/xw6s-bcqm`. Public domain.
+- Norfolk business licenses: `https://data.norfolk.gov/d/dpi6-sct5`, and
+  Berkeley business licenses: `https://data.cityofberkeley.info/d/rwnf-bu3w`
+  (landlords' licenses left out). No license stated; `none-stated`.
+- Texas lottery sales by retailer: `https://data.texas.gov/d/beka-uwfq`,
+  asked for each retailer's last month with sales. The table says "See
+  Terms of Use" and points at the Texas Lottery's copyright page
+  (`https://www.texaslottery.com/export/sites/lottery/Misc/copyright.html`).
+  The owner decided on 2026-10-12 to use it; rows are marked
+  `Texas-Lottery-terms`. Sales figures are not read.
 - Looked at and not used: New York health club filings
   (`data.ny.gov/d/vgfa-ui3c`), see SPEC.md section 9; Orlando business
   tax receipts (`data.cityoforlando.net/d/7388-4re5`, addresses carry no
