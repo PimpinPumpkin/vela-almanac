@@ -14,6 +14,14 @@ lists them under WAITING.
   Boulder County restaurants (560), Marin County food facilities (1,200).
 - East Baton Rouge businesses (25,700), Norfolk business licenses
   (10,200), Berkeley business licenses (10,400).
+- Los Angeles active businesses (632,000, with positions, CC0). The
+  biggest long-tail table found so far.
+
+## Needs a license decision
+
+- **Texas lottery sales by retailer** (`data.texas.gov/d/beka-uwfq`): every
+  lottery retailer in Texas with its last month of sales. "See Terms of
+  Use", pointing at the Texas Lottery's copyright page.
 
 ## Needs someone to ask
 

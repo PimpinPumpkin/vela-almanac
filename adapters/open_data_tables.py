@@ -31,6 +31,12 @@ childcare_pa      Pennsylvania: a certified child care center. US
 childcare_tx      Texas: a licensed child care center. CC0.
 nj_inspection     New Jersey: a private vehicle inspection facility (a
                   repair shop licensed to inspect). No license stated.
+lottery_ny        New York State: a lottery retailer. OPEN-NY terms.
+wm_nyc            New York City: a shop whose scales, pumps or dryers the
+                  city tested, open as of its newest test in the last two
+                  years. NYC Open Data terms.
+la_biz            Los Angeles: an active business tax account. CC0.
+                  Waiting, like the first seven.
 
 Tables without inspection or issue dates are dated the day the table was
 last updated. Owner, contact person, inspector, phone and email columns
@@ -223,10 +229,47 @@ def nj_inspection(out):
                 address(r.get("adr_street"), r.get("adr_city"), "NJ %s" % (r.get("zip") or "")[:5]), lat, lng, "open", as_of)
 
 
-TABLES = [cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa, childcare_tx, nj_inspection]
+def lottery_ny(out):
+    host, table = "data.ny.gov", "2vvn-pdyi"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="state = 'NY'", select="retailer,name,street,city,zip,latitude,longitude"):
+        out.row("lottery_ny", r.get("retailer"), r.get("name"),
+                address(r.get("street"), r.get("city"), "NY %s" % (r.get("zip") or "")[:5]),
+                r.get("latitude"), r.get("longitude"), "open", as_of)
+
+
+def wm_nyc(out):
+    host, table = "data.cityofnewyork.us", "8fei-z6rz"
+    newest = {}
+    for r in rows(host, table, where="date_of_occurance >= '%s' and address_type = 'Complete Address'" % SINCE,
+                  select="business_unique_id,business_name,business_category,date_of_occurance,building_no,street_1,"
+                         "city,zip_code,latitude,longitude"):
+        kind = (r.get("business_category") or "").lower()
+        if any(k in kind for k in ("pedicab", "mobile food", "truck", "fuel oil", "airline", "vendor")):
+            out.drop("not a shop")
+            continue
+        key = (r.get("business_unique_id"), r.get("building_no"), r.get("street_1"))
+        if key not in newest or day(r.get("date_of_occurance")) > day(newest[key].get("date_of_occurance")):
+            newest[key] = r
+    for (ident, number, street), r in newest.items():
+        out.row("wm_nyc", "%s|%s %s" % (ident, number, street), r.get("business_name"),
+                address("%s %s" % (number or "", street or ""), r.get("city"), "NY %s" % (r.get("zip_code") or "")[:5]),
+                r.get("latitude"), r.get("longitude"), "open", day(r.get("date_of_occurance")))
+
+
+def la_biz(out):
+    host, table = "data.lacity.org", "6rrh-rzua"
+    as_of = updated(host, table)
+    for r in rows(host, table, select="location_account,business_name,dba_name,street_address,city,zip_code,location_1"):
+        lat, lng = point(r.get("location_1"))
+        out.row("la_biz", r.get("location_account"), r.get("dba_name") or r.get("business_name"),
+                address(r.get("street_address"), r.get("city"), "CA %s" % (r.get("zip_code") or "")[:5]), lat, lng, "open", as_of)
+
+
+TABLES = [lottery_ny, wm_nyc, cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa, childcare_tx, nj_inspection]
 # Written and run, not read yet: each can only be tested in its own city or
 # county, and none of those is an agreed test area. Not run by the build.
-WAITING = [austin_food, cincinnati_food, boulder_food, marin_food, brla_biz, norfolk_biz, berkeley_biz]
+WAITING = [la_biz, austin_food, cincinnati_food, boulder_food, marin_food, brla_biz, norfolk_biz, berkeley_biz]
 NO_POSITIONS = {austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}
 
 

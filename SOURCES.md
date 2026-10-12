@@ -411,6 +411,11 @@ are left out.
   CC0.
 - New Jersey vehicle inspection facility locations (private facilities):
   `https://data.nj.gov/d/t6tk-mr48`. No license stated; `none-stated`.
+- New York State lottery retailers: `https://data.ny.gov/d/2vvn-pdyi`.
+  OPEN-NY terms.
+- New York City weights, measures and other tests (scales, fuel pumps,
+  laundry dryers): `https://data.cityofnewyork.us/d/8fei-z6rz`. NYC Open
+  Data terms. Pedicabs, fuel trucks and mobile vendors are left out.
 - Written and waiting for a test area, not in the build: Austin food
   inspection scores (`datahub.austintexas.gov/d/ecmv-9xxi`), Cincinnati
   food safety (`data.cincinnati-oh.gov/d/rg6p-b3h3`), Boulder County
@@ -418,7 +423,12 @@ are left out.
   food facility inspections (`data.marincounty.gov/d/73zb-z5me`, ODbL),
   East Baton Rouge businesses (`data.brla.gov/d/xw6s-bcqm`), Norfolk
   business licenses (`data.norfolk.gov/d/dpi6-sct5`), Berkeley business
-  licenses (`data.cityofberkeley.info/d/rwnf-bu3w`).
+  licenses (`data.cityofberkeley.info/d/rwnf-bu3w`), Los Angeles active
+  businesses (`data.lacity.org/d/6rrh-rzua`, CC0, 632,000 rows).
+- Not used, license to be decided: Texas lottery sales by retailer
+  (`data.texas.gov/d/beka-uwfq`) would date every lottery retailer in the
+  state by its last month with sales, but the table says "See Terms of
+  Use" and points at the Texas Lottery's copyright page.
 - Looked at and not used: New York health club filings
   (`data.ny.gov/d/vgfa-ui3c`), see SPEC.md section 9; Orlando business
   tax receipts (`data.cityoforlando.net/d/7388-4re5`, addresses carry no

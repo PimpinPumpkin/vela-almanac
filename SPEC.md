@@ -360,6 +360,8 @@ rows are the same place.
 | New York State child care programs | number | 39 of 40 (New York City) | the doubtful one is an after-school program landing on the same body's adult day care |
 | Pennsylvania child care centers | number | 40 of 40 (Philadelphia) | geocoded |
 | Texas licensed child care centers | number | 39 of 40 (Houston) | geocoded |
+| New York lottery retailers | number, spot, near | 40 of 40 (New York City) | delis, pharmacies and newsstands; 412 of the 1,032 in the box find a place |
+| New York City weights and measures tests | number | 40 of 40 (New York City) | grocers, laundromats, cleaners and fuel stations, dated by the test |
 | New Jersey private inspection facilities | number | 17 of 17 (Newark) | repair shops; one finds its fuel station through the lot's other name |
 | Georgia environmental health inspections (permit feed) | number, address | 38 of 40 (Atlanta) | the other two are a kitchen inside an office or campus landing on the organization; geocoded; independent food places in the box with a status went from 14% to 26% |
 | Oklahoma food service establishments (county search pages) | number, address | 40 of 40 (Oklahoma City) | the list has no dates, so rows are dated the day they are read; the detail pages of 40 establishments drawn at random showed a newest inspection within a year for 32 and within two for 38; geocoded; independent food places in the box with a status went from 6% to 33% |
@@ -592,7 +594,8 @@ signal at all.
 | foodsafety_ak, _ar, _ia, _ks, _nd, _pa, _sd, _vt | open | day of the establishment's most recent inspection | matcher, positions from the Census geocoder |
 | dhhs_nc_inspections | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | cambridge_food | open | day the permit was issued, last two years | matcher |
-| moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection | open | day the table was last updated | matcher |
+| moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny | open | day the table was last updated | matcher |
+| wm_nyc | open | day of the shop's newest test in the last two years | matcher |
 | childcare_pa, childcare_tx | open | day the table was last updated | matcher, positions from the Census geocoder |
 | dph_ga_inspections, msdh_ms_food, adph_al_food | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | osdh_ok_food | open | day the list was read | matcher, positions from the Census geocoder |
