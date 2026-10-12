@@ -3,6 +3,18 @@
 Sources that exist and could not be used yet, and what would unblock each.
 Newest findings first within a group. SOURCES.md has the addresses.
 
+## Needs a test area
+
+Written, run once, and held out of the build because each can only be read
+in its own city or county and none is an agreed test area (the rule is the
+fixed areas plus each state's largest city). `adapters/open_data_tables.py`
+lists them under WAITING.
+
+- Austin food inspections (5,800), Cincinnati food licenses (2,300),
+  Boulder County restaurants (560), Marin County food facilities (1,200).
+- East Baton Rouge businesses (25,700), Norfolk business licenses
+  (10,200), Berkeley business licenses (10,400).
+
 ## Needs someone to ask
 
 - **Maricopa County, Arizona: food permits** (105,000, with positions; all
@@ -69,7 +81,12 @@ Nothing is done to get around these. They may open up, or answer a request.
 - **Anchorage** and **Columbus**-style county portals (one request lists
   every facility, but dates need a request per facility).
 - **Missouri professional registration downloads** (moved to a Salesforce page).
-- **South Carolina, Louisiana, Mississippi** alcohol license searches.
+- **South Carolina, Louisiana, Mississippi** alcohol license searches. No
+  public business-permit search was found for Louisiana (2026-10-12).
+- **Utah DABS licensee list**: a Looker Studio report, no file.
+  **Vermont DLL licensee database**: behind a Salesforce login page.
+- **Orlando business tax receipts** (119,000): addresses have no ZIP, which
+  the address matcher needs. Could be read with the city as the ZIP's stand-in.
 
 ## Closed portals (403 or a challenge page), nothing to do but ask
 

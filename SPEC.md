@@ -354,6 +354,13 @@ rows are the same place.
 | North Carolina inspections (county search pages) | number | 30 of 30 (Charlotte) | 38,000 establishments; geocoded |
 | Mississippi food facility inspections (date export) | number, address | 42 of 45 (Jackson) | the doubtful three share a first word with a neighbor at the address ("Twilight" and "Twilight Kristylz"); 15,000 establishments; geocoded; independent food places in the box with a status went from 5% to 24% |
 | Alabama food establishment scores (search form) | number, address | 40 of 42 (Huntsville) | the other two are a store's bakery or meat counter landing on the store's pharmacy; geocoded; independent food places in the box with a status went from 12% to 30% |
+| Cambridge food establishment permits | number | 40 of 40 (Boston box) | two are a cafe inside a company or hospital landing on it |
+| Montgomery County, Maryland, alcohol licensees | number, near | 40 of 40 (DC box) | 223 of the 285 licensees in the box find a place |
+| New York City child care programs | number, spot | 40 of 40 (New York City) | |
+| New York State child care programs | number | 39 of 40 (New York City) | the doubtful one is an after-school program landing on the same body's adult day care |
+| Pennsylvania child care centers | number | 40 of 40 (Philadelphia) | geocoded |
+| Texas licensed child care centers | number | 39 of 40 (Houston) | geocoded |
+| New Jersey private inspection facilities | number | 17 of 17 (Newark) | repair shops; one finds its fuel station through the lot's other name |
 | Georgia environmental health inspections (permit feed) | number, address | 38 of 40 (Atlanta) | the other two are a kitchen inside an office or campus landing on the organization; geocoded; independent food places in the box with a status went from 14% to 26% |
 | Oklahoma food service establishments (county search pages) | number, address | 40 of 40 (Oklahoma City) | the list has no dates, so rows are dated the day they are read; the detail pages of 40 establishments drawn at random showed a newest inspection within a year for 32 and within two for 38; geocoded; independent food places in the box with a status went from 6% to 33% |
 | Pennsylvania retail sales licenses | number | 28 of 30 (Philadelphia) | both misses are a hospital department taking the hospital's license |
@@ -584,6 +591,9 @@ signal at all.
 | tda_tn_food | open | day the list was read, current licenses | matcher, positions from the Census geocoder |
 | foodsafety_ak, _ar, _ia, _ks, _nd, _pa, _sd, _vt | open | day of the establishment's most recent inspection | matcher, positions from the Census geocoder |
 | dhhs_nc_inspections | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
+| cambridge_food | open | day the permit was issued, last two years | matcher |
+| moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection | open | day the table was last updated | matcher |
+| childcare_pa, childcare_tx | open | day the table was last updated | matcher, positions from the Census geocoder |
 | dph_ga_inspections, msdh_ms_food, adph_al_food | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | osdh_ok_food | open | day the list was read | matcher, positions from the Census geocoder |
 | rev_pa | open | day the dataset was last updated, unexpired licenses only | matcher |
@@ -770,6 +780,7 @@ evidence from a different source for the same place.
 | A bank branch record matching the bank's ATM | 3 of 40 FDIC closings landed on an ATM or mortgage desk listing. | A name with ATM on one side only never matches. |
 | Wikidata P576 on offices | 4 hits across two boxes, 2 of them a company merger date on an office building. | Skipped when the OSM feature is `office=*`. The 2 that remain (a hospital, a school) are right. |
 | Merging Overture duplicates on anything looser than an identical name | Same house number with a leading-words or near-spelling match: about 10 of 21 read were a part and its whole (a gift shop and its hospital, two advisors at one bank). No house number: mostly junk pages sharing a point. Different numbers within 30 m: 13 pairs, several wrong. | Only same number plus identical name merges. |
+| New York health club filings as open evidence | New York City box: 6 of 50 found a place, and 2 of the 6 were a chain's head office and a condominium. | The filing is by the company, at the company's address. Not used. |
 | Merging Overture rows within 60 m whose names differ only by generic words ("Safeway" and "Safeway Pharmacy"), as Vela's map bake does | DC box, 228 pairs, 60 read: 24 one business, 30 a part and its whole (33 pairs are a cash machine and its branch, 28 a pharmacy and its store), 4 different businesses (Global Integrity and Global Financial Integrity in one suite). | Right for drawing one pin, wrong for a list of places: the part has its own license and hours. Left to readers. |
 | Merging Overture rows within 60 m with identical names and different house numbers | DC box, 26 pairs read: at least 5 are two places (two Starbucks 80 m apart, two garages of one operator, two offices of a practice that Overture put on one point). | Not merged. The same pairs with one house number, or one missing on a side, were all right and differ only by a bracketed aside or a legal form, which name cleanup now drops. |
 | DC alcohol license cancellation means closed, for every license type | 283 places matched. Independent: open 18, closed 60. The open ones were grocery stores, hotels and places that had swapped one license for another. | Kept only for restaurants, taverns, nightclubs and clubs, and skipped when the same trade name has an active license at the address. After that: open 8, closed 54, in line with the Foursquare and OSM signals. |

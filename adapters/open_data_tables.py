@@ -1,0 +1,253 @@
+#!/usr/bin/env python3
+"""City, county and state tables on open data portals (Socrata).
+
+One source per table, each written to its own file so one portal being
+down does not lose the others. The first seven below are written but
+wait for a test area (see WAITING); set TABLES to their names to run them.
+
+austin_food       Austin, Texas: a food establishment, open as of its
+                  newest inspection in the last two years. Public domain.
+cincinnati_food   Cincinnati, Ohio: a licensed food business, open as of
+                  its newest inspection in the last two years. Public domain.
+boulder_food      Boulder County, Colorado: a restaurant, open as of its
+                  newest inspection (the table starts in 2025). Public domain.
+marin_food        Marin County, California: a food facility, open as of
+                  its newest inspection in the last two years. ODbL.
+cambridge_food    Cambridge, Massachusetts: a food establishment permit
+                  issued in the last two years. PDDL.
+brla_biz          East Baton Rouge Parish, Louisiana: a business with an
+                  open occupational account. Public domain.
+norfolk_biz       Norfolk, Virginia: a business license. No license stated.
+berkeley_biz      Berkeley, California: a business license at an address
+                  in the city. No license stated.
+moco_md_alcohol   Montgomery County, Maryland: an alcohol licensee.
+                  Public domain.
+childcare_ny      New York State: a licensed or registered day care
+                  center or school-age program. No license stated.
+childcare_nyc     New York City: an active group child care program.
+                  Public domain.
+childcare_pa      Pennsylvania: a certified child care center. US
+                  government works, as the table states.
+childcare_tx      Texas: a licensed child care center. CC0.
+nj_inspection     New Jersey: a private vehicle inspection facility (a
+                  repair shop licensed to inspect). No license stated.
+
+Tables without inspection or issue dates are dated the day the table was
+last updated. Owner, contact person, inspector, phone and email columns
+are not read, home day cares are left out, and nothing here creates a
+place. Tables with no positions go to the Census geocoder.
+"""
+import datetime
+import os
+import re
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
+from evidence import Writer, address, street_city
+from socrata import point, rows, updated
+
+SINCE = (datetime.date.today() - datetime.timedelta(days=730)).isoformat()
+
+
+def day(value):
+    return (value or "")[:10]
+
+
+def austin_food(out):
+    host, table = "datahub.austintexas.gov", "ecmv-9xxi"
+    for r in rows(host, table, select="facility_id,restaurant_name,address,max(inspection_date) as seen",
+                  where="inspection_date >= '%s'" % SINCE, group="facility_id,restaurant_name,address",
+                  order="facility_id"):
+        # "9516 N Lamar Blvd Austin, TX 78753-4108", sometimes with the point on two more lines
+        parts = street_city((r.get("address") or "").split("\n")[0])
+        if not parts:
+            out.drop("address not understood")
+            continue
+        out.row("austin_food", r.get("facility_id"), r.get("restaurant_name"),
+                address(parts[0], parts[1], "TX %s" % parts[3][:5]), None, None, "open", day(r.get("seen")))
+
+
+def cincinnati_food(out):
+    host, table = "data.cincinnati-oh.gov", "rg6p-b3h3"
+    for r in rows(host, table,
+                  select="license_no,business_name,address,city,postal_code,latitude,longitude,max(action_date) as seen",
+                  where="action_date >= '%s' and license_status = 'Issued'" % SINCE,
+                  group="license_no,business_name,address,city,postal_code,latitude,longitude", order="license_no"):
+        out.row("cincinnati_food", r.get("license_no"), r.get("business_name"),
+                address(r.get("address"), r.get("city"), "OH %s" % (r.get("postal_code") or "")[:5]),
+                r.get("latitude"), r.get("longitude"), "open", day(r.get("seen")))
+
+
+def boulder_food(out):
+    host, table = "data.colorado.gov", "6ytb-f2cq"
+    newest = {}
+    for r in rows(host, table, select="business_id,name,address,b1_situs_city,b1_situs_zip,rec_date,rec_date_1,location"):
+        seen = max(day(r.get("rec_date")), day(r.get("rec_date_1")))
+        if seen and (r.get("business_id") not in newest or seen > newest[r["business_id"]][0]):
+            newest[r.get("business_id")] = (seen, r)
+    for key, (seen, r) in newest.items():
+        lat, lng = point(r.get("location"))
+        out.row("boulder_food", key, r.get("name"),
+                address(r.get("address"), r.get("b1_situs_city"), "CO %s" % (r.get("b1_situs_zip") or "")[:5]),
+                lat, lng, "open", seen)
+
+
+def marin_food(out):
+    host, table = "data.marincounty.gov", "73zb-z5me"
+    newest = {}
+    for r in rows(host, table, select="business_id,business_name,formatted_address,inspection_date,businessaddress",
+                  where="inspection_date >= '%s'" % SINCE):
+        seen = day(r.get("inspection_date"))
+        if r.get("business_id") not in newest or seen > newest[r["business_id"]][0]:
+            newest[r.get("business_id")] = (seen, r)
+    for key, (seen, r) in newest.items():
+        lat, lng = point(r.get("businessaddress"))
+        out.row("marin_food", key, (r.get("business_name") or "").strip('"'),
+                (r.get("formatted_address") or "").strip('"'), lat, lng, "open", seen)
+
+
+def cambridge_food(out):
+    host, table = "data.cambridgema.gov", "iect-ma2e"
+    newest = {}
+    for r in rows(host, table, select="id,full_address,latitude,longitude,issue_date,business_name,dba,permit_type",
+                  where="issue_date >= '%s' and status = 'Complete'" % SINCE):
+        key = ((r.get("dba") or r.get("business_name") or "").upper(), r.get("full_address"))
+        if key not in newest or day(r.get("issue_date")) > day(newest[key].get("issue_date")):
+            newest[key] = r
+    for r in newest.values():
+        out.row("cambridge_food", r.get("id"), r.get("dba") or r.get("business_name"), r.get("full_address"),
+                r.get("latitude"), r.get("longitude"), "open", day(r.get("issue_date")))
+
+
+def brla_biz(out):
+    host, table = "data.brla.gov", "xw6s-bcqm"
+    as_of = updated(host, table)
+    seen = set()
+    for r in rows(host, table, where="tstatus = 'O' and tphysicalstate = 'LA'",
+                  select="taccount,tacctlocation,tname,naicname,tphysicaladdress1,tphysicalcity,tphysicalzipcode5"):
+        key = ((r.get("tname") or "").upper(), r.get("tphysicaladdress1"))
+        if key in seen:
+            continue
+        seen.add(key)
+        out.row("brla_biz", "%s-%s" % (r.get("taccount"), r.get("tacctlocation")), r.get("tname"),
+                address(r.get("tphysicaladdress1"), r.get("tphysicalcity"), "LA %s" % (r.get("tphysicalzipcode5") or "")),
+                None, None, "open", as_of)
+
+
+def norfolk_biz(out):
+    host, table = "data.norfolk.gov", "dpi6-sct5"
+    as_of = updated(host, table)
+    n = 0
+    for r in rows(host, table, select="trading_as_name,location_address,latitude,longitude"):
+        m = re.match(r"(.*?)\s+(\d{5})$", r.get("location_address") or "")
+        if not m:
+            out.drop("address not understood")
+            continue
+        n += 1
+        out.row("norfolk_biz", "%s|%s" % ((r.get("trading_as_name") or "").upper(), m.group(1)), r.get("trading_as_name"),
+                address(m.group(1), "Norfolk", "VA %s" % m.group(2)), r.get("latitude"), r.get("longitude"), "open", as_of)
+
+
+def berkeley_biz(out):
+    host, table = "data.cityofberkeley.info", "rwnf-bu3w"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="b1_situs_city = 'BERKELEY'",
+                  select="recordid,dba,b1_business_name,b1_address1,b1_full_address,b1_situs_zip,busdesc"):
+        if "rental" in (r.get("busdesc") or "").lower():
+            out.drop("a landlord's license")
+            continue
+        out.row("berkeley_biz", r.get("recordid"), r.get("dba") or r.get("b1_business_name"),
+                address(r.get("b1_address1") or r.get("b1_full_address"), "Berkeley", "CA %s" % (r.get("b1_situs_zip") or "")[:5]),
+                None, None, "open", as_of)
+
+
+def moco_md_alcohol(out):
+    host, table = "data.montgomerycountymd.gov", "c6rw-fazn"
+    as_of = updated(host, table)
+    for r in rows(host, table, select="licensee_number,licensee_name,street,city,zip,location"):
+        lat, lng = point(r.get("location"))
+        out.row("moco_md_alcohol", r.get("licensee_number"), r.get("licensee_name"),
+                address(r.get("street"), r.get("city"), "MD %s" % (r.get("zip") or "")[:5]), lat, lng, "open", as_of)
+
+
+def childcare_ny(out):
+    host, table = "data.ny.gov", "cb42-qumz"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="program_type in ('DCC', 'SACC', 'SDCC') and facility_status in ('License', 'Registration')",
+                  select="facility_id,facility_name,street_number,street_name,city,zip_code,latitude,longitude"):
+        out.row("childcare_ny", r.get("facility_id"), r.get("facility_name"),
+                address("%s %s" % (r.get("street_number") or "", r.get("street_name") or ""), r.get("city"),
+                        "NY %s" % (r.get("zip_code") or "")[:5]), r.get("latitude"), r.get("longitude"), "open", as_of)
+
+
+def childcare_nyc(out):
+    host, table = "data.cityofnewyork.us", "gy3q-4tzp"
+    as_of = updated(host, table)
+    for r in rows(host, table, select="dcid,program_name,address,borough,zipcode,latitude,longitude"):
+        out.row("childcare_nyc", r.get("dcid"), r.get("program_name"),
+                address(r.get("address"), r.get("borough"), "NY %s" % (r.get("zipcode") or "")[:5]),
+                r.get("latitude"), r.get("longitude"), "open", as_of)
+
+
+def childcare_pa(out):
+    host, table = "data.pa.gov", "ajn5-kaxt"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="provider_type = 'Child Care Center'",
+                  select="mpi_id,mpi_location_id,facility_name,facility_address,facility_city,facility_zip_code"):
+        out.row("childcare_pa", "%s-%s" % (r.get("mpi_id"), r.get("mpi_location_id")), r.get("facility_name"),
+                address(r.get("facility_address"), r.get("facility_city"), "PA %s" % (r.get("facility_zip_code") or "")[:5]),
+                None, None, "open", as_of)
+
+
+def childcare_tx(out):
+    host, table = "data.texas.gov", "bc5r-88dy"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="operation_type = 'Licensed Center' and temporarily_closed = 'NO'",
+                  select="operation_id,operation_name,location_address"):
+        # "10935 CAYMAN MIST DR  HOUSTON TX- 77075 5065"
+        m = re.match(r"(.*?)\s{2,}(.*?)\s+TX-\s*(\d{5})", r.get("location_address") or "")
+        if not m:
+            out.drop("address not understood")
+            continue
+        out.row("childcare_tx", r.get("operation_id"), r.get("operation_name"),
+                address(m.group(1), m.group(2), "TX %s" % m.group(3)), None, None, "open", as_of)
+
+
+def nj_inspection(out):
+    host, table = "data.nj.gov", "t6tk-mr48"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="type = 'Private Inspection Facility'",
+                  select="lic_id,st_nm,adr_street,adr_city,zip,geocoded_column"):
+        lat, lng = point(r.get("geocoded_column"))
+        out.row("nj_inspection", r.get("lic_id"), r.get("st_nm"),
+                address(r.get("adr_street"), r.get("adr_city"), "NJ %s" % (r.get("zip") or "")[:5]), lat, lng, "open", as_of)
+
+
+TABLES = [cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa, childcare_tx, nj_inspection]
+# Written and run, not read yet: each can only be tested in its own city or
+# county, and none of those is an agreed test area. Not run by the build.
+WAITING = [austin_food, cincinnati_food, boulder_food, marin_food, brla_biz, norfolk_biz, berkeley_biz]
+NO_POSITIONS = {austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}
+
+
+def main():
+    only = os.environ.get("TABLES", "").split()
+    failed = []
+    for table in TABLES + WAITING:
+        if table.__name__ not in only if only else table in WAITING:
+            continue
+        out = Writer(table.__name__)
+        try:
+            table(out)
+            out.close(geocode=table in NO_POSITIONS)
+        except Exception as e:
+            # leave last run's file where it is
+            out.f.close()
+            os.remove(out.path + ".part")
+            failed.append("%s (%s)" % (table.__name__, str(e)[:120]))
+    if failed:
+        raise SystemExit("open_data_tables: " + "; ".join(failed))
+
+
+if __name__ == "__main__":
+    main()

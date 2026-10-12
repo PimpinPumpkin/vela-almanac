@@ -4,8 +4,8 @@ create or replace macro license_of(source) as
   case
     when source = 'overture' then 'CDLA-Permissive-2.0'
     when source in ('fsq', 'fsq_closed') then 'Apache-2.0'
-    when source in ('atp', 'wikidata_p576', 'biz_nola') then 'CC0-1.0'
-    when source like 'osm%' or source = 'dol_wa' then 'ODbL-1.0'
+    when source in ('atp', 'wikidata_p576', 'biz_nola', 'childcare_tx') then 'CC0-1.0'
+    when source like 'osm%' or source in ('dol_wa', 'marin_food') then 'ODbL-1.0'
     when source like 'abca_dc%' or source in ('bbl_dc', 'childcare_ca', 'mke_food', 'mke_liquor') then 'CC-BY-4.0'
     when source in ('abc_ca', 'tabc_tx', 'dbpr_fl_food', 'abt_fl', 'atc_mo', 'olcc_or', 'tdlr_tx',
                     'bot_sac', 'emd_sac', 'lou_food', 'abc_ky_jefferson', 'li_phl', 'biz_seattle', 'biz_denver', 'childcare_wa',
@@ -14,16 +14,18 @@ create or replace macro license_of(source) as
                     'mdard_mi_food', 'dph_sc_food', 'mda_mn_food', 'dpor_va', 'bop_tx', 'bop_oh',
                     'phx_liquor', 'nash_beer', 'anc_liquor', 'sux_food', 'hsv_liquor', 'det_biz', 'det_liquor',
                     'abc_nc', 'abc_ky', 'abc_ks', 'plcb_pa', 'tda_tn_food', 'dhhs_nc_inspections',
-                    'dph_ga_inspections', 'msdh_ms_food', 'adph_al_food', 'osdh_ok_food')
+                    'dph_ga_inspections', 'msdh_ms_food', 'adph_al_food', 'osdh_ok_food',
+                    'norfolk_biz', 'berkeley_biz', 'nj_inspection')
          or source like 'foodsafety_%'
-         or source like 'dca_ca_%' or (source like 'childcare_%' and source not in ('childcare_ca', 'childcare_co'))
+         or source like 'dca_ca_%' or (source like 'childcare_%' and source not in ('childcare_ca', 'childcare_co', 'childcare_ny', 'childcare_nyc', 'childcare_pa', 'childcare_tx'))
          or source like 'dbpr_fl_%' then 'none-stated'
-    when source in ('sla_ny', 'dmv_ny', 'dos_ny_salons', 'agm_ny', 'tax_ny_tobacco', 'ocm_ny', 'doh_ny_food') then 'OPEN-NY-terms'
-    when source in ('dohmh_nyc', 'dcwp_nyc') then 'NYC-Open-Data-terms'
+    when source in ('sla_ny', 'dmv_ny', 'dos_ny_salons', 'agm_ny', 'tax_ny_tobacco', 'ocm_ny', 'doh_ny_food',
+                    'childcare_ny', 'ny_health_clubs') then 'OPEN-NY-terms'
+    when source in ('dohmh_nyc', 'dcwp_nyc', 'childcare_nyc') then 'NYC-Open-Data-terms'
     when source like 'cdph_chicago%' or source like 'bacp_chicago%' then 'Chicago-Data-Portal-terms'
-    when source in ('isd_boston_food', 'isd_boston_inspection', 'lb_boston', 'childcare_co') then 'PDDL-1.0'
+    when source in ('isd_boston_food', 'isd_boston_inspection', 'lb_boston', 'childcare_co', 'cambridge_food') then 'PDDL-1.0'
     when source = 'sirene' then 'etalab-2.0'
-    -- everything else is a US federal register
+    -- everything else is a US federal register or a table its publisher marks public domain
     else 'US-public-domain'
   end;
 

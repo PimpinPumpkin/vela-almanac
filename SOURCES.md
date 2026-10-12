@@ -392,6 +392,39 @@ None states a license; rows are marked `none-stated`.
   answers 403; Riverside, Santa Clara, St. Louis County and Baltimore
   County sit behind challenge pages.
 
+### Tables found by searching the open data catalog (2026-10-12)
+Read by `adapters/open_data_tables.py`, one source per table. Owner,
+contact, inspector, phone and email columns are not read; home day cares
+are left out.
+- Cambridge, Massachusetts, food establishment permits:
+  `https://data.cambridgema.gov/d/iect-ma2e`. ODC Public Domain Dedication
+  and License.
+- Montgomery County, Maryland, alcohol licensees:
+  `https://data.montgomerycountymd.gov/d/c6rw-fazn`. Public domain.
+- New York State child care regulated programs:
+  `https://data.ny.gov/d/cb42-qumz`. OPEN-NY terms.
+- New York City active child care programs:
+  `https://data.cityofnewyork.us/d/gy3q-4tzp`. NYC Open Data terms.
+- Pennsylvania child care providers: `https://data.pa.gov/d/ajn5-kaxt`.
+  Marked "Public Domain U.S. Government" by the publisher.
+- Texas HHSC child care operations: `https://data.texas.gov/d/bc5r-88dy`.
+  CC0.
+- New Jersey vehicle inspection facility locations (private facilities):
+  `https://data.nj.gov/d/t6tk-mr48`. No license stated; `none-stated`.
+- Written and waiting for a test area, not in the build: Austin food
+  inspection scores (`datahub.austintexas.gov/d/ecmv-9xxi`), Cincinnati
+  food safety (`data.cincinnati-oh.gov/d/rg6p-b3h3`), Boulder County
+  restaurant inspections (`data.colorado.gov/d/6ytb-f2cq`), Marin County
+  food facility inspections (`data.marincounty.gov/d/73zb-z5me`, ODbL),
+  East Baton Rouge businesses (`data.brla.gov/d/xw6s-bcqm`), Norfolk
+  business licenses (`data.norfolk.gov/d/dpi6-sct5`), Berkeley business
+  licenses (`data.cityofberkeley.info/d/rwnf-bu3w`).
+- Looked at and not used: New York health club filings
+  (`data.ny.gov/d/vgfa-ui3c`), see SPEC.md section 9; Orlando business
+  tax receipts (`data.cityoforlando.net/d/7388-4re5`, addresses carry no
+  ZIP); Marin and Everett business licenses (mostly people and
+  contractors); Missouri tobacco licensees (mailing addresses only).
+
 ### Statewide food establishment lists found on agency sites (2026-10-07)
 None states a license; rows are marked `none-stated`.
 - Michigan MDARD food service licenses, with positions:
