@@ -47,10 +47,16 @@ def text(cell):
 
 def main():
     site = Site("https://foodscores.state.al.us")
-    # the site keeps its session in the address: /(S(...))/default.aspx
-    with site.opener.open(urllib.request.Request(site.base + "/", headers={"User-Agent": UA}), timeout=120) as r:
-        path, first = urllib.parse.urlparse(r.geturl()).path, r.read().decode("utf-8", "replace")
-    time.sleep(site.pause)
+
+    def session():
+        """The site keeps its session in the address, /(S(...))/default.aspx, and drops it
+        after a while: every county starts a new one."""
+        with site.opener.open(urllib.request.Request(site.base + "/", headers={"User-Agent": UA}), timeout=120) as r:
+            where, text = urllib.parse.urlparse(r.geturl()).path, r.read().decode("utf-8", "replace")
+        time.sleep(site.pause)
+        return where, text
+
+    path, first = session()
     select = re.search(r'<select name="ctl00\$ContentPlaceHolder1\$DrpCnty".*?</select>', first, re.S).group(0)
     counties = {name.strip(): value for value, name in re.findall(r'<option[^>]*value="(\d+)">([^<]+)', select)}
     asked = os.environ.get("AL_COUNTIES")
@@ -59,13 +65,18 @@ def main():
     rows, page, dead = {}, first, []
     for county in wanted:
         answered = 0
+        try:
+            path, page = session()
+        except Exception:
+            dead.append(county)
+            continue
         for kind in KINDS:
             form = {k: html.unescape(v) for k, v in HIDDEN.findall(page)}
             form.update({P + "TxtEstdNm": "", P + "DrpEstdType": kind, P + "txtCity": "",
                          P + "DrpCnty": counties[county], P + "BtnSearch.x": "20", P + "BtnSearch.y": "10"})
             try:
                 # every result comes on one page
-                got = site.fetch(path, form=form, tries=2, timeout=600).decode("utf-8", "replace")
+                got = site.fetch(path, form=form, tries=1, timeout=600).decode("utf-8", "replace")
             except Exception:
                 # the site answers a search that finds nothing with a server error
                 continue
