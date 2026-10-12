@@ -264,7 +264,7 @@ placed on that point. Such a register is held to more: no neighbor within
 Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
 not sit at the door of a fuel station, supermarket, stadium, campus or
 hospital; and names of counters inside stores, institutions, food service
-contractors and businesses at an apartment are left out. Seven registers
+contractors and businesses at an apartment are left out. Eight registers
 are allowed, liquor licenses and one tobacco retailer list, because a
 licensed premises is a storefront by definition:
 
@@ -274,6 +274,7 @@ licensed premises is a storefront by definition:
 | Texas tobacco retailers (Comptroller) | Houston | 514 | 38 of 40: food marts, smoke shops and liquor stores | 37 |
 | Washington LCB | Seattle | 128 | 37 of 40; the others are wineries at a home address | 42 |
 | North Carolina ABC | Charlotte | 94 | 35 of 40 after contractors and home addresses were filtered out; the misses are a wine distributor's office and second listings under a shorter name | 24 |
+| Kentucky ABC | whole state | 383 | 36 of 40: rural groceries, smoke shops, bars; the misses are second listings under a respelled name (now caught) and a lodge listed under its order's name | 25 |
 | Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
 | New Jersey ABC | Newark | 25 | 29 of 31 read before placeholder names ("NONE", "Not Available") and double listings were removed | 2 |
 | Maine BABLO | Portland | 29 | 27 of 29; the others are a delivery warehouse and a hotel | 1 |

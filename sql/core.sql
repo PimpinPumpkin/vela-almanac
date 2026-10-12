@@ -239,7 +239,8 @@ create or replace table storefront_source as
     ('lcb_wa', 'licensed_premises', true, true),
     ('abc_ks', 'licensed_premises', true, true),
     ('abc_nj', 'licensed_premises', true, true),
-    ('bablo_me', 'licensed_premises', true, true)) t(source, category, pinned, strict);
+    ('bablo_me', 'licensed_premises', true, true),
+    ('abc_ky', 'licensed_premises', true, true)) t(source, category, pinned, strict);
 -- pinned: the register gives only an address, and a row is placed on its address point.
 -- strict: the row is held to the harder duplicate tests below (every pinned register, and
 -- registers whose rows often sit at a fuel station already listed under its brand).
@@ -303,6 +304,9 @@ create or replace table born as
            -- an address-only register: any neighbor sharing a real word ("Airport Rd
            -- Chevron" beside "Chevron") is taken to be the same place
            or (u.strict and (list_has_any(name_words(u.nn), name_words(p.nn))
+                             -- "la rosas florence" beside "larosas pizza": the same name with the spaces moved
+                             or (length(replace(p.nn, ' ', '')) >= 5 and length(replace(u.nn, ' ', '')) >= 5
+                                 and left(replace(u.nn, ' ', ''), 6) = left(replace(p.nn, ' ', ''), 6))
                              or (length(p.nn) >= 3 and initials(u.nn) = p.nn)
                              or (length(u.nn) >= 3 and initials(p.nn) = u.nn)))))
     union
