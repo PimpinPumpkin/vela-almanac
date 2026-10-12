@@ -520,6 +520,35 @@ director, phone or email columns.
 - Found and not built yet: CMS's list of clinical laboratories (300,000
   rows, no positions).
 
+### City and county layers added 2026-10-12
+Found by searching ArcGIS Hub; read by `adapters/city_layers.py`, which
+now writes one file per source. None states a license; rows are marked
+`none-stated`. Owner names, mailing addresses and phone numbers are not
+read; home-based businesses and landlords' licenses are left out where the
+layer marks them.
+- Miami-Dade County local business tax (175,000 active receipts):
+  `https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/Local_Business_Tax_Feature_Layer_View/FeatureServer/0`
+- Broward County local business tax (100,000):
+  `https://services.arcgis.com/JMAJrTsHNLrSsWf5/arcgis/rest/services/TaxDatabase2021/FeatureServer/0`
+- Tucson business licenses:
+  `https://services3.arcgis.com/9coHY2fvuFjG9HQX/arcgis/rest/services/BUSLIC/FeatureServer/9`
+- Bellevue, Washington, business licenses:
+  `https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Business_Licenses_(All)/FeatureServer/3`
+- Sacramento County business licenses:
+  `https://services1.arcgis.com/5NARefyPVtAeuJPU/arcgis/rest/services/Business_Licenses/FeatureServer/0`
+- Long Beach business licenses:
+  `https://services6.arcgis.com/yCArG7wGXGyWLqav/arcgis/rest/services/Business_Licenses_Public_View/FeatureServer/0`
+- Chesapeake, Virginia, business licenses:
+  `https://services1.arcgis.com/OAphVRUvJVpBRovs/arcgis/rest/services/Business_Licenses/FeatureServer/1`
+- Detroit restaurant establishments (status Open):
+  `https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/food_service_establishment_inspections/FeatureServer/0`
+- Alameda County restaurant inspections (each place's newest in two years;
+  the county's list leaves out Berkeley, which inspects its own):
+  `https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Restaurant_Inspections/FeatureServer/0`
+- Seen and not read yet: Anaheim, Hayward, Reno, Cape Coral, City of
+  Miami, Charleston County business layers; St. Louis County food
+  establishments (last edited 2019); Colorado retail alcohol outlet points.
+
 ### City layers added 2026-10-07: Phoenix, Nashville, Milwaukee, Anchorage, Sioux Falls, Huntsville, Detroit
 Milwaukee's data is CC BY (City of Milwaukee, per data.milwaukee.gov);
 the others state no license and are marked `none-stated`. Agent, owner and

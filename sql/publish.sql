@@ -13,6 +13,8 @@ create or replace macro license_of(source) as
                     'biz_lasvegas', 'dchd_omaha_food', 'mpls_food', 'mpls_liquor', 'llb_baltimore', 'cph_columbus_food',
                     'mdard_mi_food', 'dph_sc_food', 'mda_mn_food', 'dpor_va', 'bop_tx', 'bop_oh',
                     'phx_liquor', 'nash_beer', 'anc_liquor', 'sux_food', 'hsv_liquor', 'det_biz', 'det_liquor',
+                    'det_food', 'miami_dade_biz', 'longbeach_biz', 'broward_biz', 'tucson_biz', 'bellevue_biz',
+                    'saccounty_biz', 'chesapeake_biz', 'alameda_food',
                     'abc_nc', 'abc_ky', 'abc_ks', 'plcb_pa', 'tda_tn_food', 'dhhs_nc_inspections',
                     'dph_ga_inspections', 'msdh_ms_food', 'adph_al_food', 'osdh_ok_food',
                     'norfolk_biz', 'berkeley_biz', 'nj_inspection')

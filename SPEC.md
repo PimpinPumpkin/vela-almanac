@@ -394,6 +394,14 @@ rows are the same place.
 | New York City weights and measures tests | number | 40 of 40 (New York City) | grocers, laundromats, cleaners and fuel stations, dated by the test |
 | Los Angeles active businesses | number | 40 of 40 (Los Angeles) | 24,700 of the 263,000 accounts in the box find a place; places in the box with a status went from 9% to 21% |
 | San Francisco registered business locations | number | 40 of 40 (San Francisco) | 19,500 of the 100,600 locations in the box find a place; places in the box with a status went from 13% to 27% |
+| Miami-Dade business tax receipts | number | 40 of 40 (Miami) | places in the box with a status went from 8% to 20% |
+| Broward County business tax receipts | number | 40 of 40 (Fort Lauderdale) | 8% to 20% |
+| Tucson business licenses | number | 40 of 40 (Tucson) | 9% to 26% |
+| Bellevue business licenses | number | 40 of 40 (Bellevue) | 11% to 21% |
+| Chesapeake business licenses | number | 40 of 40 (Chesapeake) | 9% to 21% |
+| Long Beach business licenses | number | 40 of 40 (Long Beach) | 12% to 17% |
+| Sacramento County business licenses | number | 40 of 40 (Sacramento) | 21% to 23%; the box already had the city's own list |
+| Detroit restaurant establishments, Alameda County restaurant inspections | number | 40 of 40 each (Detroit, Oakland) | |
 | East Baton Rouge businesses | number | 40 of 40 (Baton Rouge) | geocoded; places in the box with a status went from 8% to 24% |
 | Norfolk business licenses | number | 40 of 40 (Norfolk) | places in the box with a status went from 9% to 14% |
 | Berkeley business licenses | number, spot | 40 of 40 (Berkeley) | half geocoded; 15% to 20% |
@@ -623,8 +631,8 @@ signal at all.
 | bop_tx, bop_oh | open | day the file was read, active retail pharmacies | matcher, positions from the Census geocoder |
 | hrsa_health_centers | open | day the file was made, active permanent sites | matcher |
 | childcare_az, _ca, _de, _ma, _mi, _mn, _nj, _tn, _vt, _wi | open | day the layer was last edited, or read; centers only | matcher |
-| phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor | open | day the layer was last edited or read, licenses in force | matcher |
-| sux_food | open | day of the site's newest inspection | matcher |
+| phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor, det_food, miami_dade_biz, broward_biz, tucson_biz, bellevue_biz, saccounty_biz, longbeach_biz, chesapeake_biz | open | day the layer was last edited or read, licenses in force | matcher |
+| sux_food, alameda_food | open | day of the site's newest inspection | matcher |
 | abc_nc, abc_ky, abc_ks | open | day the search was run, active retail licenses | matcher, positions from the Census geocoder |
 | plcb_pa | open | day the export was read, active retail licenses | matcher, positions from the Census geocoder |
 | tda_tn_food | open | day the list was read, current licenses | matcher, positions from the Census geocoder |
