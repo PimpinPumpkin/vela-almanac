@@ -23,6 +23,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.parse
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
@@ -42,7 +43,7 @@ def main():
     else:
         route = API + "facilities/"
     since = (datetime.date.today() - datetime.timedelta(days=730)).isoformat()
-    seen, rows, page, failed = set(), [], 0, 0
+    seen, rows, page, failed, empty = set(), [], 0, 0, 0
     while True:
         try:
             batch = json.loads(site.fetch(route + str(page)))
@@ -54,7 +55,20 @@ def main():
             page += 1
             continue
         if not batch:
-            break
+            # the feed sometimes answers with nothing in the middle of the list: ask again,
+            # and call it the end only when three pages in a row stay empty
+            time.sleep(20)
+            try:
+                batch = json.loads(site.fetch(route + str(page)))
+            except Exception:
+                batch = []
+        if not batch:
+            empty += 1
+            if empty >= 3:
+                break
+            page += 1
+            continue
+        empty = 0
         page += 1
         for f in batch:
             if f.get("id") in seen:
