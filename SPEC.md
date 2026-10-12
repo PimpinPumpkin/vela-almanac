@@ -219,6 +219,9 @@ there, then the one Overture is surest of. A locator decides about half the
 lots. Checked against OSM, which the core layer may not read: where OSM
 names the station, the kept name agrees on 240 lots and a dropped name
 would have on 61, and 31 of those 61 are the locator disagreeing with OSM.
+In the full layer, a lot that no locator spoke for takes OSM's name and
+brand when an OSM fuel feature on it goes by one of the lot's other names
+(8 of 105 merged lots in the DC box, 18 of 335 in Houston).
 The other names stay as aliases for matching, so a register or locator
 that still uses one finds the place and does not mint a second. A
 Foursquare closing date or an OSM history event recorded under a dropped

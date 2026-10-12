@@ -152,12 +152,15 @@ create or replace table out_core as
 -- The full layer: core places with OSM folded in, then the places only OSM has.
 create or replace table full_place as
   select c.* replace (
+           coalesce(r.name, c.name) as name,
            coalesce(c.phone, f.phone) as phone,
            coalesce(c.website, f.website) as website,
-           coalesce(c.brand, f.brand) as brand,
-           coalesce(c.brand_wikidata, f.brand_wikidata) as brand_wikidata,
+           -- a renamed fuel lot takes OSM's brand too, or none: the old brand must not stay
+           case when r.place_id is not null then r.brand else coalesce(c.brand, f.brand) end as brand,
+           case when r.place_id is not null then r.brand_wikidata else coalesce(c.brand_wikidata, f.brand_wikidata) end as brand_wikidata,
            coalesce(c.address, f.address) as address)
   from core_place c left join osm_fill f on f.place_id = c.id
+  left join fuel_rename r on r.place_id = c.id
   union all
   select * from osm_only;
 

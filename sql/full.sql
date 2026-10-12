@@ -28,6 +28,23 @@ create or replace table osm_only as
   from osm_n o
   where o.id not in (select osm_id from osm_match);
 
+-- A merged fuel lot takes one listing's name in the core layer, and where no
+-- brand locator spoke, that can be the brand the station used to carry.
+-- When an OSM fuel feature on the lot goes by one of the lot's other names,
+-- the full layer uses OSM's name.
+create or replace table fuel_rename as
+  select m.place_id, o.name, o.brand, o.brand_wikidata
+  from osm_match m join osm_n o on o.id = m.osm_id
+  join ovt_n p on p.id = m.place_id
+  where o.category = 'amenity=fuel' and o.lifecycle is null
+    and m.place_id in (select id from ovt_alias)
+    and m.place_id not in (select place_id from core_member where source = 'atp')
+    and name_sim(o.nn, p.nn) < 0.9
+    -- OSM may name the shop and tag the brand: the brand agreeing is agreement
+    and (o.brand is null or name_sim(norm_name(o.brand), p.nn) < 0.9)
+    and exists (select 1 from ovt_alias a where a.id = m.place_id and name_sim(a.nn, o.nn) >= 0.9)
+  qualify row_number() over (partition by m.place_id order by m.dist) = 1;
+
 create or replace table osm_fill as
   select m.place_id, o.*
   from osm_match m join osm_n o on o.id = m.osm_id
