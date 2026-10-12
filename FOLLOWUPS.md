@@ -9,8 +9,11 @@ Newest findings first within a group. SOURCES.md has the addresses.
   of Phoenix). The layer's terms say county internal use only, and that
   outside use needs written authorization from the county GIS office.
   Ask for it.
-- **Virginia Beach business licenses** (42,000). The terms were not read
-  in full; read them, and ask if they are unclear.
+- **Virginia Beach business licenses** (42,000, no positions). The terms
+  were read on 2026-10-12: public, but any application using the data
+  must carry the city's own disclaimer paragraph. That is a condition the
+  Almanac's license list does not cover; decide whether to carry it. The
+  table also lists licenses as issued, not the ones in force.
 - **Indiana alcohol licenses**: sold per record. **Utah DOPL lists** and
   **Oregon Board of Pharmacy**: paid list services. Ask whether a free
   copy is possible for an open dataset.
@@ -32,6 +35,10 @@ Nothing is done to get around these. They may open up, or answer a request.
   **Colorado DORA roster generator**, **New Hampshire liquor**: 403.
 
 ## Stale, check again later
+
+- **Hayward business licenses** (28,000, last edited January 2026) and
+  **Reno businesses** (21,000, last edited October 2025): ArcGIS layers
+  that would work if they were kept up.
 
 - **Albuquerque business registrations**: export stopped at 2025-08-30.
 - **Anchorage food inspections**: stopped advancing in May 2026.
