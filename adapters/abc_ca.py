@@ -54,7 +54,9 @@ def main():
             if r["File Number"] in seen:
                 continue
             seen.add(r["File Number"])
-            out.row("abc_ca", r["File Number"], r["DBA Name"] or r["Primary Name"],
+            # With no trade name the file gives the license holder, who can be a person. Those
+            # rows go out under their own source name: good for matching, never for adding a place.
+            out.row("abc_ca" if r["DBA Name"] else "abc_ca_holder", r["File Number"], r["DBA Name"] or r["Primary Name"],
                     address(r["Prem Addr 1"], r["Prem City"], "%s %s" % (r["Prem State"], r["Prem Zip"][:5])),
                     None, None, "open", as_of)
     out.close(geocode=True)

@@ -260,14 +260,13 @@ is independent confirmation that the place exists.
 **Registers that give only an address.** A geocoder's guess along the
 street is good enough to match a place and not good enough to make one.
 A row from an address-only register is added only when its house number,
-street and ZIP are an address point in the National Address Database
-(read from Overture's address theme, public domain rows only), and it is
+street and ZIP are a public-domain address point (see below), and it is
 placed on that point. Such a register is held to more: no neighbor within
 80 m may share a real word with it or be its initials ("Airport Rd
 Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
 not sit at the door of a fuel station, supermarket, stadium, campus or
 hospital; and names of counters inside stores, institutions, food service
-contractors and businesses at an apartment are left out. Eight registers
+contractors and businesses at an apartment are left out. Ten registers
 are allowed, liquor licenses and one tobacco retailer list, because a
 licensed premises is a storefront by definition:
 
@@ -278,13 +277,18 @@ licensed premises is a storefront by definition:
 | Washington LCB | Seattle | 128 | 37 of 40; the others are wineries at a home address | 42 |
 | North Carolina ABC | Charlotte | 94 | 35 of 40 after contractors and home addresses were filtered out; the misses are a wine distributor's office and second listings under a shorter name | 24 |
 | Kentucky ABC | whole state | 383 | 36 of 40: rural groceries, smoke shops, bars; the misses are second listings under a respelled name (now caught) and a lodge listed under its order's name | 25 |
+| California ABC | Sacramento | 133 | 36 of 40 before rows with no trade name were split off; the misses were a license in its holder's own name (those rows are now a separate source that never adds a place), a contractor at an auditorium, a fuel station's operating company and two home wineries | 11 |
+| Florida ABT | Jacksonville | 153 | 38 of 40: food stores, smoke shops, lounges; the others are a delivery warehouse and a retirement community | 5 |
 | Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
 | New Jersey ABC | Newark | 25 | 29 of 31 read before placeholder names ("NONE", "Not Available") and double listings were removed | 2 |
 | Maine BABLO | Portland | 29 | 27 of 29; the others are a delivery warehouse and a hotel | 1 |
 
-The address database has no points for California, Florida, Mississippi,
-Colorado, Idaho or Oregon and few for Oklahoma, Wisconsin and New York
-City, so registers there add nothing this way. What was tried and refused is in section 9.
+Address points come from the National Address Database and from county
+files that are public domain under California and Florida law, all read
+from Overture's address theme. Overture marks its Colorado, Oregon,
+Mississippi, New York City and Los Angeles County addresses proprietary
+and Idaho's CC BY; those are not read, and Oklahoma and Wisconsin have
+few points, so registers there add nothing this way. What was tried and refused is in section 9.
 
 **Join shape.** Candidates come from a grid hash join: cells are 0.004
 degrees of latitude by 0.008 of longitude, one side is copied into its nine

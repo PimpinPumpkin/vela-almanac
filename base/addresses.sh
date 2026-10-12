@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # Overture address points inside a region box -> $OUT/addresses.parquet
 # Used to put a register row that has only an address on its building. Only
-# points whose own source is public domain or CC0 are kept (in the United
-# States that is the National Address Database), so the core layer takes on
-# no new terms. A state the database does not cover yields an empty file.
+# points whose own source is public domain or CC0 are kept, so the core
+# layer takes on no new terms: the National Address Database, and county
+# address files that are public domain under California or Florida law.
+# Overture marks Colorado, Oregon, Mississippi, New York City and Los
+# Angeles County addresses proprietary; those are left out, and such a
+# place yields an empty file.
 source "$(dirname "$0")/../lib/common.sh"
 region "$1"
 
@@ -20,7 +23,7 @@ copy (
   from read_parquet([$FILES])
   where bbox.xmin >= $W and bbox.xmax <= $E and bbox.ymin >= $S and bbox.ymax <= $N
     and country = '$COUNTRY' and number is not null and street is not null and postcode is not null
-    and sources[1].license in ('LicenseRef-Public-Domain-US', 'CC0-1.0', 'PDDL-1.0')
+    and (sources[1].license like 'LicenseRef-Public-Domain%' or sources[1].license in ('CC0-1.0', 'PDDL-1.0'))
 ) to '$OUT/addresses.parquet.part' (format parquet, compression zstd);
 SQL
 mv "$OUT/addresses.parquet.part" "$OUT/addresses.parquet"

@@ -240,7 +240,9 @@ create or replace table storefront_source as
     ('abc_ks', 'licensed_premises', true, true),
     ('abc_nj', 'licensed_premises', true, true),
     ('bablo_me', 'licensed_premises', true, true),
-    ('abc_ky', 'licensed_premises', true, true)) t(source, category, pinned, strict);
+    ('abc_ky', 'licensed_premises', true, true),
+    ('abc_ca', 'licensed_premises', true, true),
+    ('abt_fl', 'licensed_premises', true, true)) t(source, category, pinned, strict);
 -- pinned: the register gives only an address, and a row is placed on its address point.
 -- strict: the row is held to the harder duplicate tests below (every pinned register, and
 -- registers whose rows often sit at a fuel station already listed under its brand).
