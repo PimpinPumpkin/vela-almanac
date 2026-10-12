@@ -29,7 +29,7 @@ jobs:
       - id: plan
         run: |
           states="${{ inputs.states }}"
-          [ -n "$states" ] || states="AK AR GA IA KS ND PA SD VT"
+          [ -n "$states" ] || states="AK AL AR GA IA KS ND OK PA SD VT"
           echo "states=$(printf '%s\n' $states | jq -R . | jq -cs .)" >> "$GITHUB_OUTPUT"
 
   read:
@@ -53,8 +53,13 @@ jobs:
           FOODSAFETY_STATES: ${{ matrix.state }}
         run: |
           cp data/cache/geocode/census.csv before.csv 2>/dev/null || touch before.csv
-          # Georgia has its own system; the rest share one
-          if [ "${{ matrix.state }}" = GA ]; then python3 adapters/dph_ga_inspections.py; else python3 adapters/usafoodsafety.py; fi
+          # Georgia, Alabama and Oklahoma have their own systems; the rest share one
+          case "${{ matrix.state }}" in
+            GA) python3 adapters/dph_ga_inspections.py ;;
+            AL) python3 adapters/adph_al_food.py ;;
+            OK) python3 adapters/osdh_ok_food.py ;;
+            *)  python3 adapters/usafoodsafety.py ;;
+          esac
           # only the geocoder answers this job added
           python3 tools/geocode_merge.py --new geocode-${{ matrix.state }}.csv before.csv data/cache/geocode/census.csv
           wc -l data/cache/evidence/*.csv geocode-${{ matrix.state }}.csv
@@ -64,6 +69,8 @@ jobs:
           path: |
             data/cache/evidence/foodsafety_*.csv
             data/cache/evidence/dph_ga_inspections.csv
+            data/cache/evidence/adph_al_food.csv
+            data/cache/evidence/osdh_ok_food.csv
             geocode-${{ matrix.state }}.csv
           retention-days: 5
 
@@ -90,10 +97,10 @@ jobs:
       - name: Put the new files with the rest
         run: |
           mkdir -p data/cache/evidence data/cache/geocode
-          find got \( -name 'foodsafety_*.csv' -o -name 'dph_ga_inspections.csv' \) -exec cp {} data/cache/evidence/ \;
+          find got \( -name 'foodsafety_*.csv' -o -name 'dph_ga_inspections.csv' -o -name 'adph_al_food.csv' -o -name 'osdh_ok_food.csv' \) -exec cp {} data/cache/evidence/ \;
           python3 tools/geocode_merge.py census.new data/cache/geocode/census.csv $(find got -name 'geocode-*.csv')
           mv census.new data/cache/geocode/census.csv
-          ls -la data/cache/evidence | grep -E 'foodsafety|dph_ga' || echo "no state finished"
+          ls -la data/cache/evidence | grep -E 'foodsafety|dph_ga|adph_al|osdh_ok' || echo "no state finished"
       - uses: actions/cache/save@v4
         with:
           path: data/cache/evidence
