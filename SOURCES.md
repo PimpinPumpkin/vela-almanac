@@ -545,9 +545,21 @@ layer marks them.
 - Alameda County restaurant inspections (each place's newest in two years;
   the county's list leaves out Berkeley, which inspects its own):
   `https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Restaurant_Inspections/FeatureServer/0`
-- Seen and not read yet: Anaheim, Hayward, Reno, Cape Coral, City of
-  Miami, Charleston County business layers; St. Louis County food
-  establishments (last edited 2019); Colorado retail alcohol outlet points.
+- Riverside County retail food facilities (active permits):
+  `https://services1.arcgis.com/pWmBUdSlVpXStHU6/arcgis/rest/services/Food/FeatureServer/0`
+- California Department of Public Health, licensed and certified
+  healthcare facilities (status open):
+  `https://services5.arcgis.com/FlidZxdI0LGC9vAw/arcgis/rest/services/CDPH_LC_Facilities_Data/FeatureServer/0`
+- Colorado licensed tobacco retailers, with positions (unexpired):
+  `https://services3.arcgis.com/66aUo8zsujfVXRIT/arcgis/rest/services/PSD_TRAC_DOR_Licensed_Tobacco_Retailers/FeatureServer/0`
+- Los Angeles County business licenses in unincorporated areas (apartment
+  houses left out):
+  `https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/Business_License/FeatureServer/0`
+- Seen and not read yet: Anaheim (addresses need parsing), Hayward, Reno,
+  City of Miami and Charleston County business layers; Colorado retail
+  alcohol outlet points (no dates). Not usable: Cape Coral (parcels, old
+  rows), Gainesville (addresses only), St. Louis County food
+  establishments (last edited 2019).
 
 ### City layers added 2026-10-07: Phoenix, Nashville, Milwaukee, Anchorage, Sioux Falls, Huntsville, Detroit
 Milwaukee's data is CC BY (City of Milwaukee, per data.milwaukee.gov);

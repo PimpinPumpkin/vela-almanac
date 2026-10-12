@@ -54,6 +54,7 @@ tucson-box	32.15	-111.03	32.30	-110.80	arizona
 bellevue-box	47.55	-122.22	47.66	-122.10	washington
 chesapeake-box	36.68	-76.36	36.84	-76.18	virginia
 oakland-box	37.74	-122.30	37.84	-122.16	california/norcal
+riverside-box	33.88	-117.50	34.02	-117.28	california/socal
 delaware	38.45	-75.79	39.84	-75.04	delaware	DE
 kentucky	36.49	-89.58	39.15	-81.96	kentucky	KY
 # Every other state and DC. Boxes are the Census outline plus a small margin.

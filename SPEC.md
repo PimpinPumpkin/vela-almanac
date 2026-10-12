@@ -402,6 +402,7 @@ rows are the same place.
 | Long Beach business licenses | number | 40 of 40 (Long Beach) | 12% to 17% |
 | Sacramento County business licenses | number | 40 of 40 (Sacramento) | 21% to 23%; the box already had the city's own list |
 | Detroit restaurant establishments, Alameda County restaurant inspections | number | 40 of 40 each (Detroit, Oakland) | |
+| Riverside County food facilities, California licensed health facilities, Colorado tobacco retailers, Los Angeles County business licenses | number | 40 of 40 each (Riverside, Los Angeles, Denver, Los Angeles) | a store inside a fuel station finds the station through the lot's other names |
 | East Baton Rouge businesses | number | 40 of 40 (Baton Rouge) | geocoded; places in the box with a status went from 8% to 24% |
 | Norfolk business licenses | number | 40 of 40 (Norfolk) | places in the box with a status went from 9% to 14% |
 | Berkeley business licenses | number, spot | 40 of 40 (Berkeley) | half geocoded; 15% to 20% |
@@ -631,7 +632,7 @@ signal at all.
 | bop_tx, bop_oh | open | day the file was read, active retail pharmacies | matcher, positions from the Census geocoder |
 | hrsa_health_centers | open | day the file was made, active permanent sites | matcher |
 | childcare_az, _ca, _de, _ma, _mi, _mn, _nj, _tn, _vt, _wi | open | day the layer was last edited, or read; centers only | matcher |
-| phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor, det_food, miami_dade_biz, broward_biz, tucson_biz, bellevue_biz, saccounty_biz, longbeach_biz, chesapeake_biz | open | day the layer was last edited or read, licenses in force | matcher |
+| phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor, det_food, miami_dade_biz, broward_biz, tucson_biz, bellevue_biz, saccounty_biz, longbeach_biz, chesapeake_biz, riverside_food, cdph_ca_facilities, co_tobacco, lac_biz | open | day the layer was last edited or read, licenses in force | matcher |
 | sux_food, alameda_food | open | day of the site's newest inspection | matcher |
 | abc_nc, abc_ky, abc_ks | open | day the search was run, active retail licenses | matcher, positions from the Census geocoder |
 | plcb_pa | open | day the export was read, active retail licenses | matcher, positions from the Census geocoder |
