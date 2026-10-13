@@ -255,6 +255,7 @@ create or replace table storefront_source as
     ('moco_md_alcohol', 'licensed_premises', false, true),
     ('llb_baltimore', 'licensed_premises', false, true),
     ('mpls_liquor', 'licensed_premises', false, true),
+    ('tceq_tx_cleaners', 'shop=dry_cleaning', true, true),
     ('abc_ca', 'licensed_premises', true, true),
     ('abt_fl', 'licensed_premises', true, true)) t(source, category, pinned, strict);
 -- pinned: the register gives only an address, and a row is placed on its address point.
@@ -345,6 +346,16 @@ create or replace table born as
     join (select p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
           from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
           where regexp_matches(coalesce(p.category, ''), 'gas_station|fueling|supermarket|grocery|stadium|arena|college|university|hospital|department_store|warehouse_club|school|airport|convention|casino')) p
+      on p.cy = u.cy and p.cx = u.cx
+    where dist_m(u.lat, u.lng, p.lat, p.lng) <= 80 and (p.hn = u.hn or dist_m(u.lat, u.lng, p.lat, p.lng) <= 30)
+    union
+    -- A dry cleaner registered at the door of a listed dry cleaner is that
+    -- shop under its new or its legal name ("Q&T Cleaner" at "119 Quick Cleaners").
+    select distinct u.id
+    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched where category = 'shop=dry_cleaning') u
+    join (select p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
+          from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
+          where regexp_matches(coalesce(p.category, ''), 'dry_clean|laundr')) p
       on p.cy = u.cy and p.cx = u.cx
     where dist_m(u.lat, u.lng, p.lat, p.lng) <= 80 and (p.hn = u.hn or dist_m(u.lat, u.lng, p.lat, p.lng) <= 30)
   )

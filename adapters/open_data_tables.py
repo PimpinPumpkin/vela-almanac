@@ -313,10 +313,21 @@ def sf_biz(out):
     held.close()
 
 
+def tceq_tx_cleaners(out):
+    """Dry cleaners and their drop stations registered with the Texas environmental agency."""
+    host, table = "data.texas.gov", "qfph-9bnd"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="location_state = 'TX'",
+                  select="registration_id,regulated_entity_name,location_address,location_city,location_zip_code"):
+        out.row("tceq_tx_cleaners", r.get("registration_id"), r.get("regulated_entity_name"),
+                address(r.get("location_address"), r.get("location_city"), "TX %s" % (r.get("location_zip_code") or "")[:5]),
+                None, None, "open", as_of)
+
+
 TABLES = [sf_biz, lottery_tx, lottery_ny, wm_nyc, cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa,
           childcare_tx, nj_inspection, la_biz, austin_food, cincinnati_food, boulder_food, marin_food, brla_biz,
-          norfolk_biz, berkeley_biz]
-NO_POSITIONS = {lottery_tx, austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}
+          norfolk_biz, berkeley_biz, tceq_tx_cleaners]
+NO_POSITIONS = {tceq_tx_cleaners, lottery_tx, austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}
 
 
 def main():

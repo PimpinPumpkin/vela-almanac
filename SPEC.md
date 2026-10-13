@@ -305,6 +305,7 @@ centers, pharmacies and lodging:
 | Florida ABT | Jacksonville | 153 | 38 of 40: food stores, smoke shops, lounges; the others are a delivery warehouse and a retirement community | 5 |
 | Texas licensed child care centers (HHSC) | Houston | 42 | 38 of 40; the others are after-school programs run inside a school | 2 |
 | Texas pharmacies (Board of Pharmacy) | Houston | 40 | 37 of 40: independent, specialty and in-store pharmacies | 3 |
+| Texas dry cleaner registrations (TCEQ) | Houston | 16 | 17 of the 19 first added were a cleaner the map lacked; the other two were a listed cleaner under a new name at the same door, and a dry cleaner registered at the door of a listed dry cleaner or laundry is now taken to be that shop. Too few to read 40 | 3 |
 | Florida lodging licenses (DBPR) | Jacksonville and Miami | 19 | 16 of the 19 the two boxes hold: hotels and motels; too few to read 40 | 3 |
 | Colorado liquor licenses, placed by the state's alcohol outlet points | Denver | 160 | 37 of 40: restaurants, bars, liquor stores; the others are big-box stores the map may hold under a far-off point, and a members' club | 17 |
 | Nebraska LCC, premises classes only | Omaha | 47 | 38 of 40: bars, markets, liquor stores; the others are an event hall and a delivery warehouse | 3 |
@@ -701,6 +702,7 @@ signal at all.
 | dhhs_nc_inspections | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | cambridge_food | open | day the permit was issued, last two years | matcher |
 | moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny, lottery_fl | open | day the table was last updated | matcher |
+| tceq_tx_cleaners | open | day the table was last updated, operating dry cleaners and drop stations | matcher, positions from the Census geocoder |
 | wm_nyc | open | day of the shop's newest test in the last two years | matcher |
 | austin_food, cincinnati_food, boulder_food, marin_food | open | day of the newest inspection in the last two years | matcher (Austin geocoded) |
 | la_biz, sf_biz, biz_sandiego, brla_biz, norfolk_biz, berkeley_biz | open | day the table was last updated | matcher (Baton Rouge and Berkeley geocoded) |

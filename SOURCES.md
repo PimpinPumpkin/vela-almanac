@@ -462,7 +462,17 @@ are left out.
   (`https://www.texaslottery.com/export/sites/lottery/Misc/copyright.html`).
   The owner decided on 2026-10-12 to use it; rows are marked
   `Texas-Lottery-terms`. Sales figures are not read.
-- Looked at and not used: New York health club filings
+- Texas Commission on Environmental Quality, operating dry cleaner
+  registrations (plants and drop stations, 1,400 rows):
+  `https://data.texas.gov/d/qfph-9bnd`. No license stated; `none-stated`.
+  Billing addresses, customer names and phone numbers are not read.
+  39 of 40 matches right in Houston. May add places (SPEC section 6).
+- Looked at and not used: Delaware and Massachusetts child care tables
+  (`data.delaware.gov/d/iuzd-3dbt`, `educationtocareer.data.mass.gov/d/dn4d-tjbb`),
+  the same rosters `adapters/childcare_centers.py` already reads;
+  Connecticut grocery and pharmacy tables, already inside the state
+  license table; Cincinnati business licenses (`7dk3-gngs`), no business
+  names; New York health club filings
   (`data.ny.gov/d/vgfa-ui3c`), see SPEC.md section 9; Orlando business
   tax receipts (`data.cityoforlando.net/d/7388-4re5`, addresses carry no
   ZIP); Marin and Everett business licenses (mostly people and
