@@ -48,10 +48,13 @@ create or replace macro initials(nn) as
 -- sign and something besides: "Cowser Tire", not "Restaurant Taqueria",
 -- "Tobias Place Bldg 7" or "Saul Mendoza".
 create or replace macro shop_words() as
-  '\b(restaurante?|taqueria|cantina|cafe|coffee|grill|kitchen|pizza|pizzeria|burgers?|tacos?|bbq|barbecue|bakery|panaderia|donuts?|bar|pub|tavern|brewery|lounge|salon|barber|barbershop|spa|nails?|lashes|beauty|tattoo|smoke|vape|tobacco|liquor|wine|market|mart|grocery|carniceria|store|shop|boutique|outlet|tires?|autos?|motors|cleaners|laundry|pharmacy|dental|dentistry|clinic|chiropractic|fitness|gym|studio|academy|daycare|montessori|bonds|insurance|jewelry|furniture|florist|flowers|pets?|veterinary|bank|hotel|motel|dulceria|fruteria|paleteria|supermercado|creamery|bistro|diner|sushi|pho|wings|chicken|seafood|steakhouse)\b';
+  '\b(restaurante?|taqueria|cantina|cafe|coffee|grill|kitchen|pizza|pizzeria|burgers?|tacos?|bbq|barbecue|bakery|panaderia|donuts?|bar|pub|tavern|brewery|lounge|salon|barber|barbershop|spa|nails?|lashes|beauty|tattoo|smoke|vape|tobacco|liquor|wine|market|mart|grocery|carniceria|store|shop|boutique|outlet|tires?|autos?|motors|cleaners|laundry|pharmacy|dental|dentistry|clinic|chiropractic|fitness|gym|daycare|montessori|bonds|insurance|jewelry|furniture|florist|flowers|pets?|veterinary|bank|hotel|motel|dulceria|fruteria|paleteria|supermercado|creamery|bistro|diner|sushi|pho|wings|chicken|seafood|steakhouse)\b';
 create or replace macro reads_as_shop(name) as
-  regexp_matches(name, shop_words() || '|#\s*[0-9]', 'i')
-  and not regexp_matches(name, '\b(bldg|building|phase|remodel|suite|ste|shell|addition|finish.?out|tenant|properties|property|apartments|residences|holdings|investments|realty|mobile|floor|unit)\b', 'i')
+  -- a store number has three digits or more; "#1" and "#9" are a landlord's units
+  regexp_matches(name, shop_words() || '|#\s*[0-9]{3,}', 'i')
+  -- a machine or a counter inside someone else's store
+  and not regexp_matches(name, '@| at | atm\b|cardtronics|coinstar|redbox', 'i')
+  and not regexp_matches(name, '\b(bldg|building|phase|remodel|suite|ste|shell|addition|finish.?out|tenant|properties|property|apartments|residences|holdings|investments|realty|mobile|floor|unit|transport|transportation|trucking|logistics|towing|catering|events?|towers?|vending|decal|on wheels)\b|tag ?#', 'i')
   -- something is left once the trade words and small words are taken out
   and length(regexp_replace(regexp_replace(regexp_replace(lower(name), shop_words(), ' ', 'g'),
                                            '\b(the|and|of|de|la|el|los|las|del|y|no|inc|llc|co)\b', ' ', 'g'), '[^a-z0-9]', '', 'g')) >= 2;
@@ -67,7 +70,12 @@ create or replace macro named_category(name, fallback) as
     when regexp_matches(name, '\b(smoke|smokes|vape|vapor|tobacco|cigars?|hookah)\b', 'i') then 'shop=tobacco'
     when regexp_matches(name, '\b(pharmacy|drugs?|rx)\b', 'i') then 'amenity=pharmacy'
     when regexp_matches(name, '\b(fuels?|gas|petroleum|exxon|shell|chevron|mobil|valero|texaco|citgo|conoco|sunoco|marathon|phillips 66|sinclair|speedway|arco|bp)\b', 'i') then 'amenity=fuel'
+    when regexp_matches(name, '\b(juice|smoothies?|salad|acai|coffee|espresso|yogurt|dessert)\b.*\bbar\b', 'i') then 'amenity=cafe'
+    -- a nail bar or a brow bar pours nothing
+    when regexp_matches(name, '\b(nails?|lash|lashes|brows?|hair|blow ?dry|beauty|wax)\b.*\bbar\b', 'i') then (case when fallback = 'commercial_premises' then 'shop=beauty' else fallback end)
     when regexp_matches(name, '\b(bar|pub|tavern|saloon|lounge|taproom|tap room|brewery|brewing|cantina|nightclub|night club|icehouse|ice house|sports bar)\b', 'i') then 'amenity=bar'
+    -- "Florida Kitchen Cabinets" is not a kitchen
+    when regexp_matches(name, '\b(cabinets?|countertops?|granite|flooring|remodeling)\b', 'i') then fallback
     when regexp_matches(name, '\b(coffee|cafe|café|espresso|tea house|bakery|donuts?)\b', 'i') then 'amenity=cafe'
     when regexp_matches(name, '\b(restaurant|grill|grille|kitchen|pizza|pizzeria|taqueria|tacos?|sushi|bbq|barbecue|barbeque|diner|bistro|steakhouse|noodles?|ramen|pho|burgers?|wings|seafood|cuisine|eatery|buffet|deli|tortas|mariscos|hibachi|trattoria|cocina)\b', 'i') then 'amenity=restaurant'
     when regexp_matches(name, '\b(supermarket|super market|supermercado|carniceria|meat market|market place|marketplace)\b', 'i') then 'shop=supermarket'

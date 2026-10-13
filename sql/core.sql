@@ -256,6 +256,13 @@ create or replace table storefront_source as
     ('llb_baltimore', 'licensed_premises', false, true),
     ('mpls_liquor', 'licensed_premises', false, true),
     ('fw_co', 'commercial_premises', false, true),
+    ('miami_dade_biz', 'commercial_premises', false, true),
+    ('longbeach_biz', 'commercial_premises', false, true),
+    ('biz_denver', 'commercial_premises', false, true),
+    ('biz_lasvegas', 'commercial_premises', false, true),
+    ('bacp_chicago', 'commercial_premises', false, true),
+    ('bbl_dc', 'commercial_premises', false, true),
+    ('dcwp_nyc', 'commercial_premises', false, true),
     ('tceq_tx_cleaners', 'shop=dry_cleaning', true, true),
     ('abc_ca', 'licensed_premises', true, true),
     ('abt_fl', 'licensed_premises', true, true)) t(source, category, pinned, strict);
@@ -299,14 +306,19 @@ create or replace table born as
       -- a mailing line or an estate is not a sign on a door
       and not regexp_matches(r.name, '^attn\b|\bc/o\b|estate of', 'i')
       -- a name that ends in a legal form is the company, not the sign on the door
-      and not regexp_matches(lower(trade_name(r.name)), '\b(inc|incorporated|corp|corporation|llc|lp|llp|ltd)\.?\s*[0-9]*$')
+      and not regexp_matches(lower(trade_name(r.name)), '\b(inc|incorporated|corp|corporation|llc|lp|llp|ltd)\.?\s*#?\s*[0-9]*$')
       -- An address-only register is held to more. A counter inside a store
       -- ("Publix #1638 (Deli)", "AFC Sushi @ Publix") is not a place of its
       -- own, and a kitchen in a school, church or hospital is that
       -- institution, which a food register cannot name or classify.
       -- A lottery agent is often licensed in the owner's own name. Only a
       -- name that reads as a shop becomes a place; a person's name never does.
-      and (r.source <> 'fw_co' or reads_as_shop(r.name))
+      -- A certificate of occupancy or a city's business license roll (the
+      -- commercial_premises registers) names whatever the applicant typed, at
+      -- whatever address: only a name that reads as a shop, at an address
+      -- that is not an apartment, becomes a place.
+      and (s.category <> 'commercial_premises'
+           or reads_as_shop(r.name) and not regexp_matches(r.address, '\b(apt|bsmt|basement|lot|trlr)\b', 'i'))
       and (r.source <> 'lottery_ny'
            -- a sidewalk newsstand carries its holder's name
            or not regexp_matches(r.name, 'news', 'i') and regexp_matches(r.name, '\b(deli|grocery|groc|pharmacy|drugs?|mart|market|convenien\w*|store|liquors?|wine|check cashing|supermarket|food|shop|discount|cafe|coffee|smoke|vape|tobacco|station|gas|cards?|gifts?|stationery|candy|bodega|cents)\b|#\s*[0-9]', 'i'))

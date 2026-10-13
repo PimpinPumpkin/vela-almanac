@@ -126,3 +126,15 @@ select case when reads_as_shop('Cowser Tire')
                  and named_category('Cowser Tire', 'commercial_premises') = 'shop=tyres'
                  and named_category('Cowser Tire', 'licensed_premises') = 'licensed_premises'
             then 'ok 10 certificate name cases' else error('certificate name test failed') end as result;
+
+-- A business license roll: machines, counters, landlords' units and wheels are not shops.
+select case when not reads_as_shop('CARDTRONICS USA INC @ TARGET #3383')
+                 and not reads_as_shop('ANI_AIRBNB #1')
+                 and not reads_as_shop('SHIRLEYS FOOD KITCHEN ON WHEELS')
+                 and not reads_as_shop('TAG#3148 DECAL 20066')
+                 and not reads_as_shop('LAVENDER BLUE DESIGN STUDIO')
+                 and reads_as_shop('Metro Wireless Store')
+                 and reads_as_shop('ZALE JEWELERS #1757')
+                 and named_category('BON BONITE NAIL BAR AND WAX', 'commercial_premises') = 'shop=beauty'
+                 and named_category('FLORIDA KITCHEN CABINETS', 'commercial_premises') = 'commercial_premises'
+            then 'ok 9 license roll cases' else error('license roll test failed') end as result;

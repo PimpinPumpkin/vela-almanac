@@ -15,6 +15,7 @@ https://opendataphilly.org/datasets/licenses-and-inspections-business-licenses/
 """
 import datetime
 import json
+import re
 import os
 import sys
 import urllib.parse
@@ -45,7 +46,15 @@ def main():
             if k in seen:
                 continue
             seen.add(k)
-            out.row("li_phl", r["licensenum"], r.get("business_name"),
+            # "Carrols Corporation (BURGER KING)": the sign on the door is in the brackets
+            # (the brackets of a chain's license hold a mailing line instead: "(ATTN: ...)")
+            name = r.get("business_name") or ""
+            m = re.match(r"(.+?)\s*\((?:T/A\s+)?([^()]{2,})\)\s*$", name)
+            if m and not re.match(r"(attn|c/o)\b", m.group(2), re.I):
+                name = "%s dba %s" % (m.group(1), m.group(2))
+            elif m:
+                name = m.group(1)
+            out.row("li_phl", r["licensenum"], name,
                     address(r.get("address"), "PHILADELPHIA", "PA %s" % (r.get("zip") or "")[:5]),
                     r.get("lat"), r.get("lng"), "open", today)
         offset += len(rows)
