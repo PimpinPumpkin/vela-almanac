@@ -17,6 +17,7 @@ create or replace macro license_of(source) as
                     'saccounty_biz', 'chesapeake_biz', 'alameda_food',
                     'riverside_food', 'cdph_ca_facilities', 'co_tobacco', 'lac_biz', 'anaheim_biz', 'lottery_fl',
                     'tucson_liquor', 'lou_tobacco', 'wic_fl', 'wic_az', 'wic_va', 'glendale_az_biz',
+                    'wic_nj', 'nn_biz', 'sac_tobacco', 'fairfax_food',
                     'abc_nc', 'abc_ky', 'abc_ks', 'plcb_pa', 'tda_tn_food', 'dhhs_nc_inspections',
                     'dph_ga_inspections', 'msdh_ms_food', 'adph_al_food', 'osdh_ok_food',
                     'norfolk_biz', 'berkeley_biz', 'nj_inspection')

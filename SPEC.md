@@ -689,7 +689,7 @@ signal at all.
 | bop_tx, bop_oh | open | day the file was read, active retail pharmacies | matcher, positions from the Census geocoder |
 | hrsa_health_centers | open | day the file was made, active permanent sites | matcher |
 | childcare_az, _ca, _de, _ma, _mi, _mn, _nj, _tn, _vt, _wi | open | day the layer was last edited, or read; centers only | matcher |
-| phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor, det_food, miami_dade_biz, broward_biz, tucson_biz, bellevue_biz, saccounty_biz, longbeach_biz, anaheim_biz, glendale_az_biz, tucson_liquor, lou_tobacco, wic_fl, wic_az, wic_va, chesapeake_biz, riverside_food, cdph_ca_facilities, co_tobacco, lac_biz | open | day the layer was last edited or read, licenses in force | matcher |
+| phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor, det_food, miami_dade_biz, broward_biz, tucson_biz, bellevue_biz, saccounty_biz, longbeach_biz, anaheim_biz, glendale_az_biz, nn_biz, sac_tobacco, fairfax_food, wic_nj, tucson_liquor, lou_tobacco, wic_fl, wic_az, wic_va, chesapeake_biz, riverside_food, cdph_ca_facilities, co_tobacco, lac_biz | open | day the layer was last edited or read, licenses in force | matcher |
 | sux_food, alameda_food | open | day of the site's newest inspection | matcher |
 | maricopa_food | open | day the layer was last edited, issued permits | matcher |
 | vb_biz | open | day the license began | matcher, positions from the Census geocoder |

@@ -626,8 +626,25 @@ layer marks them.
   `https://services1.arcgis.com/mpVYz37anSdrK4d8/arcgis/rest/services/WIC_Vendors/FeatureServer/1`
   Virginia:
   `https://services8.arcgis.com/0xEpEhgj2AqvWPLe/arcgis/rest/services/WICRetailers/FeatureServer/0`
+  New Jersey:
+  `https://services7.arcgis.com/Z0rixLlManVefxqY/arcgis/rest/services/wic_stores_6_24/FeatureServer/0`
+- Newport News, Virginia, business licenses (active; retail, service,
+  professional and wholesale classes, with contractors, peddlers, direct
+  sellers and short-term rentals left out). The city account publishes the
+  layer under the service name TEST. It also holds 7,060 closed licenses
+  with the day each closed; those are not read, since end dates of this
+  kind read about half right elsewhere (SPEC section 9):
+  `https://services6.arcgis.com/SiUAoHzWN11AIADA/arcgis/rest/services/TEST/FeatureServer/0`
+- City of Sacramento tobacco retail licenses (status Licensed):
+  `https://services5.arcgis.com/54falWtcpty3V47Z/arcgis/rest/services/Tobacco_Retail_Points/FeatureServer/0`
+- Retail food shops permitted by the Virginia Department of Agriculture
+  and Consumer Services, as Fairfax County's health department maps them
+  (the county's GIS disclaimer applies, no license):
+  `https://services1.arcgis.com/ioennV6PpG5Xodq0/arcgis/rest/services/VDACS_Retail_Food_Establishments/FeatureServer/0`
+  Read in their own boxes: 40 of 40 matches right in Newport News,
+  Sacramento and Newark, 39 of 40 in Fairfax.
   Tucson, Glendale and Arizona's health department each attach an "as is"
-  disclaimer and no license. None of these six may add places (SPEC
+  disclaimer and no license. None of these layers may add places (SPEC
   section 9).
 - Seen and not read yet: Hayward, Reno,
   City of Miami and Charleston County business layers; Colorado retail

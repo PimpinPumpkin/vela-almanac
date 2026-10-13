@@ -122,6 +122,20 @@ SOURCES = {
     "glendale_az_biz": (["https://services1.arcgis.com/9fVTQQSiODPjLUTa/arcgis/rest/services/Glendale_Business_Licenses/FeatureServer/0"],
                         "LicenseStatus = 'VALID' AND State = 'AZ'",
                         ("OBJECTID",), ("BusinessName",), "AddressLine1", "City", "AZ", "ZipCode", None),
+    "wic_nj": (["https://services7.arcgis.com/Z0rixLlManVefxqY/arcgis/rest/services/wic_stores_6_24/FeatureServer/0"],
+               "1=1", ("USER_Name", "USER_Address"), ("USER_Name",), "USER_Address", "USER_City", "NJ", "USER_Zip", None),
+    # contractors, peddlers, direct sellers and short-term rentals work from no shop
+    "nn_biz": (["https://services6.arcgis.com/SiUAoHzWN11AIADA/arcgis/rest/services/TEST/FeatureServer/0"],
+               "LicenseStatus = 'Active' AND BusinessDescriptorCategory IN ('Retail', 'Repair, Personal, Business', "
+               "'Professional', 'Wholesale Merchant', 'Barber & Beauty Schools')",
+               ("BusinessName", "BusinessLocationAddress"), ("BusinessName",), "BusinessLocationAddress",
+               "=NEWPORT NEWS", "VA", None, None),
+    "sac_tobacco": (["https://services5.arcgis.com/54falWtcpty3V47Z/arcgis/rest/services/Tobacco_Retail_Points/FeatureServer/0"],
+                    "LICENSE_STATUS = 'Licensed'",
+                    ("LICENSE_NUMBER",), ("RETAILER_NAME",), "RETAILER_ADDRESS", "=SACRAMENTO", "CA", None, None),
+    # shops the state agriculture department permits, as Fairfax County maps them
+    "fairfax_food": (["https://services1.arcgis.com/ioennV6PpG5Xodq0/arcgis/rest/services/VDACS_Retail_Food_Establishments/FeatureServer/0"],
+                     "1=1", ("VDACS_FIRM_NAME", "ADDRESS_1"), ("VDACS_FIRM_NAME",), "ADDRESS_1", "CITY", "VA", "ZIP_CODE", None),
     "miami_dade_biz": (["https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/Local_Business_Tax_Feature_Layer_View/FeatureServer/0"],
                        "ACCSTATUS = 'Active' AND RCPTSTATUS = 'Active'",
                        ("RECEIPTNO",), ("BUSNAME",), "BUSADDR", "BUSCITY", "FL", "ZIPCODE", None),
