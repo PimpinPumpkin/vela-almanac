@@ -101,6 +101,17 @@ Salons, repair shops, small retail. 84% of all rows, 8% with a status.
   address points for Colorado, Oregon, Mississippi and the other
   states with none in the public domain (their liquor registers cannot be read for
   this until then); carry the register's own business type.
+- **2.7 Add places from business rolls and openings.** Built on
+  2026-10-13 (SPEC.md section 6). A name that reads as a shop may add a
+  place from a city business license roll; most rolls also need a listed
+  business within 40 m. On for twenty city and county rolls, Texas sales
+  tax outlets (1,402 added in a Houston box), California salons and
+  repair shops, New York repair shops and Florida salons. Fort Worth's
+  certificates of occupancy add a shop on the day it moves in. Nine rolls
+  were read and refused. Next: read license start dates as openings; try
+  the rule on Pennsylvania's sales tax licenses once the state has
+  address points (4 rows found one in a Philadelphia box); look again at
+  salon-suite renters, which decide the Texas and New York salon lists.
 
 Done when "everything else" passes 15% in states with two or more of these.
 
