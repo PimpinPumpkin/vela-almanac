@@ -542,6 +542,12 @@ director, phone or email columns.
 - Privacy: the owner's name is not read, mailbox addresses are left out,
   and nothing creates a place from this source.
 
+### Florida Lottery terminals, as published by the Division of Emergency Management
+- License: none stated. Florida public record; `none-stated`.
+- Fetched from: `https://services.arcgis.com/3wFbqsFPLeKqOlIK/arcgis/rest/services/Lottery_Terminals/FeatureServer/0`
+- Used for: retailers with an active terminal (open), with the layer's
+  positions. 13,200 retailers, refreshed daily. Phone numbers are not read.
+
 ### Allegheny County Health Department, food facility inspections
 - License: Creative Commons Zero, as stated on the dataset.
 - Fetched from: `https://data.wprdc.org/datastore/dump/1c9cf8d8-f3db-4364-b925-d7078c2fb02f`

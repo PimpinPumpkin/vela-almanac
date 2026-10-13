@@ -232,7 +232,9 @@ itself: FDIC branches, SNAP authorized stores, DC and New York licensed
 premises, New York City and Chicago inspected food businesses, New York
 food stores, Delaware and
 Sacramento County inspected food establishments, Jefferson County,
-Kentucky licensed premises, New York lottery retailers, the liquor
+Kentucky licensed premises, New York lottery retailers, Florida lottery
+retailers (41 added in the Jacksonville box, 39 of 40 read a store of its
+own: fuel stations, supermarkets and corner stores), the liquor
 license lists of Nashville, Detroit, Baltimore, Minneapolis and
 Montgomery County, Maryland (each read in its own city: 36 of 40, 38 of
 40, 38 of 40, 23 of 25 and 22 of 23 a storefront of its own; 26 of the
@@ -308,6 +310,7 @@ centers, pharmacies and lodging:
 | Nebraska LCC, premises classes only | Omaha | 47 | 38 of 40: bars, markets, liquor stores; the others are an event hall and a delivery warehouse | 3 |
 | Oregon OLCC | Portland | 43 | 38 of 40: restaurants, bars, bottle shops; 13 then found an OSM feature | 13 |
 | Idaho State Police ABC | Boise | 43 | 37 of 40; the misses are wineries at a home address | 14 |
+| Texas lottery retailers | Houston | 41 | 40 of 40: food marts and corner stores | 5 |
 | Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
 | New Jersey ABC | Newark | 25 | 29 of 31 read before placeholder names ("NONE", "Not Available") and double listings were removed | 2 |
 | Maine BABLO | Portland | 29 | 27 of 29; the others are a delivery warehouse and a hotel | 1 |
@@ -438,6 +441,7 @@ rows are the same place.
 | New York State child care programs | number | 39 of 40 (New York City) | the doubtful one is an after-school program landing on the same body's adult day care |
 | Pennsylvania child care centers | number | 40 of 40 (Philadelphia) | geocoded |
 | Texas licensed child care centers | number | 39 of 40 (Houston) | geocoded |
+| Florida lottery retailers | number, near | 40 of 40 (Jacksonville) | 464 of the 738 retailers in the box find a place |
 | New York lottery retailers | number, spot, near | 40 of 40 (New York City) | delis, pharmacies and newsstands; 412 of the 1,032 in the box find a place |
 | New York City weights and measures tests | number | 40 of 40 (New York City) | grocers, laundromats, cleaners and fuel stations, dated by the test |
 | Los Angeles active businesses | number | 40 of 40 (Los Angeles) | 24,700 of the 263,000 accounts in the box find a place; places in the box with a status went from 9% to 21% |
@@ -696,7 +700,7 @@ signal at all.
 | foodsafety_ak, _ar, _ia, _ks, _nd, _pa, _sd, _vt | open | day of the establishment's most recent inspection | matcher, positions from the Census geocoder |
 | dhhs_nc_inspections | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | cambridge_food | open | day the permit was issued, last two years | matcher |
-| moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny | open | day the table was last updated | matcher |
+| moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny, lottery_fl | open | day the table was last updated | matcher |
 | wm_nyc | open | day of the shop's newest test in the last two years | matcher |
 | austin_food, cincinnati_food, boulder_food, marin_food | open | day of the newest inspection in the last two years | matcher (Austin geocoded) |
 | la_biz, sf_biz, biz_sandiego, brla_biz, norfolk_biz, berkeley_biz | open | day the table was last updated | matcher (Baton Rouge and Berkeley geocoded) |
