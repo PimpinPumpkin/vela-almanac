@@ -280,9 +280,10 @@ placed on that point. Such a register is held to more: no neighbor within
 Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
 not sit at the door of a fuel station, supermarket, stadium, campus or
 hospital; and names of counters inside stores, institutions, food service
-contractors and businesses at an apartment are left out. Eleven registers
+contractors and businesses at an apartment are left out. Twelve registers
 are allowed: liquor licenses, because a licensed premises is a storefront
-by definition, one tobacco retailer list and one child care list:
+by definition, and one list each of tobacco retailers, child care
+centers and pharmacies:
 
 | register | box | added | read | then found in OSM |
 | --- | --- | --- | --- | --- |
@@ -294,6 +295,7 @@ by definition, one tobacco retailer list and one child care list:
 | California ABC | Sacramento | 133 | 36 of 40 before rows with no trade name were split off; the misses were a license in its holder's own name (those rows are now a separate source that never adds a place), a contractor at an auditorium, a fuel station's operating company and two home wineries | 11 |
 | Florida ABT | Jacksonville | 153 | 38 of 40: food stores, smoke shops, lounges; the others are a delivery warehouse and a retirement community | 5 |
 | Texas licensed child care centers (HHSC) | Houston | 42 | 38 of 40; the others are after-school programs run inside a school | 2 |
+| Texas pharmacies (Board of Pharmacy) | Houston | 40 | 37 of 40: independent, specialty and in-store pharmacies | 3 |
 | Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
 | New Jersey ABC | Newark | 25 | 29 of 31 read before placeholder names ("NONE", "Not Available") and double listings were removed | 2 |
 | Maine BABLO | Portland | 29 | 27 of 29; the others are a delivery warehouse and a hotel | 1 |
@@ -870,6 +872,7 @@ evidence from a different source for the same place.
 | Adding places from Arkansas alcohol permits (Little Rock box) | 34 would be added; 27 were a storefront. | The rest carry the permit holder's company name ("Foxden USP Opco" for three U.S. Pizza branches already listed). Evidence only. |
 | Adding places from the NCES public school list (Houston box) | 44 would be added; nearly all are schools the map already has. | The list abbreviates ("KOLTER EL", "YATES H S"), so the name test does not see "Kolter Elementary School" as the same school, and the rest are programs at a district office. Evidence only. |
 | Adding places from California child care licenses (Sacramento box) | 42 would be added; about 20 are a center of their own. | The rest are state preschools, Head Start rooms and after-school programs inside a school or college, some listed twice. Evidence only; the other states' child care lists were not read for this. |
+| Adding places from California auto repair registrations (Sacramento box) | 287 would be added; about half of 40 read are a shop. | The other half are mobile mechanics and glass fitters registered at a home address. Evidence only. |
 | Adding places from address-only salon licenses (Texas TDLR, Houston box) | 565 would be added; 20 of 40 read were a storefront. | The other half are chair renters in salon suites, salons in a home, and licenses in a person's name. Used as evidence only. |
 | Adding places from NYC weights and measures tests | 94 would be added; most of 40 read are a person's name. | The test is recorded under the licensee, often an individual. A person's name must never become a place. Used as evidence only. |
 | San Francisco: a business location with an end date means closed | San Francisco box, places with no brand and no live location under the same name: independent closed 102, open after the end date 72. | 59%, far below the signals that are kept. The end date marks one registration ending; the shop often carries on under a new one. Held, not emitted. |
