@@ -145,3 +145,7 @@ select case when not reads_as_shop('TAQUERIA EXTRA TRUCK #2')
                  and not reads_as_shop('#3020')
                  and not reads_as_shop('Mother Hubbard&#8217;s Sober Living')
             then 'ok 4 roll name cases' else error('roll name test failed') end as result;
+
+-- "kentucky fried chicken h730213" is the "kfc" next door.
+select case when initials(array_to_string(string_split('kentucky fried chicken h730213', ' ')[1:3], ' ')) = 'kfc'
+            then 'ok 1 long name case' else error('long name test failed') end as result;

@@ -106,7 +106,8 @@ Salons, repair shops, small retail. 84% of all rows, 8% with a status.
   place from a city business license roll; most rolls also need a listed
   business within 40 m. On for twenty city and county rolls, Texas sales
   tax outlets (1,402 added in a Houston box), California salons and
-  repair shops, New York repair shops and Florida salons. Fort Worth's
+  repair shops, New York repair shops and Florida salons, and eight food
+  permit lists (Los Angeles County adds 486 in its box). Fort Worth's
   certificates of occupancy add a shop on the day it moves in. Nine rolls
   were read and refused. Next: read license start dates as openings; try
   the rule on Pennsylvania's sales tax licenses once the state has

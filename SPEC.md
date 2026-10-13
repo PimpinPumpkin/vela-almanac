@@ -290,6 +290,15 @@ itself a home trade within 40 m, since a house has no shop beside it. That
 halves what a roll adds and twelve more pass; nine fail both ways
 (section 9). The table below has each reading.
 
+Food permit lists are held to the same and to one thing more
+(`food_roll`). A food permit names kitchens, counters and outlets as well
+as shops, so a name with an outlet or department in it ("Pittsburgh Zoo /
+Jambo Grill", "Safeway #2968 - Grocery"), a snack bar, a prep or banquet
+kitchen, a cafeteria, a cart, or a King County food truck's plate number
+("KC112") adds nothing, nor does a row at the door of a supermarket,
+stadium, campus or hospital. Any roll row with no house number is left
+out. Eight food lists pass and five do not.
+
 In the District of Columbia box this adds about 450 places to 94,000.
 Forty were read against their most similar neighbor: 39 were new, 1 was a
 second listing of a place under a longer name (that case is now caught).
@@ -355,6 +364,14 @@ centers, pharmacies and lodging:
 | California salon and repair shop licenses (DCA), held to more | Sacramento | 26 and 28 | 24 of the 26 salons and 27 of the 28 repair shops | 1 |
 | New York repair shops and dealers (DMV), held to more | Buffalo | 23 | all 23: body shops, repair shops, used car lots. Turned off on 2026-10-12 when rows in a person's name became places; none can now | 2 |
 | Florida salon licenses (DBPR), held to more | Miami | 17 | 16 of the 17 | 0 |
+| Los Angeles County restaurant and market inventory, held to more as a food list | Los Angeles | 486 | 37 of 40: mini markets, liquor stores, cafes, karaoke bars; the others are two courthouse snack bars (now left out) and a nutrition club | 16 |
+| Alameda County restaurant inspections, as a food list | Oakland | 67 | 36 of 40: cafes, markets, groceries; the others are a recreation center stand, a studio's staff cafe and a shared kitchen | 24 |
+| King County food facilities, as a food list | Seattle | 92 | 37 of 40 once food trucks, listed by plate number, were left out | 16 |
+| Detroit restaurant establishments, as a food list | Detroit | 256 | 36 of 40: bars, pizzerias, taquerias, soul food; two were a KFC under its long name beside "KFC" (now caught) | 11 |
+| Allegheny County food facilities, as a food list | Pittsburgh | 67 | 37 of 40 once "venue / outlet" names were left out: corner markets, cafes, smoke shops | 8 |
+| Columbus food licenses, as a food list | Columbus | 92 | 36 of 40: markets, bars, cafes; the others are airport stands and two company cafeterias (cafeterias now left out) | 7 |
+| Riverside County food facilities, as a food list | Riverside | 35 | 34 of the 37 that remain after snack bars were left out | 8 |
+| San Diego County food permits, as a food list, placed on address points | San Diego | 50 | 34 of 36 once hotel outlets and prep kitchens were left out | 4 |
 | Texas dry cleaner registrations (TCEQ) | Houston | 16 | 17 of the 19 first added were a cleaner the map lacked; the other two were a listed cleaner under a new name at the same door, and a dry cleaner registered at the door of a listed dry cleaner or laundry is now taken to be that shop. Too few to read 40 | 3 |
 | Florida lodging licenses (DBPR) | Jacksonville and Miami | 19 | 16 of the 19 the two boxes hold: hotels and motels; too few to read 40 | 3 |
 | Colorado liquor licenses, placed by the state's alcohol outlet points | Denver | 160 | 37 of 40: restaurants, bars, liquor stores; the others are big-box stores the map may hold under a far-off point, and a members' club | 17 |
@@ -970,6 +987,7 @@ evidence from a different source for the same place.
 | Adding places from a city business roll held to more: San Diego, Los Angeles, San Francisco, Bellevue, Norfolk, Berkeley, Chesapeake | San Diego 500 would be added, 32 of 40 a shop; Los Angeles 1,796, 32 of 40; San Francisco 919, 30 of 40; Bellevue 41, 32 of 40; Norfolk 97, 35 of 40; Berkeley 35, 29 of the 35; Chesapeake 63, 35 of 40. | What is left after every filter: home kitchens and jewelers on streets where the neighbor is itself a home business, sushi counters inside groceries, food trucks at their commissary, stadium concessions, parking lots and fuel stations under the operator's name. Evidence only. |
 | Adding places from Philadelphia and Newport News business licenses | Philadelphia: 144 would be added held to more, 36 of 40. Newport News: 66, about 32 of 40. | Both write a name as "Legal Name (Trade Name)". The brackets sometimes hold a mailing line, a person or a store number ("WAWA INC (STORE 8631)"), so what is left unmatched is mostly a chain store or the shop next door under its company's name. Reading the brackets as the trade name did lift ordinary matching: 2,039 of 5,559 licenses in the Philadelphia box now find a place, and 1,839 of 7,261 in Newport News, up from 1,197. Evidence only. |
 | Adding places from state license lists held to more: Texas salons (TDLR), New York salons, Florida restaurants (DBPR), Connecticut state licenses | Texas salons: 153 would be added in Houston, 33 of 40. New York salons: 30 in Buffalo, 25. Florida restaurants: 41 in Miami, about 32 of 40. Connecticut: 40 in Bridgeport, 35. | Salons: five of the Houston 40 rent one room in the same salon-suites building, and two Buffalo rows are a person at a suites address. Florida restaurants: hotel "Main Kitchen" and "Banquet Kitchen" licenses. Connecticut: a bodega under its new owner's name beside the listing under the old one. Evidence only. Virginia (DPOR) and Washington (DOL) gave 2 and 4 rows, too few to read. |
+| Adding places from food permit lists held to more: Southern Nevada, Santa Clara County, Maricopa County, Omaha, Austin | Las Vegas: 499 would be added, nearly all a casino's kitchens, service bars and concourse stands. Santa Clara: 115, about 26 of 40. Maricopa: 420, about 26 of 40. Omaha: 30, 22. Austin: 49, about 25 of 40. | Santa Clara permits each department of a supermarket and company cafes. Maricopa and Omaha list food trucks and carts at their commissary's address, five and three to a door. Austin, placed on address points, puts chain stores and big groceries far from where the map has them, so they are added twice. Evidence only. |
 | Adding places from Texas sales tax outlets (Houston box) | 11,073 would be added, more than every other register in the box together. Of 50 read, about 22 are a storefront (food marts, cleaners, tire shops, a gun shop). | The rest sell from a house: craft, design and resale businesses on residential streets, and stalls inside a flea market under the stallholder's name. Counting only rows with a listed business within 40 m lifts it to about 20 of 28. Not enough either way: evidence only, and the best argument yet that the long tail cannot be added from a tax roll. |
 | Adding places from address-only salon licenses (Texas TDLR, Houston box) | 565 would be added; 20 of 40 read were a storefront. | The other half are chair renters in salon suites, salons in a home, and licenses in a person's name. Used as evidence only. |
 | Adding places from NYC weights and measures tests | 94 would be added; most of 40 read are a person's name. | The test is recorded under the licensee, often an individual. A person's name must never become a place. Used as evidence only. |

@@ -265,6 +265,14 @@ create or replace table storefront_source as
     ('dcwp_nyc', 'commercial_premises', false, true),
     ('det_biz', 'commercial_premises', false, true),
     ('cpa_tx', 'commercial_roll', true, true),
+    ('lac_food', 'food_roll', false, true),
+    ('alameda_food', 'food_roll', false, true),
+    ('kc_wa_food', 'food_roll', false, true),
+    ('riverside_food', 'food_roll', false, true),
+    ('det_food', 'food_roll', false, true),
+    ('achd_pa_food', 'food_roll', false, true),
+    ('cph_columbus_food', 'food_roll', false, true),
+    ('sd_county_food', 'food_roll', true, true),
     ('dca_ca_salon', 'commercial_roll', true, true),
     ('dca_ca_auto', 'commercial_roll', true, true),
     ('dmv_ny', 'commercial_roll', true, true),
@@ -335,15 +343,22 @@ create or replace table born as
       -- commercial_premises registers) names whatever the applicant typed, at
       -- whatever address: only a name that reads as a shop, at an address
       -- that is not an apartment, becomes a place.
-      and (s.category not in ('commercial_premises', 'commercial_roll')
+      and (s.category not in ('commercial_premises', 'commercial_roll', 'food_roll')
            or reads_as_shop(r.name) and not regexp_matches(r.address, '\b(apt|bsmt|basement|lot|trlr)\b', 'i'))
       -- A roll that fails that reading is held to more (commercial_roll): no
       -- unit or suite in the address, no name of a person's trade ("Nails by
       -- Roni", pet sitting, detailing, rentals), and, below, a listed
       -- business next door.
-      and (s.category <> 'commercial_roll'
+      and (s.category not in ('commercial_roll', 'food_roll')
            or not regexp_matches(r.name, '\bby\b|\b(pet (sitting|care|services)|sitting|walking|pool|consult\w*|detailing|rentals?|wholesale|distribut\w*|home|design)\b', 'i')
               and not regexp_matches(r.address, '#|\b(unit|ste|suite)\b', 'i'))
+      -- a row with no house number sits wherever its register put it
+      and (s.category not in ('commercial_premises', 'commercial_roll', 'food_roll') or r.hn is not null)
+      -- A food permit names kitchens, counters and outlets as well as shops:
+      -- "Pittsburgh Zoo / Jambo Grill", "Safeway #2968 - Grocery", a hotel's
+      -- "Main Kitchen", and in King County a food truck by its plate ("KC112").
+      and (s.category <> 'food_roll'
+           or not regexp_matches(r.name, ' / | - |\b(snack bar|main kitchen|banquet|prep|pantry|service bar|kitchen [0-9]|warehouse|storage|bakery dept|deli dept|cafeteria|cart|micro market)\b|\bkc ?#? ?[0-9]+', 'i'))
       and (r.source <> 'lottery_ny'
            -- a sidewalk newsstand carries its holder's name
            or not regexp_matches(r.name, 'news', 'i') and regexp_matches(r.name, '\b(deli|grocery|groc|pharmacy|drugs?|mart|market|convenien\w*|store|liquors?|wine|check cashing|supermarket|food|shop|discount|cafe|coffee|smoke|vape|tobacco|station|gas|cards?|gifts?|stationery|candy|bodega|cents)\b|#\s*[0-9]', 'i'))
@@ -351,7 +366,7 @@ create or replace table born as
       -- license at an apartment or a basement is a business run from home
       and not (s.pinned and (regexp_matches(r.name, '\b(eurest|chartwells|aramark|sodexo|compass group|levy|delaware north|dining services|food services?|concessions?|hospitality group|distribut\w*|imports?|wholesale)\b', 'i')
                              or regexp_matches(r.address, '\b(apt|bsmt|basement|lot|trlr)\b', 'i')))
-      and not (s.pinned and s.category in ('licensed_premises', 'grocery_or_convenience_store', 'food_service')
+      and not ((s.pinned and s.category in ('licensed_premises', 'grocery_or_convenience_store', 'food_service') or s.category = 'food_roll')
                and (regexp_matches(r.name, '[(@]| at | - (deli|bakery|meat|produce|seafood|starbucks|kitchen|cafe|cafeteria|concession)', 'i')
                              or regexp_matches(r.name, '\b(school|elementary|academy|university|college|church|ministr|baptist|methodist|hospital|medical|nursing|rehab|senior|child|daycare|day care|preschool|learning|head start|ymca|club|lodge|vfw|concession|stand|catering|commissary|truck|mobile)', 'i')))
   ),
@@ -373,6 +388,8 @@ create or replace table born as
                              or (length(replace(p.nn, ' ', '')) >= 5 and length(replace(u.nn, ' ', '')) >= 5
                                  and left(replace(u.nn, ' ', ''), 6) = left(replace(p.nn, ' ', ''), 6))
                              or (length(p.nn) >= 3 and initials(u.nn) = p.nn)
+                             -- "kentucky fried chicken h730213" beside "kfc"
+                             or (length(p.nn) >= 3 and initials(array_to_string(string_split(u.nn, ' ')[1:length(p.nn)], ' ')) = p.nn)
                              or (length(u.nn) >= 3 and initials(p.nn) = u.nn)))))
     union
     -- An address-only register row at the door of a fuel station, a
@@ -381,7 +398,7 @@ create or replace table born as
     -- the host's name.
     select distinct u.id
     from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched
-          where strict and category in ('licensed_premises', 'grocery_or_convenience_store', 'food_service')) u
+          where strict and category in ('licensed_premises', 'grocery_or_convenience_store', 'food_service', 'food_roll')) u
     join (select p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
           from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
           where regexp_matches(coalesce(p.category, ''), 'gas_station|fueling|supermarket|grocery|stadium|arena|college|university|hospital|department_store|warehouse_club|school|airport|convention|casino')) p
@@ -403,7 +420,7 @@ create or replace table born as
   -- home trade itself.
   , anchored as (
     select distinct u.id
-    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched where category = 'commercial_roll') u
+    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched where category in ('commercial_roll', 'food_roll')) u
     join (select p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
           from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
           where not regexp_matches(coalesce(p.category, ''), 'apartment|residential|condo|housing|real_estate|property_manag|home_|contractor|landscap|cleaning_serv|pet_sitting|atm|parcel|locker|bitcoin')) p
@@ -413,14 +430,14 @@ create or replace table born as
   select 'alm:' || u.source || '/' || u.source_id as place_id, u.*
   from unmatched u
   where u.id not in (select id from lookalike)
-    and (u.category <> 'commercial_roll' or u.id in (select id from anchored))
+    and (u.category not in ('commercial_roll', 'food_roll') or u.id in (select id from anchored))
   -- one register can list a premises twice, and two registers can list the same shop
   -- (the same name and house number within a few kilometers: a register that lists one
   -- premises under two ZIPs puts its rows on two address points)
   qualify row_number() over (partition by u.nn, u.hn, round(u.lat, 1), round(u.lng, 1) order by u.source, u.source_id) = 1;
 
 insert into core_place
-  select place_id, display_name(name), named_category(trade_name(name), case when category = 'commercial_roll' then 'commercial_premises' else category end), null, null,
+  select place_id, display_name(name), named_category(trade_name(name), case category when 'commercial_roll' then 'commercial_premises' when 'food_roll' then 'food_service' else category end), null, null,
          title_case(split_part(address, ', ', 1)), nullif(title_case(split_part(address, ', ', 2)), ''),
          nullif(regexp_extract(address, ', ([A-Z]{2}) [0-9]{5}', 1), ''), zip, null, null,
          lat, lng, null, nn, hn, false, zip, sk
