@@ -230,7 +230,7 @@ name does not close the place.
 **Places added from a register.** Some registers list the storefront
 itself: FDIC branches, SNAP authorized stores, DC and New York licensed
 premises, New York City and Chicago inspected food businesses, New York
-salons, barber shops, repair shops, dealers and food stores, Delaware and
+food stores, Delaware and
 Sacramento County inspected food establishments, Jefferson County,
 Kentucky licensed premises, New York lottery retailers, and Colorado
 tobacco retailers (held to the stricter duplicate tests below, because a
@@ -877,6 +877,8 @@ evidence from a different source for the same place.
 | Adding places from New York's tobacco retailer registrations (Buffalo box) | 47 would be added; most are a person's name. | The registration is in the name of the owner, often an individual, and the chain rows are the operating company of a station already listed. A person's name must never become a place. Evidence only. |
 | Adding places from Florida restaurant licenses (Jacksonville box) | 200 would be added; about 25 of 40 read are a restaurant of its own. | The rest are stadium concession stands by number, food hall booths and a chain under its franchisee's code. Evidence only. |
 | Adding places from Ohio pharmacy licenses (Columbus box) | 59 would be added; nearly all are a long-term-care pharmacy's license inside a nursing home. | Not a storefront. Evidence only. |
+| Adding places from New York salon and barber shop licenses (New York City box) | Added places until 2026-10-12. Of 50 read then, 12 were a person's name, several at an apartment. | The license is often held by one stylist under their own name, at home or in a rented room. A person's name and home address must never become a place: taken out the day it was read. Evidence only. |
+| Adding places from New York repair shop and dealer registrations (New York City box) | Added places until 2026-10-12. Of 36 read then, 26 were a shop or dealer. | The rest are city agency garages, a person's name and an estate. Evidence only. |
 | Adding places from address-only salon licenses (Texas TDLR, Houston box) | 565 would be added; 20 of 40 read were a storefront. | The other half are chair renters in salon suites, salons in a home, and licenses in a person's name. Used as evidence only. |
 | Adding places from NYC weights and measures tests | 94 would be added; most of 40 read are a person's name. | The test is recorded under the licensee, often an individual. A person's name must never become a place. Used as evidence only. |
 | San Francisco: a business location with an end date means closed | San Francisco box, places with no brand and no live location under the same name: independent closed 102, open after the end date 72. | 59%, far below the signals that are kept. The end date marks one registration ending; the shop often carries on under a new one. Held, not emitted. |

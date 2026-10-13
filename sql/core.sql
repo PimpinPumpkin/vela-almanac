@@ -224,8 +224,6 @@ create or replace table storefront_source as
     ('sla_ny', 'licensed_premises', false, false),
     ('dohmh_nyc', 'restaurant', false, false),
     ('cdph_chicago', 'food_service', false, false),
-    ('dmv_ny', 'vehicle_repair_or_dealer', false, false),
-    ('dos_ny_salons', 'salon_or_barber_shop', false, false),
     ('agm_ny', 'food_store', false, false),
     ('dph_de', 'restaurant', false, false),
     ('emd_sac', 'food_service', false, false),
@@ -277,6 +275,8 @@ create or replace table born as
       and not exists (select 1 from core_evidence e where e.source = r.source and e.source_id = r.source_id)
       -- a license held for a premises that has no name yet
       and r.name not ilike 'tbd%' and lower(trim(r.name)) not in ('none', 'na', 'n/a', 'not available', 'unknown', 'vacant')
+      -- a mailing line or an estate is not a sign on a door
+      and not regexp_matches(r.name, '^attn\b|\bc/o\b|estate of', 'i')
       -- a name that ends in a legal form is the company, not the sign on the door
       and not regexp_matches(lower(trade_name(r.name)), '\b(inc|incorporated|corp|corporation|llc|lp|llp|ltd)\.?\s*[0-9]*$')
       -- An address-only register is held to more. A counter inside a store
