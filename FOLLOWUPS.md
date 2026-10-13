@@ -85,6 +85,10 @@ Nothing is done to get around these. They may open up, or answer a request.
   date that the adapters do not read. A license issued in the last few
   months is the same signal as a certificate of occupancy.
 
+- **Albuquerque food inspections** (`data.cabq.gov/business/foodinspections/`):
+  the current-year file held only its header on 2026-10-13, and the
+  site's robots.txt disallows everything. Left alone.
+
 ## Closed portals (403 or a challenge page), nothing to do but ask
 
 - **inspections.myhealthdepartment.com**: Tennessee and Virginia
