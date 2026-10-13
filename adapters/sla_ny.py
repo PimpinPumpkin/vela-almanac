@@ -46,7 +46,7 @@ def main():
             lng, lat = (r.get("georeference") or {}).get("coordinates") or (None, None)
             out.row("sla_ny", r["licensepermitid"], r.get("dba") or r.get("legalname"),
                     address(r.get("actualaddressofpremises"), r.get("city"), "NY %s" % (r.get("zipcode") or "")[:5]),
-                    lat, lng, "open", updated)
+                    lat, lng, "open", updated, since=r.get("originalissuedate"))
         offset += len(rows)
         if len(rows) < PAGE:
             break

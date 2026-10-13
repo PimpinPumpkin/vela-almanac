@@ -30,14 +30,14 @@ def main():
     out = Writer("dcwp_nyc")
     for r in rows(HOST, DATASET, where="license_type = 'Premises' AND license_status = 'Active' AND address_state = 'NY'",
                   select="license_nbr,business_name,dba_trade_name,business_category,address_building,"
-                         "address_street_name,address_city,address_zip,latitude,longitude"):
+                         "address_street_name,address_city,address_zip,latitude,longitude,license_creation_date"):
         if any(word in (r.get("business_category") or "").lower() for word in NO_SHOP):
             out.drop("no shop a customer visits")
             continue
         street = ("%s %s" % (r.get("address_building") or "", r.get("address_street_name") or "")).strip()
         out.row("dcwp_nyc", r["license_nbr"], r.get("dba_trade_name") or r.get("business_name"),
                 address(street, r.get("address_city"), "NY %s" % (r.get("address_zip") or "")[:5]),
-                r.get("latitude"), r.get("longitude"), "open", as_of)
+                r.get("latitude"), r.get("longitude"), "open", as_of, since=r.get("license_creation_date"))
     out.close()
 
 

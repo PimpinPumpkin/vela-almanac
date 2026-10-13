@@ -37,7 +37,7 @@ PAGE = 50000
 # NAICS sectors: 44-45 retail, 71 recreation, 72 food and lodging, 81 repair and personal services
 STOREFRONT = ("44", "45", "71", "72", "81")
 NON_STORE_RETAIL = "454"
-FIELDS = "tp_number,loc_number,loc_name,address_number,address_text,loc_city,loc_zip"
+FIELDS = "tp_number,loc_number,loc_name,address_number,address_text,loc_city,loc_zip,first_sale_date"
 
 
 def main():
@@ -56,7 +56,7 @@ def main():
             street = ("%s %s" % (r.get("address_number") or "", r.get("address_text") or "")).strip()
             out.row("cpa_tx", "%s-%s" % (r.get("tp_number"), r.get("loc_number")), r.get("loc_name"),
                     address(street, r.get("loc_city"), "TX %s" % (r.get("loc_zip") or "")[:5]),
-                    None, None, "open", updated)
+                    None, None, "open", updated, since=r.get("first_sale_date"))
         offset += len(rows)
         if len(rows) < PAGE:
             break

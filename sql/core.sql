@@ -323,10 +323,12 @@ create or replace table born as
                         case when s.pinned then coalesce(n.lng, a.lng) else r.lng end as lng),
            s.category, s.pinned, s.strict
     from register_n r join storefront_source s using (source)
-    left join addr_pt a on s.pinned and a.zip = r.zip and a.hn = r.hn and a.sk = r.sk
+    -- (joined for every row and used only for pinned ones: a test on the register's side
+    -- of this join makes it crawl on a state the size of California)
+    left join addr_pt a on a.zip = r.zip and a.hn = r.hn and a.sk = r.sk
     -- or the point a second public layer gives this very record
     left join (select source, source_id, any_value(lat) as lat, any_value(lng) as lng from pins group by all) n
-      on s.pinned and n.source = r.source and n.source_id = r.source_id
+      on n.source = r.source and n.source_id = r.source_id
     where r.state = 'open'
       and case when s.pinned then coalesce(n.lat, a.lat) else r.lat end is not null
       -- a pin can lie outside the region when only the row's ZIP brought it in
@@ -376,14 +378,21 @@ create or replace table born as
                and (regexp_matches(r.name, '[(@]| at | - (deli|bakery|meat|produce|seafood|starbucks|kitchen|cafe|cafeteria|concession)', 'i')
                              or regexp_matches(r.name, '\b(school|elementary|academy|university|college|church|ministr|baptist|methodist|hospital|medical|nursing|rehab|senior|child|daycare|day care|preschool|learning|head start|ymca|club|lodge|vfw|concession|stand|catering|commissary|truck|mobile)', 'i')))
   ),
-  lookalike as materialized (
-    select distinct u.id
+  -- every listed name within 200 m of a candidate, found once; the name
+  -- tests below are slow and run on these pairs only
+  near as materialized (
+    select u.id, u.nn, u.hn, u.strict, p.nn as pnn, p.hn as phn, dist_m(u.lat, u.lng, p.lat, p.lng) as d
     from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched) u
     join (select p.nn, p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
           from core_names p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)) p
       on p.cy = u.cy and p.cx = u.cx
-    where (dist_m(u.lat, u.lng, p.lat, p.lng) <= 200 and name_sim(u.nn, p.nn) >= 0.9)
-       or (dist_m(u.lat, u.lng, p.lat, p.lng) <= 80
+    where dist_m(u.lat, u.lng, p.lat, p.lng) <= 200
+  ),
+  lookalike as materialized (
+    select distinct id from near n,
+         lateral (select n.nn as nn, n.hn as hn, n.strict as strict) u, lateral (select n.pnn as nn, n.phn as hn) p
+    where (n.d <= 200 and name_sim(u.nn, p.nn) >= 0.9)
+       or (n.d <= 80
       and (jaro_winkler_similarity(u.nn, p.nn) >= 0.7
            -- same door and same first word: "Silk Lounge" and "Silk Restaurant and Lounge"
            or (u.hn = p.hn and split_part(u.nn, ' ', 1) = split_part(p.nn, ' ', 1))
@@ -395,7 +404,8 @@ create or replace table born as
                                  and left(replace(u.nn, ' ', ''), 6) = left(replace(p.nn, ' ', ''), 6))
                              or (length(p.nn) >= 3 and initials(u.nn) = p.nn)
                              -- "kentucky fried chicken h730213" beside "kfc"
-                             or (length(p.nn) >= 3 and initials(array_to_string(string_split(u.nn, ' ')[1:length(p.nn)], ' ')) = p.nn)
+                             or (length(p.nn) between 3 and 5 and length(initials(u.nn)) = length(p.nn) + 1
+                                 and left(initials(u.nn), length(p.nn)) = p.nn)
                              or (length(u.nn) >= 3 and initials(p.nn) = u.nn)))))
     union
     -- An address-only register row at the door of a fuel station, a

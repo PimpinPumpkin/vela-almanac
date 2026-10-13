@@ -89,14 +89,19 @@ class Writer:
         self.f = open(self.path + ".part", "w", newline="")
         self.w = csv.writer(self.f)
         self.w.writerow(COLUMNS)
+        self.name = name
         self.kept = {}
         self.ids = set()
         self.dropped = {}
+        self.opened = []
 
     def drop(self, why):
         self.dropped[why] = self.dropped.get(why, 0) + 1
 
-    def row(self, source, source_id, name, addr, lat, lng, state, date):
+    def row(self, source, source_id, name, addr, lat, lng, state, date, since=None):
+        """since: the day the business opened at this address, where the register says so
+        (a certificate of occupancy, a license's first issue). It goes to a file of its
+        own, since/<name>.csv, and never changes what the row itself says."""
         if lat in (None, "") and lng in (None, ""):
             if not re.search(r"\d{5}(-\d{4})?\s*$", addr or ""):
                 return self.drop("no position and no ZIP")
@@ -117,6 +122,8 @@ class Writer:
             return self.drop("same id twice")
         self.ids.add((source, source_id))
         self.w.writerow([source, source_id, name.strip(), addr, lat, lng, state, date])
+        if since and re.match(r"(19[5-9]|20)\d\d-\d\d-\d\d$", str(since)[:10]) and str(since)[:10] <= date:
+            self.opened.append((source, source_id, str(since)[:10]))
         key = (source, state)
         self.kept[key] = self.kept.get(key, 0) + 1
 
@@ -129,6 +136,15 @@ class Writer:
         if self.held:
             self._keep_earlier()
         os.replace(self.path + ".part", self.path)
+        if self.opened and not self.held:
+            folder = os.path.join(EVIDENCE, "since")
+            os.makedirs(folder, exist_ok=True)
+            with open(os.path.join(folder, self.name + ".csv.part"), "w", newline="") as f:
+                w = csv.writer(f)
+                w.writerow(("source", "source_id", "since"))
+                w.writerows(self.opened)
+            os.replace(os.path.join(folder, self.name + ".csv.part"), os.path.join(folder, self.name + ".csv"))
+            print("opening dates: %d" % len(self.opened))
         for (source, state), n in sorted(self.kept.items()):
             print("%s %s: %d" % (source, state, n))
         for why, n in sorted(self.dropped.items()):

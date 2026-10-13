@@ -55,7 +55,7 @@ def main():
         out = Writer(source)
         for row in newest.values():
             if row[0] == source:
-                out.row(*row[:6], "open", row[6])
+                out.row(*row[:6], "open", row[6], since=row[6])
         out.close()
 
 

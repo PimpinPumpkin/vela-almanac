@@ -29,7 +29,7 @@ VIEW = "https://data.texas.gov/api/views/7hf9-qc9f.json"
 ROWS = "https://data.texas.gov/resource/7hf9-qc9f.json"
 PAGE = 50000
 TEMPORARY = {"NT", "TR", "NE", "NB"}
-FIELDS = "license_id,license_type,trade_name,owner,address,city,zip"
+FIELDS = "license_id,license_type,trade_name,owner,address,city,zip,original_issue_date"
 
 
 def main():
@@ -47,7 +47,7 @@ def main():
                 continue
             out.row("tabc_tx", (r.get("license_id") or "").split(".")[0], r.get("trade_name") or r.get("owner"),
                     address(r.get("address"), (r.get("city") or "").upper(), "TX %s" % (r.get("zip") or "")[:5]),
-                    None, None, "open", updated)
+                    None, None, "open", updated, since=r.get("original_issue_date"))
         offset += len(page)
         if len(page) < PAGE:
             break

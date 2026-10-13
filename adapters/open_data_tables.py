@@ -265,14 +265,15 @@ def wm_nyc(out):
 def la_biz(out):
     host, table = "data.lacity.org", "6rrh-rzua"
     as_of = updated(host, table)
-    for r in rows(host, table, select="location_account,business_name,dba_name,street_address,city,zip_code,location_1"):
+    for r in rows(host, table, select="location_account,business_name,dba_name,street_address,city,zip_code,location_1,location_start_date"):
         lat, lng = point(r.get("location_1"))
         if lat is None:
             # no point means an address outside the city, often outside California
             out.drop("not located in the city")
             continue
         out.row("la_biz", r.get("location_account"), r.get("dba_name") or r.get("business_name"),
-                address(r.get("street_address"), r.get("city"), "CA %s" % (r.get("zip_code") or "")[:5]), lat, lng, "open", as_of)
+                address(r.get("street_address"), r.get("city"), "CA %s" % (r.get("zip_code") or "")[:5]), lat, lng, "open", as_of,
+                since=r.get("location_start_date"))
 
 
 def lottery_tx(out):
@@ -292,7 +293,7 @@ def sf_biz(out):
     as_of = updated(host, table)
     seen = set()
     for r in rows(host, table, where="city = 'San Francisco' and location_end_date is null and dba_end_date is null",
-                  select="uniqueid,dba_name,full_business_address,business_zip,location"):
+                  select="uniqueid,dba_name,full_business_address,business_zip,location,location_start_date"):
         key = ((r.get("dba_name") or "").upper(), r.get("full_business_address"))
         if key in seen:
             continue
@@ -300,7 +301,7 @@ def sf_biz(out):
         lat, lng = point(r.get("location"))
         out.row("sf_biz", r.get("uniqueid"), r.get("dba_name"),
                 address(r.get("full_business_address"), "San Francisco", "CA %s" % (r.get("business_zip") or "")[:5]),
-                lat, lng, "open", as_of)
+                lat, lng, "open", as_of, since=r.get("location_start_date"))
     # Locations the city has an end date for are kept aside, not used: where another source
     # could check them, it called 102 closed and 72 still open (SPEC.md section 9).
     held = Writer("sf_biz_ended", held=True)

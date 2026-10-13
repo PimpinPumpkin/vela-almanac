@@ -30,7 +30,7 @@ def main():
     out = Writer("biz_nola")
     seen = set()
     for r in rows(HOST, DATASET, where="state = 'LA'",
-                  select="businesslicensenumber,businessname,businesstype,businessaddress,city,zip,the_geom"):
+                  select="businesslicensenumber,businessname,businesstype,businessaddress,city,zip,the_geom,businessstartdate"):
         kind = (r.get("businesstype") or "").lower()
         if any(k in kind for k in NOT_A_SHOP):
             out.drop("not a shop-front trade")
@@ -43,7 +43,7 @@ def main():
         lat, lng = point(r.get("the_geom"))
         out.row("biz_nola", r.get("businesslicensenumber"), r.get("businessname"),
                 address(r.get("businessaddress"), r.get("city"), "LA %s" % (r.get("zip") or "")[:5]),
-                lat, lng, "open", as_of)
+                lat, lng, "open", as_of, since=r.get("businessstartdate"))
     out.close()
 
 
