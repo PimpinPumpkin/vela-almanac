@@ -53,12 +53,18 @@ duckdb -noheader -csv -c "select distinct wikidata from '$OUT/osm.parquet' where
 CLIP=""
 if [ -n "${STATE:-}" ]; then
   state_outlines
-  CLIP="create table outline as select st_geomfromwkb(wkb) as g from '$CACHE/census/states.parquet' where state = '$STATE';"
+  CLIP="create table outline as select st_geomfromwkb(wkb) as g from '$CACHE/census/states.parquet' where state = '$STATE';
+create table outlines as select state, st_geomfromwkb(wkb) as g from '$CACHE/census/states.parquet';"
   for t in ovt atp osm; do
     CLIP="$CLIP
 delete from $t where not (
   st_contains((select g from outline), st_point(lng, lat))
-  or (region = '$STATE' and st_dwithin((select g from outline), st_point(lng, lat), 0.05)));"
+  or (region = '$STATE' and st_dwithin((select g from outline), st_point(lng, lat), 0.05)));
+-- The other side of that allowance: a row inside this outline whose address names a
+-- neighbor, and which the neighbor's build keeps under the same rule, is the neighbor's.
+-- Without this a shop on a state line was in both files.
+delete from $t where region <> '$STATE' and region in (select state from outlines)
+  and st_dwithin((select g from outlines o where o.state = $t.region), st_point(lng, lat), 0.05);"
   done
   # Register rows too: a state's box reaches into its neighbors (New Jersey's covers Manhattan),
   # and a neighbor's licensed shop that matches nothing here would be added to this state as new.

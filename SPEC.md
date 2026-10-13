@@ -267,7 +267,9 @@ another state is dropped wherever its point falls. Until 2026-10-12 only
 places were cut, so a shop in Manhattan that a New York register listed
 was added to New Jersey's file as well (New Jersey's box covers
 Manhattan): 67,000 added places were in more than one state's file in
-the build of that day.
+the build of that day. A place within about 5 km of a state line whose
+address names the neighboring state belongs to that neighbor only; 13,000
+such places were in both files until the same day.
 
 **Registers that give only an address.** A geocoder's guess along the
 street is good enough to match a place and not good enough to make one.
