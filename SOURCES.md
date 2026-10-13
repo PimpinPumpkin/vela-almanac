@@ -467,6 +467,19 @@ are left out.
   `https://data.texas.gov/d/qfph-9bnd`. No license stated; `none-stated`.
   Billing addresses, customer names and phone numbers are not read.
   39 of 40 matches right in Houston. May add places (SPEC section 6).
+- San Diego County food facility permits (active, 13,000 fixed premises;
+  trucks, carts, boats, vending machines, caterers, schools and home
+  kitchens left out): `https://internal-sandiegocounty.data.socrata.com/d/c5ez-ufrd`.
+  Marked public domain. Owner names and phone numbers are not read.
+- Santa Clara County Department of Environmental Health, food businesses
+  (9,700, with positions): `https://data.sccgov.org/d/vuw7-jmjk`. No
+  license stated; `none-stated`.
+- New York State WIC vendors (2,800 groceries and pharmacies; farmers
+  left out): `https://health.data.ny.gov/d/4az8-5hx6`. OPEN-NY terms.
+  Read in their own boxes: 40 of 40 matches right in San Diego, San Jose
+  and Buffalo. None of the three may add places: food permits were tried
+  for that elsewhere and refused (SPEC section 9), and WIC stores are
+  grocers the base already has.
 - Looked at and not used: Delaware and Massachusetts child care tables
   (`data.delaware.gov/d/iuzd-3dbt`, `educationtocareer.data.mass.gov/d/dn4d-tjbb`),
   the same rosters `adapters/childcare_centers.py` already reads;

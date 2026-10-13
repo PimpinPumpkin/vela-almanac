@@ -20,12 +20,12 @@ create or replace macro license_of(source) as
                     'wic_nj', 'nn_biz', 'sac_tobacco', 'fairfax_food',
                     'abc_nc', 'abc_ky', 'abc_ks', 'plcb_pa', 'tda_tn_food', 'dhhs_nc_inspections',
                     'dph_ga_inspections', 'msdh_ms_food', 'adph_al_food', 'osdh_ok_food',
-                    'norfolk_biz', 'berkeley_biz', 'nj_inspection', 'tceq_tx_cleaners')
+                    'norfolk_biz', 'berkeley_biz', 'nj_inspection', 'tceq_tx_cleaners', 'scc_food')
          or source like 'foodsafety_%'
          or source like 'dca_ca_%' or (source like 'childcare_%' and source not in ('childcare_ca', 'childcare_co', 'childcare_ny', 'childcare_nyc', 'childcare_pa', 'childcare_tx'))
          or source like 'dbpr_fl_%' then 'none-stated'
     when source in ('sla_ny', 'dmv_ny', 'dos_ny_salons', 'agm_ny', 'tax_ny_tobacco', 'ocm_ny', 'doh_ny_food',
-                    'childcare_ny', 'lottery_ny') then 'OPEN-NY-terms'
+                    'childcare_ny', 'lottery_ny', 'wic_ny') then 'OPEN-NY-terms'
     when source in ('dohmh_nyc', 'dcwp_nyc', 'childcare_nyc', 'wm_nyc') then 'NYC-Open-Data-terms'
     when source like 'cdph_chicago%' or source like 'bacp_chicago%' then 'Chicago-Data-Portal-terms'
     when source in ('isd_boston_food', 'isd_boston_inspection', 'lb_boston', 'childcare_co', 'cambridge_food', 'sf_biz',

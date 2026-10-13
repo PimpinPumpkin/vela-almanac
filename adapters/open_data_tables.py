@@ -324,10 +324,40 @@ def tceq_tx_cleaners(out):
                 None, None, "open", as_of)
 
 
+def sd_county_food(out):
+    """San Diego County food facility permits. Trucks, carts, boats, vending machines, caterers
+    and home kitchens have no shop to find."""
+    host, table = "internal-sandiegocounty.data.socrata.com", "c5ez-ufrd"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="active_permit = 'A' and permit_status in ('Permit Renewed', 'Issued') and state = 'CA' "
+                  "and business_type in ('Restaurant Food Facility', 'Pre-Packaged Retail Market', 'Retail Market with Deli', "
+                  "'Low Risk Food Facility', 'Miscellaneous Food Facility', 'Retail Food Processing', 'Single Operating Site')",
+                  select="record_id,record_name,address,city,zip"):
+        out.row("sd_county_food", r.get("record_id"), r.get("record_name"),
+                address(r.get("address"), r.get("city"), "CA %s" % (r.get("zip") or "")[:5]), None, None, "open", as_of)
+
+
+def scc_food(out):
+    host, table = "data.sccgov.org", "vuw7-jmjk"
+    as_of = updated(host, table)
+    for r in rows(host, table, select="business_id,name,address,city,postal_code,latitude,longitude"):
+        out.row("scc_food", r.get("business_id"), r.get("name"),
+                address(r.get("address"), r.get("city"), "CA %s" % (r.get("postal_code") or "")[:5]),
+                r.get("latitude"), r.get("longitude"), "open", as_of)
+
+
+def wic_ny(out):
+    host, table = "health.data.ny.gov", "4az8-5hx6"
+    as_of = updated(host, table)
+    for r in rows(host, table, where="type <> 'Farmer'", select="facility_name,street_address,city,zip"):
+        out.row("wic_ny", "%s-%s-%s" % (r.get("facility_name"), r.get("street_address"), r.get("zip")), r.get("facility_name"),
+                address(r.get("street_address"), r.get("city"), "NY %s" % (r.get("zip") or "")[:5]), None, None, "open", as_of)
+
+
 TABLES = [sf_biz, lottery_tx, lottery_ny, wm_nyc, cambridge_food, moco_md_alcohol, childcare_ny, childcare_nyc, childcare_pa,
           childcare_tx, nj_inspection, la_biz, austin_food, cincinnati_food, boulder_food, marin_food, brla_biz,
-          norfolk_biz, berkeley_biz, tceq_tx_cleaners]
-NO_POSITIONS = {tceq_tx_cleaners, lottery_tx, austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}
+          norfolk_biz, berkeley_biz, tceq_tx_cleaners, sd_county_food, scc_food, wic_ny]
+NO_POSITIONS = {tceq_tx_cleaners, sd_county_food, wic_ny, lottery_tx, austin_food, brla_biz, berkeley_biz, childcare_pa, childcare_tx}
 
 
 def main():

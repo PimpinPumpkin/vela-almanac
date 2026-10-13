@@ -702,6 +702,7 @@ signal at all.
 | dhhs_nc_inspections | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | cambridge_food | open | day the permit was issued, last two years | matcher |
 | moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny, lottery_fl | open | day the table was last updated | matcher |
+| sd_county_food, scc_food, wic_ny | open | day the table was last updated; San Diego County food permits in force for fixed premises, Santa Clara County food businesses, New York WIC stores and pharmacies | matcher; San Diego and New York positions from the Census geocoder |
 | tceq_tx_cleaners | open | day the table was last updated, operating dry cleaners and drop stations | matcher, positions from the Census geocoder |
 | wm_nyc | open | day of the shop's newest test in the last two years | matcher |
 | austin_food, cincinnati_food, boulder_food, marin_food | open | day of the newest inspection in the last two years | matcher (Austin geocoded) |
