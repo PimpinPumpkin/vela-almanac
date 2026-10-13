@@ -15,6 +15,10 @@ step() { printf '%s  %s\n' "$(date +%T)" "$*" >&2; }
 [ -s "$OUT/addresses.parquet" ] || { step addresses; base/addresses.sh "$REGION" >/dev/null || rm -f "$OUT/addresses.parquet" "$OUT/addresses.parquet.part"; }
 ADDR_SQL="select null::varchar as number, null::varchar as street, null::varchar as postcode, null::double as lat, null::double as lng where false"
 [ -s "$OUT/addresses.parquet" ] && ADDR_SQL="select number, street, postcode, lat, lng from '$OUT/addresses.parquet'"
+# County and state address layers (base/address_layers.py) fill what Overture leaves bare.
+if [ "$COUNTRY" = US ] && ls "$CACHE"/addresses/*.csv >/dev/null 2>&1; then
+  ADDR_SQL="$ADDR_SQL union all select number, street, postcode, lat::double, lng::double from read_csv('$CACHE/addresses/*.csv', header = true, all_varchar = true, delim = ',', quote = '\"', escape = '\"') where lat::double between $S and $N and lng::double between $W and $E"
+fi
 step foursquare closing dates; FSQ_COUNTRY="$COUNTRY" signals/fsq_closed.sh >/dev/null
 # Registers are per country. US files sit in data/cache/evidence, another
 # country's in data/cache/evidence/<code>. prepare.sh fetches the US set.

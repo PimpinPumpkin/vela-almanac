@@ -318,7 +318,7 @@ create or replace table addr_pt as
 -- point of its house number, street and ZIP. A geocoder's guess along the
 -- street is good enough to match a place and not good enough to make one.
 create or replace table born as
-  with unmatched as (
+  with unmatched as materialized (
     select r.* replace (case when s.pinned then coalesce(n.lat, a.lat) else r.lat end as lat,
                         case when s.pinned then coalesce(n.lng, a.lng) else r.lng end as lng),
            s.category, s.pinned, s.strict
@@ -376,7 +376,7 @@ create or replace table born as
                and (regexp_matches(r.name, '[(@]| at | - (deli|bakery|meat|produce|seafood|starbucks|kitchen|cafe|cafeteria|concession)', 'i')
                              or regexp_matches(r.name, '\b(school|elementary|academy|university|college|church|ministr|baptist|methodist|hospital|medical|nursing|rehab|senior|child|daycare|day care|preschool|learning|head start|ymca|club|lodge|vfw|concession|stand|catering|commissary|truck|mobile)', 'i')))
   ),
-  lookalike as (
+  lookalike as materialized (
     select distinct u.id
     from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched) u
     join (select p.nn, p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
@@ -446,7 +446,8 @@ create or replace table born as
   where u.id not in (select id from lookalike)
     and (u.category not in ('commercial_roll', 'food_roll') or u.id in (select id from anchored))
     and (u.category <> 'food_roll'
-         or (u.source, u.hn, round(u.lat, 3), round(u.lng, 3)) not in (select (source, hn, la, lo) from crowded))
+         or not exists (select 1 from crowded c where c.source = u.source and c.hn = u.hn
+                        and c.la = round(u.lat, 3) and c.lo = round(u.lng, 3)))
   -- one register can list a premises twice, and two registers can list the same shop
   -- (the same name and house number within a few kilometers: a register that lists one
   -- premises under two ZIPs puts its rows on two address points)

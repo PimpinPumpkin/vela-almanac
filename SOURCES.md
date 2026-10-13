@@ -410,6 +410,33 @@ None states a license; rows are marked `none-stated`.
   row that adds a place, and no address is published.
 - Fetched from: `s3://overturemaps-us-west-2/release/<release>/theme=addresses/type=address/`
   (`base/addresses.sh`)
+
+### Address points from county and state layers
+Overture's address theme is bare in places (Pittsburgh, Charleston,
+Oakland, most of Oklahoma, Las Vegas, New Orleans, Detroit, Milwaukee).
+`base/address_layers.py` reads public layers for some of them into
+`data/cache/addresses/`, and the build reads those beside Overture's.
+Only a position is taken, as above; no address is published.
+- Allegheny County, Pennsylvania, address points (663,000 active):
+  `https://gisdata.alleghenycounty.us/arcgis/rest/services/Addressing/Addressing_AddressPoints/MapServer/0`.
+  "For informational purposes only", no license.
+- Alameda County, California, address points (637,000):
+  `https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Address_Points/FeatureServer/0`.
+  No terms stated.
+- Charleston County, South Carolina (70,000, the unincorporated county
+  and small towns) and City of Charleston (58,000):
+  `https://services.arcgis.com/jR9eNCjAkxwH2nLe/arcgis/rest/services/Charleston_County_Addresses/FeatureServer/0`,
+  `https://services2.arcgis.com/tQaXW7Zb1Vphzvgd/arcgis/rest/services/City_Addresses/FeatureServer/0`.
+  The county's notice cites SC Code 30-2-50, which bars using personal
+  information from public records for commercial solicitation; an
+  address point holds none.
+- Oklahoma NG911 address points (1.9 million), the public release from
+  okmaps.org as hosted by the University of Oklahoma:
+  `https://services.arcgis.com/3xOwF6p0r7IHIjfn/arcgis/rest/services/NG911_Address_Points/FeatureServer/0`.
+  No terms stated.
+- Not found yet: Las Vegas (Clark County), New Orleans, Detroit.
+  Wisconsin's statewide NG911 layer has no ZIP field, which the address
+  key needs. A layer titled for Wayne County turned out to be Ohio's.
 - Used for: the position of a register row that has only an address, when
   that row adds a place. Not used to match.
 
