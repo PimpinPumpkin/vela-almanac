@@ -9,7 +9,7 @@ create or replace macro license_of(source) as
     when source like 'abca_dc%' or source in ('bbl_dc', 'childcare_ca', 'mke_food', 'mke_liquor') then 'CC-BY-4.0'
     when source in ('abc_ca', 'abc_ca_holder', 'tabc_tx', 'dbpr_fl_food', 'abt_fl', 'atc_mo', 'olcc_or', 'tdlr_tx',
                     'bot_sac', 'emd_sac', 'lou_food', 'abc_ky_jefferson', 'li_phl', 'biz_seattle', 'biz_denver', 'childcare_wa',
-                    'dor_wi_liquor', 'isp_id_liquor', 'lcb_wa', 'abc_nj', 'lcc_ne', 'bablo_me', 'abc_ar', 'able_ok',
+                    'dor_wi_liquor', 'isp_id_liquor', 'lcb_wa', 'abc_nj', 'lcc_ne', 'lcc_ne_other', 'bablo_me', 'abc_ar', 'able_ok',
                     'biz_lasvegas', 'dchd_omaha_food', 'mpls_food', 'mpls_liquor', 'llb_baltimore', 'cph_columbus_food',
                     'mdard_mi_food', 'dph_sc_food', 'mda_mn_food', 'dpor_va', 'bop_tx', 'bop_oh',
                     'phx_liquor', 'phx_liquor_trade', 'nash_beer', 'anc_liquor', 'anc_liquor_trade', 'sux_food', 'hsv_liquor', 'det_biz', 'det_liquor',

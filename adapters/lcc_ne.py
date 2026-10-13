@@ -21,6 +21,7 @@ from evidence import Writer, address, get
 
 from xlsx import rows
 
+PREMISES = {"A", "B", "C", "D", "I", "J", "L", "G", "AB", "IB", "CS", "E", "Y", "Y1", "Z", "M"}
 PAGE = "https://lcc.nebraska.gov/licensing-sdl/active-license-roster"
 LINK = re.compile(r'href="([^"]*Active[^"]*License[^"]*Roster[^"]*\.xlsx)"', re.I)
 PLACE = re.compile(r"^(.*?)\s*(?:_x000D_)?\s*\n\s*(.*?),\s*NE\s+(\d{5})", re.S)
@@ -33,7 +34,7 @@ def main():
         raise SystemExit("lcc_ne: no roster linked from the roster page")
     table = rows(get(urllib.parse.urljoin(PAGE, links[0].replace(" ", "%20"))))
     head = next(table)
-    col = {name: head.index(name) for name in ("License Type Group", "License Number", "License State", "Trade Name", "Address")}
+    col = {name: head.index(name) for name in ("License Type Group", "Class", "License Number", "License State", "Trade Name", "Address")}
     out = Writer("lcc_ne")
     for r in table:
         r = r + [""] * (len(head) - len(r))
@@ -43,7 +44,11 @@ def main():
         if not m:
             out.drop("no usable address")
             continue
-        out.row("lcc_ne", r[col["License Number"]], r[col["Trade Name"]],
+        # Premises classes (bars, restaurants, stores, breweries) keep the source name. Nonprofit and
+        # special designated licenses, caterers' second licenses and wholesalers get their own, so
+        # they can confirm a place and never add one.
+        source = "lcc_ne" if r[col["Class"]] in PREMISES else "lcc_ne_other"
+        out.row(source, r[col["License Number"]], r[col["Trade Name"]],
                 address(m.group(1), m.group(2), "NE %s" % m.group(3)), None, None, "open", today)
     out.close(geocode=True)
 

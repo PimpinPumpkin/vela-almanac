@@ -243,6 +243,7 @@ create or replace table storefront_source as
     ('bablo_me', 'licensed_premises', true, true),
     ('abc_ky', 'licensed_premises', true, true),
     ('led_co', 'licensed_premises', true, true),
+    ('lcc_ne', 'licensed_premises', true, true),
     ('phx_liquor', 'licensed_premises', false, true),
     ('anc_liquor', 'licensed_premises', false, true),
     ('nash_beer', 'licensed_premises', false, true),

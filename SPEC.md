@@ -287,7 +287,7 @@ placed on that point. Such a register is held to more: no neighbor within
 Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
 not sit at the door of a fuel station, supermarket, stadium, campus or
 hospital; and names of counters inside stores, institutions, food service
-contractors and businesses at an apartment are left out. Fourteen registers
+contractors and businesses at an apartment are left out. Fifteen state registers
 are allowed: liquor licenses, because a licensed premises is a storefront
 by definition, and one list each of tobacco retailers, child care
 centers, pharmacies and lodging:
@@ -305,6 +305,7 @@ centers, pharmacies and lodging:
 | Texas pharmacies (Board of Pharmacy) | Houston | 40 | 37 of 40: independent, specialty and in-store pharmacies | 3 |
 | Florida lodging licenses (DBPR) | Jacksonville and Miami | 19 | 16 of the 19 the two boxes hold: hotels and motels; too few to read 40 | 3 |
 | Colorado liquor licenses, placed by the state's alcohol outlet points | Denver | 160 | 37 of 40: restaurants, bars, liquor stores; the others are big-box stores the map may hold under a far-off point, and a members' club | 17 |
+| Nebraska LCC, premises classes only | Omaha | 47 | 38 of 40: bars, markets, liquor stores; the others are an event hall and a delivery warehouse | 3 |
 | Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
 | New Jersey ABC | Newark | 25 | 29 of 31 read before placeholder names ("NONE", "Not Available") and double listings were removed | 2 |
 | Maine BABLO | Portland | 29 | 27 of 29; the others are a delivery warehouse and a hotel | 1 |
@@ -882,7 +883,7 @@ evidence from a different source for the same place.
 | Wikidata P576 on offices | 4 hits across two boxes, 2 of them a company merger date on an office building. | Skipped when the OSM feature is `office=*`. The 2 that remain (a hospital, a school) are right. |
 | Merging Overture duplicates on anything looser than an identical name | Same house number with a leading-words or near-spelling match: about 10 of 21 read were a part and its whole (a gift shop and its hospital, two advisors at one bank). No house number: mostly junk pages sharing a point. Different numbers within 30 m: 13 pairs, several wrong. | Only same number plus identical name merges. |
 | Adding places from address-only food inspection registers (Alabama, Huntsville box) | 195 rows would be added. After three rounds of guards 37 were left, and 25 of the 37 were a storefront of its own. | The rest are campus dining halls, kiosks inside supermarkets, company cafeterias and day cares. An inspection list names kitchens, not storefronts. Used as evidence only. |
-| Adding places from the Nebraska liquor roster (Omaha box) | 69 would be added; 28 of 40 read were a storefront. | The roster holds special licenses of foundations, a parish office, a fraternity house and a sports commission. Evidence only until the license class is read. |
+| Adding places from every class in the Nebraska liquor roster (Omaha box) | 69 would be added; 28 of 40 read were a storefront. | The roster holds special licenses of foundations, a parish office, a fraternity house and a sports commission. Those classes (nonprofit, special designated, catering, wholesale) are now a source of their own that never adds a place, and the premises classes do add (section 6). |
 | Adding places from Missouri alcohol licenses (Kansas City box) | 63 would be added; 33 of 40 read were a storefront. | Two were a person's name, others a vending company and a food contractor. Evidence only. |
 | Adding places from Arkansas alcohol permits (Little Rock box) | 34 would be added; 27 were a storefront. | The rest carry the permit holder's company name ("Foxden USP Opco" for three U.S. Pizza branches already listed). Evidence only. |
 | Adding places from the NCES public school list (Houston box) | 44 would be added; nearly all are schools the map already has. | The list abbreviates ("KOLTER EL", "YATES H S"), so the name test does not see "Kolter Elementary School" as the same school, and the rest are programs at a district office. Evidence only. |
