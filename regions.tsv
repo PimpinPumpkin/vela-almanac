@@ -57,6 +57,7 @@ oakland-box	37.74	-122.30	37.84	-122.16	california/norcal
 riverside-box	33.88	-117.50	34.02	-117.28	california/socal
 pittsburgh-box	40.38	-80.06	40.50	-79.88	pennsylvania
 san-diego-box	32.68	-117.26	32.86	-117.05	california/socal
+virginia-beach-box	36.75	-76.20	36.92	-75.96	virginia
 delaware	38.45	-75.79	39.84	-75.04	delaware	DE
 kentucky	36.49	-89.58	39.15	-81.96	kentucky	KY
 # Every other state and DC. Boxes are the Census outline plus a small margin.

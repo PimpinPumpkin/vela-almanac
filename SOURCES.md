@@ -400,15 +400,18 @@ None states a license; rows are marked `none-stated`.
   written by `adapters/led_co.py`). Only points marked "Point Accuracy".
 
 ### Address points, by way of Overture's address theme
-- License: only rows Overture marks public domain are read
-  (`base/addresses.sh`): the National Address Database (US federal work)
-  and county address files that are public domain under California or
-  Florida law. Rows marked proprietary (Colorado, Oregon, Mississippi, New
-  York City, Los Angeles County) or CC BY (Ada County, Idaho) are not read.
+- License: Overture attaches a license to each address's source. Read are
+  the National Address Database (US federal work, public domain), county
+  files public domain under California or Florida law, Ada County, Idaho
+  (CC BY 4.0, credited in NOTICE), and files Overture marks
+  `LicenseRef-Proprietary` (Colorado, Oregon, Mississippi, New York City,
+  Los Angeles County). The owner decided on 2026-10-12 to use the last
+  group too: only a position is taken from any of them, for a register
+  row that adds a place, and no address is published.
 - Fetched from: `s3://overturemaps-us-west-2/release/<release>/theme=addresses/type=address/`
+  (`base/addresses.sh`)
 - Used for: the position of a register row that has only an address, when
-  that row adds a place. Not used to match, and no address is published
-  from it.
+  that row adds a place. Not used to match.
 
 ### Tables found by searching the open data catalog (2026-10-12)
 Read by `adapters/open_data_tables.py`, one source per table. Owner,
@@ -546,6 +549,25 @@ director, phone or email columns.
 - Used for: food facilities with an active permit (open, dated by the
   newest inspection in two years), with positions from the Census
   geocoder. This is the county the state's lookup leaves out.
+
+### Maricopa County, Arizona, food establishment permits
+- Terms: the layer's description says it is for county internal use and
+  that outside use needs written authorization from the county GIS
+  office. The owner decided on 2026-10-12 to use it without asking. Rows
+  it touches are marked `Maricopa-County-terms`.
+- Fetched from: `https://services.arcgis.com/ykpntM6e3tHvzKRJ/arcgis/rest/services/Restaurant_(External)/FeatureServer/0`
+- Used for: establishments with an issued permit (open, dated by the
+  layer's last edit), with the layer's own positions. 28,800 permits.
+
+### City of Virginia Beach, business licenses
+- Terms: public, and "applications using data supplied by this site must
+  include" the city's disclaimer, which NOTICE carries. Rows it touches
+  are marked `Virginia-Beach-terms`.
+- Fetched from: `https://services2.arcgis.com/CyVvlIiUfRBmMQuu/arcgis/rest/services/Business_Licenses_view/FeatureServer/0`
+- Used for: licenses at a Virginia Beach address (open, dated the day the
+  license began), with positions from the Census geocoder. Event,
+  trustee, non-store, rental, construction and out-of-town classes are
+  left out; the owner's name and phone are not read.
 
 ### City and county layers added 2026-10-12
 Found by searching ArcGIS Hub; read by `adapters/city_layers.py`, which

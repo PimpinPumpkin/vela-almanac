@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # Overture address points inside a region box -> $OUT/addresses.parquet
-# Used to put a register row that has only an address on its building. Only
-# points whose own source is public domain or CC0 are kept, so the core
-# layer takes on no new terms: the National Address Database, and county
-# address files that are public domain under California or Florida law.
-# Overture marks Colorado, Oregon, Mississippi, New York City and Los
-# Angeles County addresses proprietary; those are left out, and such a
-# place yields an empty file.
+# Used to put a register row that has only an address on its building.
+# Every address point Overture carries is read, whatever license Overture
+# attaches to its source: the National Address Database and county files
+# that are public domain, Ada County, Idaho (CC BY), and the files Overture
+# marks proprietary (Colorado, Oregon, Mississippi, New York City, Los
+# Angeles County). The owner decided on 2026-10-12 to use them all; see
+# SOURCES.md. Only a position is taken, for a register row that adds a
+# place; no address is published from here.
 source "$(dirname "$0")/../lib/common.sh"
 region "$1"
 
@@ -23,7 +24,6 @@ copy (
   from read_parquet([$FILES])
   where bbox.xmin >= $W and bbox.xmax <= $E and bbox.ymin >= $S and bbox.ymax <= $N
     and country = '$COUNTRY' and number is not null and street is not null and postcode is not null
-    and (sources[1].license like 'LicenseRef-Public-Domain%' or sources[1].license in ('CC0-1.0', 'PDDL-1.0'))
 ) to '$OUT/addresses.parquet.part' (format parquet, compression zstd);
 SQL
 mv "$OUT/addresses.parquet.part" "$OUT/addresses.parquet"

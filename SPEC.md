@@ -281,13 +281,13 @@ such places were in both files until the same day.
 **Registers that give only an address.** A geocoder's guess along the
 street is good enough to match a place and not good enough to make one.
 A row from an address-only register is added only when its house number,
-street and ZIP are a public-domain address point (see below), and it is
-placed on that point. Such a register is held to more: no neighbor within
+street and ZIP are an address point (see below), and it is placed on
+that point. Such a register is held to more: no neighbor within
 80 m may share a real word with it or be its initials ("Airport Rd
 Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
 not sit at the door of a fuel station, supermarket, stadium, campus or
 hospital; and names of counters inside stores, institutions, food service
-contractors and businesses at an apartment are left out. Fifteen state registers
+contractors and businesses at an apartment are left out. Seventeen state registers
 are allowed: liquor licenses, because a licensed premises is a storefront
 by definition, and one list each of tobacco retailers, child care
 centers, pharmacies and lodging:
@@ -306,6 +306,8 @@ centers, pharmacies and lodging:
 | Florida lodging licenses (DBPR) | Jacksonville and Miami | 19 | 16 of the 19 the two boxes hold: hotels and motels; too few to read 40 | 3 |
 | Colorado liquor licenses, placed by the state's alcohol outlet points | Denver | 160 | 37 of 40: restaurants, bars, liquor stores; the others are big-box stores the map may hold under a far-off point, and a members' club | 17 |
 | Nebraska LCC, premises classes only | Omaha | 47 | 38 of 40: bars, markets, liquor stores; the others are an event hall and a delivery warehouse | 3 |
+| Oregon OLCC | Portland | 43 | 38 of 40: restaurants, bars, bottle shops; 13 then found an OSM feature | 13 |
+| Idaho State Police ABC | Boise | 43 | 37 of 40; the misses are wineries at a home address | 14 |
 | Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
 | New Jersey ABC | Newark | 25 | 29 of 31 read before placeholder names ("NONE", "Not Available") and double listings were removed | 2 |
 | Maine BABLO | Portland | 29 | 27 of 29; the others are a delivery warehouse and a hotel | 1 |
@@ -315,13 +317,12 @@ same record (a pin): Colorado's health department publishes a point for
 each liquor license by license number, and only those it marks as placed
 on the address are used.
 
-Address points come from the National Address Database and from county
-files that are public domain under California and Florida law, all read
-from Overture's address theme. Overture marks its Colorado, Oregon,
-Mississippi, New York City and Los Angeles County addresses proprietary
-and Idaho's CC BY; those are not read, and Oklahoma and Wisconsin have
-few points, so registers there add nothing this way unless they have
-pins. What was tried and refused is in section 9.
+Address points are every point in Overture's address theme: the National
+Address Database, county files public domain under California and
+Florida law, Ada County, Idaho (CC BY), and files Overture marks
+proprietary (Colorado, Oregon, Mississippi, New York City, Los Angeles
+County), which the owner decided on 2026-10-12 to use for positions.
+Oklahoma and Wisconsin have few points, so registers there add little. What was tried and refused is in section 9.
 
 **Join shape.** Candidates come from a grid hash join: cells are 0.004
 degrees of latitude by 0.008 of longitude, one side is copied into its nine
@@ -452,6 +453,8 @@ rows are the same place.
 | Allegheny County food facility inspections | number, address | 40 of 40 (Pittsburgh) | geocoded; independent food places in the box with a status went from 33% to 42% |
 | Riverside County food facilities, California licensed health facilities, Colorado tobacco retailers, Los Angeles County business licenses | number | 40 of 40 each (Riverside, Los Angeles, Denver, Los Angeles) | a store inside a fuel station finds the station through the lot's other names |
 | San Diego business tax certificates | number | 40 of 40 (San Diego) | places in the box with a status went from 11% to 18% |
+| Maricopa County food permits | number | 40 of 40 (Phoenix) | independent food places in the box with a status went from 15% to 36% |
+| Virginia Beach business licenses | number, address | 40 of 40 (Virginia Beach) | geocoded; dated by the day each license began, so older licenses do not count as recent |
 | East Baton Rouge businesses | number | 40 of 40 (Baton Rouge) | geocoded; places in the box with a status went from 8% to 24% |
 | Norfolk business licenses | number | 40 of 40 (Norfolk) | places in the box with a status went from 9% to 14% |
 | Berkeley business licenses | number, spot | 40 of 40 (Berkeley) | half geocoded; 15% to 20% |
@@ -683,6 +686,8 @@ signal at all.
 | childcare_az, _ca, _de, _ma, _mi, _mn, _nj, _tn, _vt, _wi | open | day the layer was last edited, or read; centers only | matcher |
 | phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor, det_food, miami_dade_biz, broward_biz, tucson_biz, bellevue_biz, saccounty_biz, longbeach_biz, chesapeake_biz, riverside_food, cdph_ca_facilities, co_tobacco, lac_biz | open | day the layer was last edited or read, licenses in force | matcher |
 | sux_food, alameda_food | open | day of the site's newest inspection | matcher |
+| maricopa_food | open | day the layer was last edited, issued permits | matcher |
+| vb_biz | open | day the license began | matcher, positions from the Census geocoder |
 | achd_pa_food | open | day of the newest inspection in the last two years, active permits | matcher, positions from the Census geocoder |
 | abc_nc, abc_ky, abc_ks | open | day the search was run, active retail licenses | matcher, positions from the Census geocoder |
 | plcb_pa | open | day the export was read, active retail licenses | matcher, positions from the Census geocoder |

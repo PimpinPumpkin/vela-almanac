@@ -22,6 +22,7 @@ license. Layer addresses are in SOURCES.md.
 import csv
 import datetime
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
@@ -88,6 +89,19 @@ SOURCES = {
     "lac_biz": (["https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/Business_License/FeatureServer/0"],
                 "Business_Category NOT LIKE 'Apartment%'",
                 ("Business_Name", "Address"), ("Business_Name",), "Address", "City", "CA", "Zip", None),
+    # Maricopa County's terms say the layer is for county use and that outside use needs written
+    # leave from its GIS office. The owner decided on 2026-10-12 to use it; see SOURCES.md.
+    "maricopa_food": (["https://services.arcgis.com/ykpntM6e3tHvzKRJ/arcgis/rest/services/Restaurant_(External)/FeatureServer/0"],
+                      "Status = 'Issued'",
+                      ("LicenseNumber",), ("CompanyName",), "BusinessAddress", "City", "AZ", "Zip", None),
+    # Virginia Beach asks that anything built on its data carry the city's disclaimer (NOTICE has
+    # it). The table lists licenses as issued, so only those begun in the last two years are read.
+    "vb_biz": (["https://services2.arcgis.com/CyVvlIiUfRBmMQuu/arcgis/rest/services/Business_Licenses_view/FeatureServer/0"],
+               "Business_State = 'VA' AND Business_City = 'VIRGINIA BEACH'"
+               " AND Business_Classification NOT LIKE 'Community Event%' AND Business_Classification NOT LIKE 'Non-License%'"
+               " AND Business_Classification NOT LIKE 'Nonstore%' AND Business_Classification NOT LIKE '%Rental%'"
+               " AND Business_Classification NOT LIKE 'Construction%' AND Business_Classification NOT LIKE '%OOT'",
+               ("OBJECTID",), ("Trade_Name",), "Business_Address", "Business_City", "VA", "Business_ZipCode", "Begin_Date"),
     "miami_dade_biz": (["https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/Local_Business_Tax_Feature_Layer_View/FeatureServer/0"],
                        "ACCSTATUS = 'Active' AND RCPTSTATUS = 'Active'",
                        ("RECEIPTNO",), ("BUSNAME",), "BUSADDR", "BUSCITY", "FL", "ZIPCODE", None),
@@ -157,7 +171,9 @@ def main():
                     town = city[1:] if city.startswith("=") else text(a.get(city)).split(",")[0]
                     stamp = a.get(dated) if dated else None
                     when = (day(stamp) if isinstance(stamp, (int, float))
-                            else stamp[:10] if isinstance(stamp, str) and stamp[:4].isdigit() else as_of)
+                            else stamp[:10] if isinstance(stamp, str) and stamp[:4].isdigit()
+                            else "%s-%s-%s" % (stamp[6:10], stamp[:2], stamp[3:5])
+                            if isinstance(stamp, str) and re.match(r"\d\d/\d\d/\d{4}$", stamp) else as_of)
                     key = "-".join(text(a.get(i)) for i in ids)
                     row = (source, key, name,
                            address(" ".join(text(a.get(f)) for f in streets).strip(), town,
@@ -168,7 +184,8 @@ def main():
                         newest[key] = row
             for row in newest.values():
                 out.row(*row)
-            out.close()
+            # a table with no points of its own goes to the Census geocoder
+            out.close(geocode=not any(row[4] is not None for row in newest.values()))
         except (Exception, SystemExit) as e:
             out.f.close()
             os.remove(out.path + ".part")
