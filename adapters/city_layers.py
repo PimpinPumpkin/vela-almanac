@@ -27,7 +27,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
 from arcgis import day, edited, features
-from evidence import EVIDENCE, Writer, address
+from evidence import EVIDENCE, Writer, address, street_city
 
 TODAY = datetime.date.today()
 NOW_MS = int(datetime.datetime(TODAY.year, TODAY.month, TODAY.day).timestamp() * 1000)
@@ -102,6 +102,9 @@ SOURCES = {
                " AND Business_Classification NOT LIKE 'Nonstore%' AND Business_Classification NOT LIKE '%Rental%'"
                " AND Business_Classification NOT LIKE 'Construction%' AND Business_Classification NOT LIKE '%OOT'",
                ("OBJECTID",), ("Trade_Name",), "Business_Address", "Business_City", "VA", "Business_ZipCode", "Begin_Date"),
+    "anaheim_biz": (["https://services3.arcgis.com/hPs600I3X0RTaaaq/arcgis/rest/services/ActiveBusinessLicenses/FeatureServer/0"],
+                    "casestatus = 'Active'",
+                    ("casenumber",), ("businessname",), "address", "=ANAHEIM", "CA", None, None),
     "miami_dade_biz": (["https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/Local_Business_Tax_Feature_Layer_View/FeatureServer/0"],
                        "ACCSTATUS = 'Active' AND RCPTSTATUS = 'Active'",
                        ("RECEIPTNO",), ("BUSNAME",), "BUSADDR", "BUSCITY", "FL", "ZIPCODE", None),
@@ -175,17 +178,27 @@ def main():
                             else "%s-%s-%s" % (stamp[6:10], stamp[:2], stamp[3:5])
                             if isinstance(stamp, str) and re.match(r"\d\d/\d\d/\d{4}$", stamp) else as_of)
                     key = "-".join(text(a.get(i)) for i in ids)
+                    where_ = " ".join(text(a.get(f)) for f in streets).strip()
+                    zip5 = text(a.get(zip_field))[:5]
+                    # an address given as two lines: "1221 E Orangethorpe Ave" / "Fullerton, Ca 92831"
+                    two = re.match(r"(.+?)\s*[\r\n]+\s*([^,\r\n]+),\s*[A-Za-z]{2}\s+(\d{5})", str(a.get(streets[0]) or ""))
+                    one = None if two or zip_field else street_city(where_)
+                    if one:
+                        two = re.match(r"(.*)\|(.*)\|(.*)", "%s|%s|%s" % (one[0], one[1], one[3]))
+                    if two:
+                        where_, town, zip5 = " ".join(two.group(1).split()), two.group(2).strip(), two.group(3)
+                        if city.startswith("=") and town.upper() != city[1:]:
+                            continue  # licensed here, located in another town
                     row = (source, key, name,
-                           address(" ".join(text(a.get(f)) for f in streets).strip(), town,
-                                   ("%s %s" % (state, text(a.get(zip_field))[:5])).strip()),
+                           address(where_, town, ("%s %s" % (state, zip5)).strip()),
                            lat, lng, "open", when)
                     # a layer with a row for every inspection: keep each place's newest
                     if key not in newest or when > newest[key][7]:
                         newest[key] = row
             for row in newest.values():
                 out.row(*row)
-            # a table with no points of its own goes to the Census geocoder
-            out.close(geocode=not any(row[4] is not None for row in newest.values()))
+            # rows with no point of their own go to the Census geocoder
+            out.close(geocode=any(row[4] is None for row in newest.values()))
         except (Exception, SystemExit) as e:
             out.f.close()
             os.remove(out.path + ".part")

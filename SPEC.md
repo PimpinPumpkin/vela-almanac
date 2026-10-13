@@ -448,6 +448,7 @@ rows are the same place.
 | Bellevue business licenses | number | 40 of 40 (Bellevue) | 11% to 21% |
 | Chesapeake business licenses | number | 40 of 40 (Chesapeake) | 9% to 21% |
 | Long Beach business licenses | number | 40 of 40 (Long Beach) | 12% to 17% |
+| Anaheim business licenses | number | 40 of 40 (Anaheim) | 13% to 17% |
 | Sacramento County business licenses | number | 40 of 40 (Sacramento) | 21% to 23%; the box already had the city's own list |
 | Detroit restaurant establishments, Alameda County restaurant inspections | number | 40 of 40 each (Detroit, Oakland) | |
 | Allegheny County food facility inspections | number, address | 40 of 40 (Pittsburgh) | geocoded; independent food places in the box with a status went from 33% to 42% |
@@ -684,7 +685,7 @@ signal at all.
 | bop_tx, bop_oh | open | day the file was read, active retail pharmacies | matcher, positions from the Census geocoder |
 | hrsa_health_centers | open | day the file was made, active permanent sites | matcher |
 | childcare_az, _ca, _de, _ma, _mi, _mn, _nj, _tn, _vt, _wi | open | day the layer was last edited, or read; centers only | matcher |
-| phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor, det_food, miami_dade_biz, broward_biz, tucson_biz, bellevue_biz, saccounty_biz, longbeach_biz, chesapeake_biz, riverside_food, cdph_ca_facilities, co_tobacco, lac_biz | open | day the layer was last edited or read, licenses in force | matcher |
+| phx_liquor, nash_beer, mke_food, mke_liquor, anc_liquor, hsv_liquor, det_biz, det_liquor, det_food, miami_dade_biz, broward_biz, tucson_biz, bellevue_biz, saccounty_biz, longbeach_biz, anaheim_biz, chesapeake_biz, riverside_food, cdph_ca_facilities, co_tobacco, lac_biz | open | day the layer was last edited or read, licenses in force | matcher |
 | sux_food, alameda_food | open | day of the site's newest inspection | matcher |
 | maricopa_food | open | day the layer was last edited, issued permits | matcher |
 | vb_biz | open | day the license began | matcher, positions from the Census geocoder |

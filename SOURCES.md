@@ -604,7 +604,9 @@ layer marks them.
 - Los Angeles County business licenses in unincorporated areas (apartment
   houses left out):
   `https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/Business_License/FeatureServer/0`
-- Seen and not read yet: Anaheim (addresses need parsing), Hayward, Reno,
+- Anaheim active business licenses (located in Anaheim only):
+  `https://services3.arcgis.com/hPs600I3X0RTaaaq/arcgis/rest/services/ActiveBusinessLicenses/FeatureServer/0`
+- Seen and not read yet: Hayward, Reno,
   City of Miami and Charleston County business layers; Colorado retail
   alcohol outlet points (no dates). Not usable: Cape Coral (parcels, old
   rows), Gainesville (addresses only), St. Louis County food
