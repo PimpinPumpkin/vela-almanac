@@ -42,6 +42,9 @@ ANC_RETAIL = ("LicenseType LIKE '%Eating Place%' OR LicenseType LIKE '%Dispensar
               " OR LicenseType LIKE 'Retail Community-Brewery%' OR LicenseType LIKE 'Retail Community-Winery%'"
               " OR LicenseType LIKE 'Retail Community-Distillery%' OR LicenseType LIKE '%Pub' OR LicenseType LIKE '%Golf Course'"
               " OR LicenseType LIKE '%Theater'")
+# registers that write a business as "Legal Name (Trade Name)"
+BRACKET_TRADE_NAME = {"nn_biz"}
+
 SOURCES = {
     # Phoenix has a layer for each license series. Bars, stores, hotels, restaurants and
     # microbreweries (series 3, 6, 7, 9, 10, 11, 12) are premises a person walks into; producers,
@@ -201,6 +204,9 @@ def main():
                 as_of = edited(layer) or TODAY.isoformat()
                 for a, (lat, lng) in features(layer, where=where, fields=fields):
                     name = next((text(a.get(n)) for n in names if text(a.get(n))), "")
+                    # "SPEEDY CHICKEN LLC (POPEYE'S)": the sign on the door is in the brackets
+                    if source in BRACKET_TRADE_NAME:
+                        name = re.sub(r"^(.+?)\s*\(([^()]{2,})\)?\s*$", r"\1 dba \2", name) if "(" in name else name
                     # "SACRAMENTO, CA" is a town with its state attached
                     town = city[1:] if city.startswith("=") else text(a.get(city)).split(",")[0]
                     stamp = a.get(dated) if dated else None

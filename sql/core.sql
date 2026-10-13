@@ -263,6 +263,19 @@ create or replace table storefront_source as
     ('bacp_chicago', 'commercial_premises', false, true),
     ('bbl_dc', 'commercial_premises', false, true),
     ('dcwp_nyc', 'commercial_premises', false, true),
+    ('det_biz', 'commercial_premises', false, true),
+    ('biz_seattle', 'commercial_roll', false, true),
+    ('vb_biz', 'commercial_roll', false, true),
+    ('bot_sac', 'commercial_roll', false, true),
+    ('saccounty_biz', 'commercial_roll', false, true),
+    ('anaheim_biz', 'commercial_roll', false, true),
+    ('brla_biz', 'commercial_roll', false, true),
+    ('biz_de', 'commercial_roll', false, true),
+    ('lac_biz', 'commercial_roll', false, true),
+    ('glendale_az_biz', 'commercial_roll', false, true),
+    ('broward_biz', 'commercial_roll', false, true),
+    ('tucson_biz', 'commercial_roll', false, true),
+    ('biz_nola', 'commercial_roll', false, true),
     ('tceq_tx_cleaners', 'shop=dry_cleaning', true, true),
     ('abc_ca', 'licensed_premises', true, true),
     ('abt_fl', 'licensed_premises', true, true)) t(source, category, pinned, strict);
@@ -317,8 +330,15 @@ create or replace table born as
       -- commercial_premises registers) names whatever the applicant typed, at
       -- whatever address: only a name that reads as a shop, at an address
       -- that is not an apartment, becomes a place.
-      and (s.category <> 'commercial_premises'
+      and (s.category not in ('commercial_premises', 'commercial_roll')
            or reads_as_shop(r.name) and not regexp_matches(r.address, '\b(apt|bsmt|basement|lot|trlr)\b', 'i'))
+      -- A roll that fails that reading is held to more (commercial_roll): no
+      -- unit or suite in the address, no name of a person's trade ("Nails by
+      -- Roni", pet sitting, detailing, rentals), and, below, a listed
+      -- business next door.
+      and (s.category <> 'commercial_roll'
+           or not regexp_matches(r.name, '\bby\b|\b(pet (sitting|care|services)|sitting|walking|pool|consult\w*|detailing|rentals?|wholesale|distribut\w*|home|design)\b', 'i')
+              and not regexp_matches(r.address, '#|\b(unit|ste|suite)\b', 'i'))
       and (r.source <> 'lottery_ny'
            -- a sidewalk newsstand carries its holder's name
            or not regexp_matches(r.name, 'news', 'i') and regexp_matches(r.name, '\b(deli|grocery|groc|pharmacy|drugs?|mart|market|convenien\w*|store|liquors?|wine|check cashing|supermarket|food|shop|discount|cafe|coffee|smoke|vape|tobacco|station|gas|cards?|gifts?|stationery|candy|bodega|cents)\b|#\s*[0-9]', 'i'))
@@ -373,16 +393,29 @@ create or replace table born as
       on p.cy = u.cy and p.cx = u.cx
     where dist_m(u.lat, u.lng, p.lat, p.lng) <= 80 and (p.hn = u.hn or dist_m(u.lat, u.lng, p.lat, p.lng) <= 30)
   )
+  -- A house has no shop beside it. A row of a commercial_roll register
+  -- becomes a place only within 40 m of a listed business that is not a
+  -- home trade itself.
+  , anchored as (
+    select distinct u.id
+    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched where category = 'commercial_roll') u
+    join (select p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
+          from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
+          where not regexp_matches(coalesce(p.category, ''), 'apartment|residential|condo|housing|real_estate|property_manag|home_|contractor|landscap|cleaning_serv|pet_sitting|atm|parcel|locker|bitcoin')) p
+      on p.cy = u.cy and p.cx = u.cx
+    where dist_m(u.lat, u.lng, p.lat, p.lng) <= 40
+  )
   select 'alm:' || u.source || '/' || u.source_id as place_id, u.*
   from unmatched u
   where u.id not in (select id from lookalike)
+    and (u.category <> 'commercial_roll' or u.id in (select id from anchored))
   -- one register can list a premises twice, and two registers can list the same shop
   -- (the same name and house number within a few kilometers: a register that lists one
   -- premises under two ZIPs puts its rows on two address points)
   qualify row_number() over (partition by u.nn, u.hn, round(u.lat, 1), round(u.lng, 1) order by u.source, u.source_id) = 1;
 
 insert into core_place
-  select place_id, display_name(name), named_category(trade_name(name), category), null, null,
+  select place_id, display_name(name), named_category(trade_name(name), case when category = 'commercial_roll' then 'commercial_premises' else category end), null, null,
          title_case(split_part(address, ', ', 1)), nullif(title_case(split_part(address, ', ', 2)), ''),
          nullif(regexp_extract(address, ', ([A-Z]{2}) [0-9]{5}', 1), ''), zip, null, null,
          lat, lng, null, nn, hn, false, zip, sk

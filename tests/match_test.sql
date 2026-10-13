@@ -138,3 +138,10 @@ select case when not reads_as_shop('CARDTRONICS USA INC @ TARGET #3383')
                  and named_category('BON BONITE NAIL BAR AND WAX', 'commercial_premises') = 'shop=beauty'
                  and named_category('FLORIDA KITCHEN CABINETS', 'commercial_premises') = 'commercial_premises'
             then 'ok 9 license roll cases' else error('license roll test failed') end as result;
+
+-- Food trucks and parking plates on a business roll.
+select case when not reads_as_shop('TAQUERIA EXTRA TRUCK #2')
+                 and not reads_as_shop('WAYNE PARKING LLC PLATE #173')
+                 and not reads_as_shop('#3020')
+                 and not reads_as_shop('Mother Hubbard&#8217;s Sober Living')
+            then 'ok 4 roll name cases' else error('roll name test failed') end as result;

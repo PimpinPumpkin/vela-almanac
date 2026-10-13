@@ -51,10 +51,10 @@ create or replace macro shop_words() as
   '\b(restaurante?|taqueria|cantina|cafe|coffee|grill|kitchen|pizza|pizzeria|burgers?|tacos?|bbq|barbecue|bakery|panaderia|donuts?|bar|pub|tavern|brewery|lounge|salon|barber|barbershop|spa|nails?|lashes|beauty|tattoo|smoke|vape|tobacco|liquor|wine|market|mart|grocery|carniceria|store|shop|boutique|outlet|tires?|autos?|motors|cleaners|laundry|pharmacy|dental|dentistry|clinic|chiropractic|fitness|gym|daycare|montessori|bonds|insurance|jewelry|furniture|florist|flowers|pets?|veterinary|bank|hotel|motel|dulceria|fruteria|paleteria|supermercado|creamery|bistro|diner|sushi|pho|wings|chicken|seafood|steakhouse)\b';
 create or replace macro reads_as_shop(name) as
   -- a store number has three digits or more; "#1" and "#9" are a landlord's units
-  regexp_matches(name, shop_words() || '|#\s*[0-9]{3,}', 'i')
+  regexp_matches(name, shop_words() || '|(^|[^&])#\s*[0-9]{3,}', 'i') and regexp_matches(name, '[a-z]{3}', 'i')
   -- a machine or a counter inside someone else's store
   and not regexp_matches(name, '@| at | atm\b|cardtronics|coinstar|redbox', 'i')
-  and not regexp_matches(name, '\b(bldg|building|phase|remodel|suite|ste|shell|addition|finish.?out|tenant|properties|property|apartments|residences|holdings|investments|realty|mobile|floor|unit|transport|transportation|trucking|logistics|towing|catering|events?|towers?|vending|decal|on wheels)\b|tag ?#', 'i')
+  and not regexp_matches(name, '\b(bldg|building|phase|remodel|suite|ste|shell|addition|finish.?out|tenant|properties|property|apartments|residences|holdings|investments|realty|mobile|floor|unit|transport|transportation|trucking|logistics|towing|catering|events?|towers?|vending|decal|plate|truck|on wheels)\b|tag ?#', 'i')
   -- something is left once the trade words and small words are taken out
   and length(regexp_replace(regexp_replace(regexp_replace(lower(name), shop_words(), ' ', 'g'),
                                            '\b(the|and|of|de|la|el|los|las|del|y|no|inc|llc|co)\b', ' ', 'g'), '[^a-z0-9]', '', 'g')) >= 2;
