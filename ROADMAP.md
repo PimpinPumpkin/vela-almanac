@@ -5,7 +5,8 @@ coverage and freshness people expect from a commercial map, from open
 sources only, United States first.
 
 Where things stand (build of 2026-10-12): 19.5 million places, 13.1% with a
-dated status, 295,000 of them added from a register. Banks 66%, chain
+dated status, 237,000 of them added from a register (the files of that
+day repeat 59,000 of those in a neighboring state; fixed since). Banks 66%, chain
 restaurants 61%, gas stations 57% (fewer rows than before: the listings a
 forecourt has under each of its brands are now one place), grocery 49%,
 pharmacies 41%, independent restaurants 35%, bars 28%, everything else 9%.

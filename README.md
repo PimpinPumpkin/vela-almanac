@@ -47,7 +47,7 @@ What comes out of the build of 2026-10-12, for all 50 states and DC:
 | | |
 | --- | ---: |
 | Places | 19.5 million |
-| Added from a register because no map dataset had them | 295,000 |
+| Added from a register because no map dataset had them | 237,000 |
 | Confirmed open by a dated record from the last two years | 2.4 million |
 | Marked closed, with the date and the source | 147,000 |
 
