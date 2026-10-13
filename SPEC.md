@@ -280,7 +280,7 @@ placed on that point. Such a register is held to more: no neighbor within
 Chevron" beside "Chevron", "Kentucky Fried Chicken" beside "KFC"); it may
 not sit at the door of a fuel station, supermarket, stadium, campus or
 hospital; and names of counters inside stores, institutions, food service
-contractors and businesses at an apartment are left out. Thirteen registers
+contractors and businesses at an apartment are left out. Fourteen registers
 are allowed: liquor licenses, because a licensed premises is a storefront
 by definition, and one list each of tobacco retailers, child care
 centers, pharmacies and lodging:
@@ -297,16 +297,23 @@ centers, pharmacies and lodging:
 | Texas licensed child care centers (HHSC) | Houston | 42 | 38 of 40; the others are after-school programs run inside a school | 2 |
 | Texas pharmacies (Board of Pharmacy) | Houston | 40 | 37 of 40: independent, specialty and in-store pharmacies | 3 |
 | Florida lodging licenses (DBPR) | Jacksonville and Miami | 19 | 16 of the 19 the two boxes hold: hotels and motels; too few to read 40 | 3 |
+| Colorado liquor licenses, placed by the state's alcohol outlet points | Denver | 160 | 37 of 40: restaurants, bars, liquor stores; the others are big-box stores the map may hold under a far-off point, and a members' club | 17 |
 | Kansas ABC | Wichita | 26 | 24 of 26; the others are a lodge already listed under its order's name and a one-day event license | 1 |
 | New Jersey ABC | Newark | 25 | 29 of 31 read before placeholder names ("NONE", "Not Available") and double listings were removed | 2 |
 | Maine BABLO | Portland | 29 | 27 of 29; the others are a delivery warehouse and a hotel | 1 |
+
+A row can also take the point a second public layer gives the very
+same record (a pin): Colorado's health department publishes a point for
+each liquor license by license number, and only those it marks as placed
+on the address are used.
 
 Address points come from the National Address Database and from county
 files that are public domain under California and Florida law, all read
 from Overture's address theme. Overture marks its Colorado, Oregon,
 Mississippi, New York City and Los Angeles County addresses proprietary
 and Idaho's CC BY; those are not read, and Oklahoma and Wisconsin have
-few points, so registers there add nothing this way. What was tried and refused is in section 9.
+few points, so registers there add nothing this way unless they have
+pins. What was tried and refused is in section 9.
 
 **Join shape.** Candidates come from a grid hash join: cells are 0.004
 degrees of latitude by 0.008 of longitude, one side is copied into its nine

@@ -92,9 +92,9 @@ Salons, repair shops, small retail. 84% of all rows, 8% with a status.
 - **2.6 Add places from address-only registers.** Built on 2026-10-12: a
   row is pinned to its address point in the National Address Database and
   may then add a place (SPEC.md section 6). On for the Texas, Washington,
-  North Carolina, Kansas, Kentucky, New Jersey, Maine, California and
-  Florida liquor registers and the Texas and Colorado tobacco retailer
-  lists;
+  North Carolina, Kansas, Kentucky, New Jersey, Maine, California,
+  Florida and Colorado liquor registers, the Texas and Colorado tobacco
+  retailer lists, and Texas pharmacies and child care centers;
   Nebraska, Missouri and Arkansas were read and refused. Next: find
   address points for Colorado, Oregon, Mississippi and the other
   states with none in the public domain (their liquor registers cannot be read for

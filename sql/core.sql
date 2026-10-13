@@ -242,6 +242,7 @@ create or replace table storefront_source as
     ('abc_nj', 'licensed_premises', true, true),
     ('bablo_me', 'licensed_premises', true, true),
     ('abc_ky', 'licensed_premises', true, true),
+    ('led_co', 'licensed_premises', true, true),
     ('abc_ca', 'licensed_premises', true, true),
     ('abt_fl', 'licensed_premises', true, true)) t(source, category, pinned, strict);
 -- pinned: the register gives only an address, and a row is placed on its address point.
@@ -265,13 +266,19 @@ create or replace table addr_pt as
 -- street is good enough to match a place and not good enough to make one.
 create or replace table born as
   with unmatched as (
-    select r.* replace (case when s.pinned then a.lat else r.lat end as lat,
-                        case when s.pinned then a.lng else r.lng end as lng),
+    select r.* replace (case when s.pinned then coalesce(n.lat, a.lat) else r.lat end as lat,
+                        case when s.pinned then coalesce(n.lng, a.lng) else r.lng end as lng),
            s.category, s.pinned, s.strict
     from register_n r join storefront_source s using (source)
     left join addr_pt a on s.pinned and a.zip = r.zip and a.hn = r.hn and a.sk = r.sk
+    -- or the point a second public layer gives this very record
+    left join (select source, source_id, any_value(lat) as lat, any_value(lng) as lng from pins group by all) n
+      on s.pinned and n.source = r.source and n.source_id = r.source_id
     where r.state = 'open'
-      and case when s.pinned then a.lat else r.lat end is not null
+      and case when s.pinned then coalesce(n.lat, a.lat) else r.lat end is not null
+      -- a pin can lie outside the region when only the row's ZIP brought it in
+      and case when s.pinned then coalesce(n.lat, a.lat) else r.lat end between (select s from params) and (select n from params)
+      and case when s.pinned then coalesce(n.lng, a.lng) else r.lng end between (select w from params) and (select e from params)
       and not exists (select 1 from core_evidence e where e.source = r.source and e.source_id = r.source_id)
       -- a license held for a premises that has no name yet
       and r.name not ilike 'tbd%' and lower(trim(r.name)) not in ('none', 'na', 'n/a', 'not available', 'unknown', 'vacant')

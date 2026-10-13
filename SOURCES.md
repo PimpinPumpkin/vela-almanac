@@ -392,6 +392,13 @@ None states a license; rows are marked `none-stated`.
   answers 403; Riverside, Santa Clara, St. Louis County and Baltimore
   County sit behind challenge pages.
 
+### Colorado Department of Public Health and Environment, alcohol outlet points
+- License: none stated. Colorado public record; used only for positions.
+- Fetched from: `https://www.cohealthmaps.dphe.state.co.us/arcgis/rest/services/PSD/CDPHE_Alcohol_Outlet_Density/MapServer/0`
+- Used for: the position of a Colorado liquor license, joined by license
+  number, when that license adds a place (`data/cache/evidence/pins/led_co.csv`,
+  written by `adapters/led_co.py`). Only points marked "Point Accuracy".
+
 ### Address points, by way of Overture's address theme
 - License: only rows Overture marks public domain are read
   (`base/addresses.sh`): the National Address Database (US federal work)

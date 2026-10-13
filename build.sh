@@ -36,6 +36,13 @@ if ls "$EVIDENCE_DIR"/*.parquet >/dev/null 2>&1; then
   EV_SQL="$EV_SQL union all select $EV_COLS from read_parquet('$EVIDENCE_DIR/*.parquet')"
 fi
 
+# Pins: positions some registers get from a second public layer, by record id. A row may add
+# a place from its pin; see sql/core.sql.
+PINS_SQL="select null::varchar as source, null::varchar as source_id, null::double as lat, null::double as lng where false"
+if ls "$EVIDENCE_DIR"/pins/*.csv >/dev/null 2>&1; then
+  PINS_SQL="select source, source_id, lat, lng from read_csv('$EVIDENCE_DIR/pins/*.csv', header = true, auto_detect = false, columns = {source: 'varchar', source_id: 'varchar', lat: 'double', lng: 'double'})"
+fi
+
 # OpenPOIs covers the US only. A failed read leaves the build without it.
 if [ "$COUNTRY" = US ] && [ ! -s "$OUT/openpois.parquet" ]; then
   step openpois; signals/openpois.sh "$REGION" >/dev/null || rm -f "$OUT/openpois.parquet"
@@ -92,6 +99,7 @@ alter table ovt add column if not exists category_subgroup varchar;
 create table atp as select * from '$OUT/atp.parquet';
 create table osm as select * from '$OUT/osm.parquet';
 create table addr as $ADDR_SQL;
+create table pins as $PINS_SQL;
 -- extracts cached before the SIRET column existed
 alter table osm add column if not exists siret varchar;
 -- files cached before opening hours were kept
