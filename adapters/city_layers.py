@@ -105,6 +105,23 @@ SOURCES = {
     "anaheim_biz": (["https://services3.arcgis.com/hPs600I3X0RTaaaq/arcgis/rest/services/ActiveBusinessLicenses/FeatureServer/0"],
                     "casestatus = 'Active'",
                     ("casenumber",), ("businessname",), "address", "=ANAHEIM", "CA", None, None),
+    "tucson_liquor": (["https://services3.arcgis.com/9coHY2fvuFjG9HQX/arcgis/rest/services/Liquor_Licenses_Active_and_Pending_HFL/FeatureServer/16"],
+                      "LICENSESTATUS = 'Active'",
+                      ("LICENSENO",), ("BUSINESSNAME",), "BUSINESSADDRESS", "=TUCSON", "AZ", None, None),
+    # the address comes whole: "291 N HUBBARDS LN, 130 Liquor, ST MATTHEWS, KY 40207"
+    "lou_tobacco": (["https://services1.arcgis.com/79kfd2K6fskCAkyg/arcgis/rest/services/tobacco_licenses/FeatureServer/0"],
+                    "License_Status = 'Active' AND Business_Type = 'Retailer'",
+                    ("License_NO",), ("Business_Name",), "Address", "=", "KY", None, None),
+    # stores authorized for the WIC nutrition program, as each state health department maps them
+    "wic_fl": (["https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/WIC_Vendors/FeatureServer/0"],
+               "1=1", ("VENDOR_NAME", "PHYSADDRESS"), ("VENDOR_NAME",), "PHYSADDRESS", "PHYSCITY", "FL", "PHYSZIP", None),
+    "wic_az": (["https://services1.arcgis.com/mpVYz37anSdrK4d8/arcgis/rest/services/WIC_Vendors/FeatureServer/1"],
+               "1=1", ("VENDOR_NAME", "ADDRESS"), ("VENDOR_NAME",), "ADDRESS", "CITY", "AZ", "ZIPCODE", None),
+    "wic_va": (["https://services8.arcgis.com/0xEpEhgj2AqvWPLe/arcgis/rest/services/WICRetailers/FeatureServer/0"],
+               "1=1", ("Vendor_Name", "Address"), ("Vendor_Name",), "Address", "City", "VA", "ZipCode", None),
+    "glendale_az_biz": (["https://services1.arcgis.com/9fVTQQSiODPjLUTa/arcgis/rest/services/Glendale_Business_Licenses/FeatureServer/0"],
+                        "LicenseStatus = 'VALID' AND State = 'AZ'",
+                        ("OBJECTID",), ("BusinessName",), "AddressLine1", "City", "AZ", "ZipCode", None),
     "miami_dade_biz": (["https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/Local_Business_Tax_Feature_Layer_View/FeatureServer/0"],
                        "ACCSTATUS = 'Active' AND RCPTSTATUS = 'Active'",
                        ("RECEIPTNO",), ("BUSNAME",), "BUSADDR", "BUSCITY", "FL", "ZIPCODE", None),
@@ -182,12 +199,15 @@ def main():
                     zip5 = text(a.get(zip_field))[:5]
                     # an address given as two lines: "1221 E Orangethorpe Ave" / "Fullerton, Ca 92831"
                     two = re.match(r"(.+?)\s*[\r\n]+\s*([^,\r\n]+),\s*[A-Za-z]{2}\s+(\d{5})", str(a.get(streets[0]) or ""))
+                    # one line with commas: "291 N HUBBARDS LN, 130 Liquor, ST MATTHEWS, KY 40207"
+                    if not two and not zip_field:
+                        two = re.match(r"([^,]+),(?:[^,]*,)?\s*([^,]+),\s*[A-Za-z]{2}\s+(\d{5})", where_)
                     one = None if two or zip_field else street_city(where_)
                     if one:
                         two = re.match(r"(.*)\|(.*)\|(.*)", "%s|%s|%s" % (one[0], one[1], one[3]))
                     if two:
                         where_, town, zip5 = " ".join(two.group(1).split()), two.group(2).strip(), two.group(3)
-                        if city.startswith("=") and town.upper() != city[1:]:
+                        if city.startswith("=") and city[1:] and town.upper() != city[1:]:
                             continue  # licensed here, located in another town
                     row = (source, key, name,
                            address(where_, town, ("%s %s" % (state, zip5)).strip()),

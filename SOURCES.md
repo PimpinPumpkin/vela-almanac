@@ -612,6 +612,23 @@ layer marks them.
   `https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/Business_License/FeatureServer/0`
 - Anaheim active business licenses (located in Anaheim only):
   `https://services3.arcgis.com/hPs600I3X0RTaaaq/arcgis/rest/services/ActiveBusinessLicenses/FeatureServer/0`
+- Glendale, Arizona, business licenses (status VALID, Arizona addresses;
+  the layer has no points, so rows go to the Census geocoder):
+  `https://services1.arcgis.com/9fVTQQSiODPjLUTa/arcgis/rest/services/Glendale_Business_Licenses/FeatureServer/0`
+- Tucson liquor licenses (active), a Pima County layer:
+  `https://services3.arcgis.com/9coHY2fvuFjG9HQX/arcgis/rest/services/Liquor_Licenses_Active_and_Pending_HFL/FeatureServer/16`
+- Louisville Metro tobacco retail licenses (active retailers):
+  `https://services1.arcgis.com/79kfd2K6fskCAkyg/arcgis/rest/services/tobacco_licenses/FeatureServer/0`
+- Stores authorized for the WIC program, as three state health
+  departments map them. Florida:
+  `https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/WIC_Vendors/FeatureServer/0`
+  Arizona:
+  `https://services1.arcgis.com/mpVYz37anSdrK4d8/arcgis/rest/services/WIC_Vendors/FeatureServer/1`
+  Virginia:
+  `https://services8.arcgis.com/0xEpEhgj2AqvWPLe/arcgis/rest/services/WICRetailers/FeatureServer/0`
+  Tucson, Glendale and Arizona's health department each attach an "as is"
+  disclaimer and no license. None of these six may add places (SPEC
+  section 9).
 - Seen and not read yet: Hayward, Reno,
   City of Miami and Charleston County business layers; Colorado retail
   alcohol outlet points (no dates). Not usable: Cape Coral (parcels, old
