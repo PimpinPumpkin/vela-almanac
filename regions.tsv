@@ -63,6 +63,7 @@ louisville-box	38.15	-85.85	38.32	-85.60	kentucky
 newport-news-box	36.96	-76.55	37.20	-76.38	virginia
 fairfax-box	38.80	-77.40	38.95	-77.15	virginia
 san-jose-box	37.25	-122.00	37.40	-121.80	california/norcal
+fort-worth-box	32.65	-97.45	32.85	-97.22	texas
 delaware	38.45	-75.79	39.84	-75.04	delaware	DE
 kentucky	36.49	-89.58	39.15	-81.96	kentucky	KY
 # Every other state and DC. Boxes are the Census outline plus a small margin.

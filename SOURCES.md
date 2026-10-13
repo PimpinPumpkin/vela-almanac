@@ -467,6 +467,14 @@ are left out.
   `https://data.texas.gov/d/qfph-9bnd`. No license stated; `none-stated`.
   Billing addresses, customer names and phone numbers are not read.
   39 of 40 matches right in Houston. May add places (SPEC section 6).
+- City of Fort Worth certificates of occupancy (72,000 since 2013; the
+  3,300 of the last three years for shops, offices, assembly and school
+  uses are read, with the occupant's name and the day issued):
+  `https://services5.arcgis.com/3ddLCBXe1bRt7mzj/arcgis/rest/services/CFW_Open_Data_Certificates_of_Occupancy_Table_view/FeatureServer/0`.
+  The city releases its open data under CC BY 4.0; rows are marked
+  `CC-BY-4.0` and the city is credited in NOTICE. A new kind of source:
+  a list of openings. Other cities publish the same (Los Angeles
+  `data.lacity.org/d/3f9m-afei`, Cambridge `qwvv-deed`); not read yet.
 - Southern Nevada Health District (Clark County: Las Vegas, Henderson,
   North Las Vegas), food establishment permits, from the district's
   nightly file for developers:
