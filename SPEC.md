@@ -445,6 +445,7 @@ rows are the same place.
 | Florida lottery retailers | number, near | 40 of 40 (Jacksonville) | 464 of the 738 retailers in the box find a place |
 | New York lottery retailers | number, spot, near | 40 of 40 (New York City) | delis, pharmacies and newsstands; 412 of the 1,032 in the box find a place |
 | New York City weights and measures tests | number | 40 of 40 (New York City) | grocers, laundromats, cleaners and fuel stations, dated by the test |
+| Los Angeles County restaurant and market inventory | number, near | 40 of 40 (Los Angeles) | 6,133 of the 10,165 facilities in the box find a place |
 | Los Angeles active businesses | number | 40 of 40 (Los Angeles) | 24,700 of the 263,000 accounts in the box find a place; places in the box with a status went from 9% to 21% |
 | San Francisco registered business locations | number | 40 of 40 (San Francisco) | 19,500 of the 100,600 locations in the box find a place; places in the box with a status went from 13% to 27% |
 | Miami-Dade business tax receipts | number | 40 of 40 (Miami) | places in the box with a status went from 8% to 20% |
@@ -702,6 +703,7 @@ signal at all.
 | dhhs_nc_inspections | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | cambridge_food | open | day the permit was issued, last two years | matcher |
 | moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny, lottery_fl | open | day the table was last updated | matcher |
+| lac_food | open | day the quarter's inventory was published; restaurants and food markets under a Los Angeles County health permit | matcher |
 | sd_county_food, scc_food, wic_ny | open | day the table was last updated; San Diego County food permits in force for fixed premises, Santa Clara County food businesses, New York WIC stores and pharmacies | matcher; San Diego and New York positions from the Census geocoder |
 | tceq_tx_cleaners | open | day the table was last updated, operating dry cleaners and drop stations | matcher, positions from the Census geocoder |
 | wm_nyc | open | day of the shop's newest test in the last two years | matcher |

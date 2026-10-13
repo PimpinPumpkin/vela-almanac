@@ -178,6 +178,7 @@ adapters/           one file per register. Federal: fdic, ncua, snap, epa_ust,
                     childcare_centers, city_layers, abc_nc, abc_ky,
                     abc_ks, plcb_pa, tda_tn_food, dhhs_nc_inspections,
                     msdh_ms_food, achd_pa_food, biz_sandiego, lottery_fl,
+                    lac_food,
                     open_data_tables,
                     and four that are
                     slow and run on their own schedule:

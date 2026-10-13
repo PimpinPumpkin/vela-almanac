@@ -467,6 +467,16 @@ are left out.
   `https://data.texas.gov/d/qfph-9bnd`. No license stated; `none-stated`.
   Billing addresses, customer names and phone numbers are not read.
   39 of 40 matches right in Houston. May add places (SPEC section 6).
+- Los Angeles County Department of Public Health, Environmental Health
+  restaurant and market inventory (37,000 facilities; Pasadena, Long
+  Beach and Vernon keep their own). Published each quarter as a new layer
+  with the date in its name, so `adapters/lac_food.py` finds the newest
+  by searching the county's ArcGIS account (`orgid:RmCCgQtiZLDCtblq`);
+  the layer of 2026-09-30 is
+  `https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/Environmental_Health_Restaurant_and_Market_Inventory_09-30-2026/FeatureServer/0`.
+  No license stated; `none-stated`. Owner names and addresses are not
+  read. The county also publishes inspections and violations as CSV
+  items; not read.
 - San Diego County food facility permits (active, 13,000 fixed premises;
   trucks, carts, boats, vending machines, caterers, schools and home
   kitchens left out): `https://internal-sandiegocounty.data.socrata.com/d/c5ez-ufrd`.
