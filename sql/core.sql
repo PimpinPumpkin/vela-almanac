@@ -265,6 +265,7 @@ create or replace table storefront_source as
     ('dcwp_nyc', 'commercial_premises', false, true),
     ('det_biz', 'commercial_premises', false, true),
     ('cpa_tx', 'commercial_roll', true, true),
+    ('osdh_ok_food', 'food_roll', true, true),
     ('lac_food', 'food_roll', false, true),
     ('alameda_food', 'food_roll', false, true),
     ('kc_wa_food', 'food_roll', false, true),
