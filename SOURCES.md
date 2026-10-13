@@ -467,6 +467,15 @@ are left out.
   `https://data.texas.gov/d/qfph-9bnd`. No license stated; `none-stated`.
   Billing addresses, customer names and phone numbers are not read.
   39 of 40 matches right in Houston. May add places (SPEC section 6).
+- Southern Nevada Health District (Clark County: Las Vegas, Henderson,
+  North Las Vegas), food establishment permits, from the district's
+  nightly file for developers:
+  `https://www.southernnevadahealthdistrict.org/restaurants/download/restaurants.zip`
+  (described at `.../permits-and-regulations/restaurant-inspections/developers/`).
+  The page offers the file for download and states no license;
+  `none-stated`. Read: active permits (17,600). Not read: owner ids,
+  inspections, violations, and the 16,500 inactive permits, which carry
+  no end date. The file's latitude and longitude columns are swapped.
 - Los Angeles County Department of Public Health, Environmental Health
   restaurant and market inventory (37,000 facilities; Pasadena, Long
   Beach and Vernon keep their own). Published each quarter as a new layer

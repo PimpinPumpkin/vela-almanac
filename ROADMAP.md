@@ -56,8 +56,8 @@ The categories where a register can make coverage complete.
   independents), King County, Washington (52% in a Seattle box), Delaware,
   Montgomery County, Maryland, and New York's retail food stores.
   New York State outside the city is done too, and so are Los Angeles,
-  San Diego and Santa Clara counties (permit inventories, no inspection
-  results). Next: other large cities.
+  San Diego and Santa Clara counties and Clark County, Nevada (permit
+  inventories, no inspection results). Next: other large cities.
   Target: independent restaurants from 18% to 40% in covered areas.
 - **1.4 Fuel.** Use the tank registry's "temporarily out of service" count
   to lower the score of mothballed stations. EV chargers from the federal
