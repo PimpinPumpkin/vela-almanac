@@ -47,6 +47,12 @@ if ls "$EVIDENCE_DIR"/pins/*.csv >/dev/null 2>&1; then
   PINS_SQL="select source, source_id, lat, lng from read_csv('$EVIDENCE_DIR/pins/*.csv', header = true, auto_detect = false, columns = {source: 'varchar', source_id: 'varchar', lat: 'double', lng: 'double'})"
 fi
 
+# Opening dates some registers give (a certificate of occupancy, a license's first issue).
+SINCE_SQL="select null::varchar as source, null::varchar as source_id, null::date as since where false"
+if ls "$EVIDENCE_DIR"/since/*.csv >/dev/null 2>&1; then
+  SINCE_SQL="select source, source_id, since from read_csv('$EVIDENCE_DIR/since/*.csv', header = true, auto_detect = false, columns = {source: 'varchar', source_id: 'varchar', since: 'date'})"
+fi
+
 # OpenPOIs covers the US only. A failed read leaves the build without it.
 if [ "$COUNTRY" = US ] && [ ! -s "$OUT/openpois.parquet" ]; then
   step openpois; signals/openpois.sh "$REGION" >/dev/null || rm -f "$OUT/openpois.parquet"
@@ -104,6 +110,7 @@ create table atp as select * from '$OUT/atp.parquet';
 create table osm as select * from '$OUT/osm.parquet';
 create table addr as $ADDR_SQL;
 create table pins as $PINS_SQL;
+create table since as $SINCE_SQL;
 -- extracts cached before the SIRET column existed
 alter table osm add column if not exists siret varchar;
 -- files cached before opening hours were kept
@@ -152,6 +159,13 @@ copy (
   select id, status, status_date, status_source, open_score, missing_license
   from out_full order by id
 ) to '$PUB/status-$REGION.parquet' (format parquet, compression zstd);
+-- The places this build added from a register, kept month by month to see
+-- later how many of them the map datasets came to list on their own.
+copy (
+  select id, name, category, lat, lng, sources[1].source as source, opened_date,
+         (select build_date from params) as build_date
+  from out_core where id like 'alm:%' order by id
+) to '$PUB/added-$REGION.parquet' (format parquet, compression zstd);
 SQL
 
 entry() {  # entry FILE LAYER LICENSE

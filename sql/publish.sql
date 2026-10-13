@@ -104,6 +104,20 @@ create or replace table hours_full as
         where m.source = 'osm' and o.lifecycle is null and nullif(trim(o.opening_hours), '') is not null)
   group by place_id;
 
+-- The day a place opened, where a register that names it says so: the
+-- earliest such day among the records matched to it. A license's first
+-- issue, a first day of sales or a certificate of occupancy; never
+-- inferred. It is the day this business opened at this address as far as
+-- one register knows: a shop older than its current license shows the
+-- license's day.
+create or replace table opened as
+  select e.place_id, min(s.since) as opened_date, arg_min(e.source, s.since) as opened_source
+  from (select place_id, source, source_id from core_evidence where state = 'open') e
+  -- registers write January 1 when they know only the year, or nothing
+  join (select source, source_id, min(since) as since from since
+        where not (month(since) = 1 and day(since) = 1) group by all) s using (source, source_id)
+  group by e.place_id;
+
 create or replace macro published(place, member, status, conf, hours) as table (
   with m as (
     select place_id,
@@ -119,6 +133,7 @@ create or replace macro published(place, member, status, conf, hours) as table (
          p.address, p.city, p.region, p.postcode, p.phone, p.website,
          h.opening_hours, h.hours_source, h.hours_date,
          coalesce(s.status, 'unknown') as status, s.status_date, s.status_source,
+         op.opened_date, op.opened_source,
          open_score(coalesce(s.status, 'unknown'), s.status_date, coalesce(s.conflict, false),
                     p.overture_status, coalesce(ml.missing, false), cf.conf, (select build_date from params),
                     unvouched_score(p.id, m.in_map, og.datasets)) as open_score,
@@ -139,6 +154,7 @@ create or replace macro published(place, member, status, conf, hours) as table (
   left join query_table(status) s on s.place_id = p.id
   left join query_table(conf) cf on cf.place_id = p.id
   left join query_table(hours) h on h.place_id = p.id
+  left join opened op on op.place_id = p.id
   left join ovt_all og on og.id = p.id
   -- true: a bar in a state with a license list, and no active license matched it.
   -- null: the question does not apply to this place.

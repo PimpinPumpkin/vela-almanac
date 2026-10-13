@@ -48,6 +48,8 @@ Both layers have the same columns.
 | status | string | open, closed or unknown, section 7 |
 | status_date | date | date of the evidence that decided the status |
 | status_source | string | source of that evidence |
+| opened_date | date | the day this business opened at this address, where a register matched to the place says so: a certificate of occupancy, a license's first issue, a first day of sales. The earliest among the matched records. Never inferred, and null for most places. A shop older than its current license shows the license's day; a January 1 date is read as "year only" and left out |
+| opened_source | string | the register that gave that day |
 | open_score | double | rough chance the place is open on the build date, 0 to 1, section 7 |
 | overture_sources | list of string | the sources Overture itself took the place from (`meta`, `microsoft`, `foursquare`, `brightquery`, ...), null for a place Overture does not have |
 | openpois_conf | double | OpenPOIs' confidence that the place exists and is open, full layer only, null when OpenPOIs does not list it |
@@ -116,6 +118,14 @@ Rules for adapters:
   geocoded point sits on the street, often 50 to 100 m from the door, so
   these registers match by house number but do not mint places or drive
   the missing-license flag.
+- A register that says when a business opened (a certificate of occupancy,
+  a license's first issue, a first day of sales) passes it as
+  `out.row(..., since=day)`. It is written to a file of its own,
+  `since/<source>.csv` (source, source_id, since), and becomes the place's
+  `opened_date`. It never changes what the row itself says. Read so far:
+  Fort Worth certificates, Texas sales tax outlets, Texas and New York
+  liquor licenses, New Orleans, New York City, Los Angeles and San
+  Francisco business rolls.
 - If the register uses a legal name the public never sees, the adapter maps
   it (see `TRADE_NAMES` in `adapters/fdic.py`). The matcher stays generic.
 - A register that only publishes its last few weeks can be held instead of
@@ -1059,6 +1069,10 @@ more joined exactly, through the SIRET that mappers tag on OSM features.
 ## 11. Publishing
 
 Per region: `core-<region>.parquet`, `places-<region>.parquet`,
+`added-<region>.parquet` lists the places the build added from a register
+(id, name, category, position, source, opened_date, build_date), so a later
+build can count how many of them the map datasets came to list.
+
 `status-<region>.parquet` (id, status, status_date, status_source,
 open_score and missing_license only, for readers that just join on id) and
 `manifest-<region>.json`. Each release from the second one on also carries
