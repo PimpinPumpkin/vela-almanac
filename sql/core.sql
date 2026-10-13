@@ -243,6 +243,11 @@ create or replace table storefront_source as
     ('bablo_me', 'licensed_premises', true, true),
     ('abc_ky', 'licensed_premises', true, true),
     ('led_co', 'licensed_premises', true, true),
+    ('nash_beer', 'licensed_premises', false, true),
+    ('det_liquor', 'licensed_premises', false, true),
+    ('moco_md_alcohol', 'licensed_premises', false, true),
+    ('llb_baltimore', 'licensed_premises', false, true),
+    ('mpls_liquor', 'licensed_premises', false, true),
     ('abc_ca', 'licensed_premises', true, true),
     ('abt_fl', 'licensed_premises', true, true)) t(source, category, pinned, strict);
 -- pinned: the register gives only an address, and a row is placed on its address point.
