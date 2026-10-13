@@ -299,7 +299,7 @@ kitchen, a cafeteria, a cart, or a King County food truck's plate number
 stadium, campus or hospital. Any roll row with no house number is left
 out, and so are two or more new permits at one door: those are trucks
 at their commissary, stalls in a market hall or the departments of one
-store. Twelve food lists pass and ten do not.
+store. Twelve food lists pass and eight do not.
 
 In the District of Columbia box this adds about 450 places to 94,000.
 Forty were read against their most similar neighbor: 39 were new, 1 was a
@@ -366,14 +366,14 @@ centers, pharmacies and lodging:
 | California salon and repair shop licenses (DCA), held to more | Sacramento | 26 and 28 | 24 of the 26 salons and 27 of the 28 repair shops | 1 |
 | New York repair shops and dealers (DMV), held to more | Buffalo | 23 | all 23: body shops, repair shops, used car lots. Turned off on 2026-10-12 when rows in a person's name became places; none can now | 2 |
 | Florida salon licenses (DBPR), held to more | Miami | 17 | 16 of the 17 | 0 |
-| Los Angeles County restaurant and market inventory, held to more as a food list | Los Angeles | 486 | 37 of 40: mini markets, liquor stores, cafes, karaoke bars; the others are two courthouse snack bars (now left out) and a nutrition club | 16 |
+| Los Angeles County restaurant and market inventory, held to more as a food list | Los Angeles | 469 | 37 of 40: mini markets, liquor stores, cafes, karaoke bars; the others are two courthouse snack bars (now left out) and a nutrition club | 16 |
 | Alameda County restaurant inspections, as a food list | Oakland | 67 | 36 of 40: cafes, markets, groceries; the others are a recreation center stand, a studio's staff cafe and a shared kitchen | 24 |
-| King County food facilities, as a food list | Seattle | 92 | 37 of 40 once food trucks, listed by plate number, were left out | 16 |
-| Detroit restaurant establishments, as a food list | Detroit | 256 | 36 of 40: bars, pizzerias, taquerias, soul food; two were a KFC under its long name beside "KFC" (now caught) | 11 |
-| Allegheny County food facilities, as a food list | Pittsburgh | 67 | 37 of 40 once "venue / outlet" names were left out: corner markets, cafes, smoke shops | 8 |
-| Columbus food licenses, as a food list | Columbus | 92 | 36 of 40: markets, bars, cafes; the others are airport stands and two company cafeterias (cafeterias now left out) | 7 |
-| Riverside County food facilities, as a food list | Riverside | 35 | 34 of the 37 that remain after snack bars were left out | 8 |
-| San Diego County food permits, as a food list, placed on address points | San Diego | 50 | 34 of 36 once hotel outlets and prep kitchens were left out | 4 |
+| King County food facilities, as a food list | Seattle | 82 | 37 of 40 once food trucks, listed by plate number, were left out | 16 |
+| Detroit restaurant establishments, as a food list | Detroit | 218 | 36 of 40: bars, pizzerias, taquerias, soul food; two were a KFC under its long name beside "KFC" (now caught) | 11 |
+| Allegheny County food facilities, as a food list | Pittsburgh | 66 | 37 of 40 once "venue / outlet" names were left out: corner markets, cafes, smoke shops | 8 |
+| Columbus food licenses, as a food list | Columbus | 87 | 36 of 40: markets, bars, cafes; the others are airport stands and two company cafeterias (cafeterias now left out) | 7 |
+| Riverside County food facilities, as a food list | Riverside | 33 | 34 of the 37 that remain after snack bars were left out | 8 |
+| San Diego County food permits, as a food list, placed on address points | San Diego | 43 | 34 of 36 once hotel outlets and prep kitchens were left out | 4 |
 | Michigan food establishments (MDARD), as a food list | Detroit | 61 | 36 of 40: chicken and fish shops, pizzerias, coffee houses; the others are two hospital cafes, a call center's cafe and a gym | 4 |
 | Milwaukee food licenses, as a food list | Milwaukee | 95 | 36 of 40 once doors with two new permits were left out: taquerias, mini marts, cafes | 13 |
 | Minneapolis food licenses, as a food list | Minneapolis | 30 | 28 of the 30; a mall's 13 numbered stalls went with the one-door rule | 5 |
