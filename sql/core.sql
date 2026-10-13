@@ -234,6 +234,7 @@ create or replace table storefront_source as
     ('co_tobacco', 'grocery_or_convenience_store', false, true),
     ('childcare_tx', 'amenity=childcare', true, true),
     ('bop_tx', 'amenity=pharmacy', true, true),
+    ('dbpr_fl_lodging', 'tourism=hotel', true, true),
     ('cpa_tx_tobacco', 'grocery_or_convenience_store', true, true),
     -- registers that give only an address; see "pinned" below
     ('tabc_tx', 'licensed_premises', true, true),
