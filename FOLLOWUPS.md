@@ -91,6 +91,7 @@ Nothing is done to get around these. They may open up, or answer a request.
   23 that matched a place, other sources called 3 closed and 9 open.
 - California delinquent salon and repair shop licenses (not collected yet).
 - San Francisco business locations with an end date (59% right on first look).
+- Allegheny County food facilities with a closing date (49% right on first look).
 - Detroit restaurant establishments marked "Permanently Closed" (1,449, no date in the layer; not collected yet).
 
 ## Low priority, known to work
