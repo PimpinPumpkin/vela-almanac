@@ -60,6 +60,14 @@ delete from $t where not (
   st_contains((select g from outline), st_point(lng, lat))
   or (region = '$STATE' and st_dwithin((select g from outline), st_point(lng, lat), 0.05)));"
   done
+  # Register rows too: a state's box reaches into its neighbors (New Jersey's covers Manhattan),
+  # and a neighbor's licensed shop that matches nothing here would be added to this state as new.
+  # A row whose own address names another state goes too, wherever its point falls: Delaware's
+  # outline takes in the river up to the New Jersey shore.
+  REG_CLIP="delete from register where
+  coalesce(nullif(regexp_extract(address, ', ([A-Z]{2})( [0-9]{5})?(-[0-9]{4})?\\s*\$', 1), ''), '$STATE') <> '$STATE'
+  or (lat is not null and not (st_contains((select g from outline), st_point(lng, lat))
+          or (regexp_matches(address, ', $STATE( [0-9]{5})?(-[0-9]{4})?\\s*\$') and st_dwithin((select g from outline), st_point(lng, lat), 0.05))));"
 fi
 
 DB="$OUT/build.duckdb"; rm -f "$DB"
@@ -96,6 +104,7 @@ create table register as
     and ((lat between $S and $N and lng between $W and $E)
      -- records with an address but no position: keep the ones in a postal code the region has
      or (lat is null and zip5(address) in (select distinct zip5(postcode) from ovt)));
+${REG_CLIP:-}
 .read sql/core.sql
 .read sql/full.sql
 .read sql/publish.sql

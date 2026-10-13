@@ -257,6 +257,14 @@ second listing of a place under a longer name (that case is now caught).
 About one in five then picked up an OSM feature in the full layer, which
 is independent confirmation that the place exists.
 
+**State files.** A state's build is cut to the state's outline, places
+and register rows alike, and a register row whose own address names
+another state is dropped wherever its point falls. Until 2026-10-12 only
+places were cut, so a shop in Manhattan that a New York register listed
+was added to New Jersey's file as well (New Jersey's box covers
+Manhattan): 67,000 added places were in more than one state's file in
+the build of that day.
+
 **Registers that give only an address.** A geocoder's guess along the
 street is good enough to match a place and not good enough to make one.
 A row from an address-only register is added only when its house number,

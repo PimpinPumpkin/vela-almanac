@@ -267,6 +267,10 @@ def la_biz(out):
     as_of = updated(host, table)
     for r in rows(host, table, select="location_account,business_name,dba_name,street_address,city,zip_code,location_1"):
         lat, lng = point(r.get("location_1"))
+        if lat is None:
+            # no point means an address outside the city, often outside California
+            out.drop("not located in the city")
+            continue
         out.row("la_biz", r.get("location_account"), r.get("dba_name") or r.get("business_name"),
                 address(r.get("street_address"), r.get("city"), "CA %s" % (r.get("zip_code") or "")[:5]), lat, lng, "open", as_of)
 
