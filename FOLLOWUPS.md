@@ -5,15 +5,6 @@ Newest findings first within a group. SOURCES.md has the addresses.
 
 ## Needs someone to ask
 
-- **Maricopa County, Arizona: food permits** (105,000, with positions; all
-  of Phoenix). The layer's terms say county internal use only, and that
-  outside use needs written authorization from the county GIS office.
-  Ask for it.
-- **Virginia Beach business licenses** (42,000, no positions). The terms
-  were read on 2026-10-12: public, but any application using the data
-  must carry the city's own disclaimer paragraph. That is a condition the
-  Almanac's license list does not cover; decide whether to carry it. The
-  table also lists licenses as issued, not the ones in force.
 - **Indiana alcohol licenses**: sold per record. **Utah DOPL lists** and
   **Oregon Board of Pharmacy**: paid list services. Ask whether a free
   copy is possible for an open dataset.

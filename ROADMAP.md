@@ -93,7 +93,8 @@ Salons, repair shops, small retail. 84% of all rows, 8% with a status.
   row is pinned to its address point in the National Address Database and
   may then add a place (SPEC.md section 6). On for the Texas, Washington,
   North Carolina, Kansas, Kentucky, New Jersey, Maine, California,
-  Florida and Colorado liquor registers, the Texas and Colorado tobacco
+  Florida, Colorado, Oregon, Idaho and Nebraska liquor registers, seven
+  city liquor lists, the Texas and Colorado tobacco
   retailer lists, and Texas pharmacies and child care centers;
   Nebraska, Missouri and Arkansas were read and refused. Next: find
   address points for Colorado, Oregon, Mississippi and the other
@@ -234,12 +235,13 @@ Set by the owner on 2026-10-06.
   that state's largest city. A table that covers one city or county is
   tested in that city (2026-10-12).
 - **Keys.** None for now. Sources that need a key wait.
-- **Licenses.** Public domain, CC0, ODbL, CC BY and open government
-  licences (Licence Ouverte, OGL) and Common Crawl's terms of use may be
-  added without asking, credited in
-  NOTICE. US state and local public records that state no license may also
-  be added, marked `none-stated` on every row they touch. Anything else
-  with no stated license is asked about first.
+- **Licenses.** Decided 2026-10-12: public data is used even where its
+  terms are unclear or restrictive, with the terms as found and the
+  decision written in SOURCES.md and the rows labelled with the source's
+  own terms. Before that day only public domain, CC0, ODbL, CC BY, open
+  government licences, Common Crawl's terms and unlicensed US public
+  records were taken. A page that blocks the project (403, challenge
+  page, CAPTCHA, login) is still never worked around.
 - **Order.** Section 1 first.
 - **Search-form registers.** Decided 2026-10-07: build crawlers for the state
   registers that only offer a search form (liquor licenses, restaurant
