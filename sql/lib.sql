@@ -73,6 +73,7 @@ create or replace macro named_category(name, fallback) as
     when regexp_matches(name, '\b(juice|smoothies?|salad|acai|coffee|espresso|yogurt|dessert)\b.*\bbar\b', 'i') then 'amenity=cafe'
     -- a nail bar or a brow bar pours nothing
     when regexp_matches(name, '\b(nails?|lash|lashes|brows?|hair|blow ?dry|beauty|wax)\b.*\bbar\b', 'i') then (case when fallback = 'commercial_premises' then 'shop=beauty' else fallback end)
+    when regexp_matches(name, '\b(flowers?|floral)\b.*\bbar\b', 'i') then (case when fallback = 'commercial_premises' then 'shop=florist' else fallback end)
     when regexp_matches(name, '\b(bar|pub|tavern|saloon|lounge|taproom|tap room|brewery|brewing|cantina|nightclub|night club|icehouse|ice house|sports bar)\b', 'i') then 'amenity=bar'
     -- "Florida Kitchen Cabinets" is not a kitchen
     when regexp_matches(name, '\b(cabinets?|countertops?|granite|flooring|remodeling)\b', 'i') then fallback
