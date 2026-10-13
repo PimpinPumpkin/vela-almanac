@@ -273,6 +273,10 @@ create or replace table storefront_source as
     ('achd_pa_food', 'food_roll', false, true),
     ('cph_columbus_food', 'food_roll', false, true),
     ('sd_county_food', 'food_roll', true, true),
+    ('dph_sc_food', 'food_roll', false, true),
+    ('mke_food', 'food_roll', false, true),
+    ('mpls_food', 'food_roll', false, true),
+    ('mdard_mi_food', 'food_roll', false, true),
     ('dca_ca_salon', 'commercial_roll', true, true),
     ('dca_ca_auto', 'commercial_roll', true, true),
     ('dmv_ny', 'commercial_roll', true, true),
@@ -358,7 +362,7 @@ create or replace table born as
       -- "Pittsburgh Zoo / Jambo Grill", "Safeway #2968 - Grocery", a hotel's
       -- "Main Kitchen", and in King County a food truck by its plate ("KC112").
       and (s.category <> 'food_roll'
-           or not regexp_matches(r.name, ' / | - |\b(snack bar|main kitchen|banquet|prep|pantry|service bar|kitchen [0-9]|warehouse|storage|bakery dept|deli dept|cafeteria|cart|micro market)\b|\bkc ?#? ?[0-9]+', 'i'))
+           or not regexp_matches(r.name, '/| - |\b(snack bar|main kitchen|banquet|prep|pantry|service bar|kitchen [0-9]|warehouse|storage|bakery dept|deli dept|cafeteria|cart|micro market)\b|\bkc ?#? ?[0-9]+', 'i'))
       and (r.source <> 'lottery_ny'
            -- a sidewalk newsstand carries its holder's name
            or not regexp_matches(r.name, 'news', 'i') and regexp_matches(r.name, '\b(deli|grocery|groc|pharmacy|drugs?|mart|market|convenien\w*|store|liquors?|wine|check cashing|supermarket|food|shop|discount|cafe|coffee|smoke|vape|tobacco|station|gas|cards?|gifts?|stationery|candy|bodega|cents)\b|#\s*[0-9]', 'i'))
@@ -427,10 +431,20 @@ create or replace table born as
       on p.cy = u.cy and p.cx = u.cx
     where dist_m(u.lat, u.lng, p.lat, p.lng) <= 40
   )
+  -- Two or more new food permits at one door are trucks at their
+  -- commissary, stalls in a market hall or the departments of one store.
+  , crowded as (
+    select source, hn, round(lat, 3) as la, round(lng, 3) as lo
+    from unmatched
+    where category = 'food_roll' and id not in (select id from lookalike)
+    group by all having count(*) > 1
+  )
   select 'alm:' || u.source || '/' || u.source_id as place_id, u.*
   from unmatched u
   where u.id not in (select id from lookalike)
     and (u.category not in ('commercial_roll', 'food_roll') or u.id in (select id from anchored))
+    and (u.category <> 'food_roll'
+         or (u.source, u.hn, round(u.lat, 3), round(u.lng, 3)) not in (select (source, hn, la, lo) from crowded))
   -- one register can list a premises twice, and two registers can list the same shop
   -- (the same name and house number within a few kilometers: a register that lists one
   -- premises under two ZIPs puts its rows on two address points)
