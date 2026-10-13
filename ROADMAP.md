@@ -111,7 +111,10 @@ Salons, repair shops, small retail. 84% of all rows, 8% with a status.
   repair shops, New York repair shops and Florida salons, and twelve food
   permit lists (Los Angeles County adds 469 in its box). Fort Worth's
   certificates of occupancy add a shop on the day it moves in. Nine rolls
-  were read and refused. Next: read license start dates as openings; try
+  were read and refused. A place can now carry an `opened_date`, and each
+  build writes the list of places it added (`added-<region>.parquet`; the
+  first national list, 116,000 places, was kept on 2026-10-13) so a later
+  build can count how many the map datasets came to list on their own. Next: read license start dates as openings; try
   the rule on Pennsylvania's sales tax licenses once the state has
   address points (4 rows found one in a Philadelphia box); look again at
   salon-suite renters, which decide the Texas and New York salon lists.
