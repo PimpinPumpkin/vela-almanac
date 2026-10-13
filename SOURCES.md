@@ -593,6 +593,8 @@ Milwaukee's data is CC BY (City of Milwaukee, per data.milwaukee.gov);
 the others state no license and are marked `none-stated`. Agent, owner and
 licensee columns are not read.
 - Phoenix liquor licenses: `https://maps.phoenix.gov/pub/rest/services/Public/LIQUOR_RACMap/MapServer` (layers 0 to 13)
+  Series 3, 6, 7, 9, 10, 11 and 12 (bars, stores, hotels, restaurants, microbreweries) are the source
+  `phx_liquor`; the other series are `phx_liquor_trade`. Anchorage is split the same way by license type.
 - Nashville beer permits: `https://services2.arcgis.com/HdTo6HJqh92wn4D8/arcgis/rest/services/Beer_Permit_Locations_Feature_Layer_view/FeatureServer/0`
 - Milwaukee food and alcohol licenses: `https://milwaukeemaps.milwaukee.gov/arcgis/rest/services/regulation/license/MapServer` (layers 9 and 0)
 - Anchorage liquor licenses: `https://services2.arcgis.com/Ce3DhLRthdwbHlfF/arcgis/rest/services/LiquorLicenses_Hosted/FeatureServer/0`

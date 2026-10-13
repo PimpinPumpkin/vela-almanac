@@ -12,7 +12,7 @@ create or replace macro license_of(source) as
                     'dor_wi_liquor', 'isp_id_liquor', 'lcb_wa', 'abc_nj', 'lcc_ne', 'bablo_me', 'abc_ar', 'able_ok',
                     'biz_lasvegas', 'dchd_omaha_food', 'mpls_food', 'mpls_liquor', 'llb_baltimore', 'cph_columbus_food',
                     'mdard_mi_food', 'dph_sc_food', 'mda_mn_food', 'dpor_va', 'bop_tx', 'bop_oh',
-                    'phx_liquor', 'nash_beer', 'anc_liquor', 'sux_food', 'hsv_liquor', 'det_biz', 'det_liquor',
+                    'phx_liquor', 'phx_liquor_trade', 'nash_beer', 'anc_liquor', 'anc_liquor_trade', 'sux_food', 'hsv_liquor', 'det_biz', 'det_liquor',
                     'det_food', 'miami_dade_biz', 'longbeach_biz', 'broward_biz', 'tucson_biz', 'bellevue_biz',
                     'saccounty_biz', 'chesapeake_biz', 'alameda_food',
                     'riverside_food', 'cdph_ca_facilities', 'co_tobacco', 'lac_biz',

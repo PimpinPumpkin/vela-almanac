@@ -35,19 +35,33 @@ DET = "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/"
 
 # source: layers, filter, id fields, name fields (first one filled wins), street, city (a field or a fixed name),
 # state, ZIP field, and a date field when the rows carry their own
+PHX = "https://maps.phoenix.gov/pub/rest/services/Public/LIQUOR_RACMap/MapServer/%d"
+ANC = "https://services2.arcgis.com/Ce3DhLRthdwbHlfF/arcgis/rest/services/LiquorLicenses_Hosted/FeatureServer/0"
+ANC_RETAIL = ("LicenseType LIKE '%Eating Place%' OR LicenseType LIKE '%Dispensary' OR LicenseType LIKE '%Package Store%'"
+              " OR LicenseType LIKE 'Retail Community-Brewery%' OR LicenseType LIKE 'Retail Community-Winery%'"
+              " OR LicenseType LIKE 'Retail Community-Distillery%' OR LicenseType LIKE '%Pub' OR LicenseType LIKE '%Golf Course'"
+              " OR LicenseType LIKE '%Theater'")
 SOURCES = {
-    "phx_liquor": (["https://maps.phoenix.gov/pub/rest/services/Public/LIQUOR_RACMap/MapServer/%d" % i for i in range(14)],
+    # Phoenix has a layer for each license series. Bars, stores, hotels, restaurants and
+    # microbreweries (series 3, 6, 7, 9, 10, 11, 12) are premises a person walks into; producers,
+    # wholesalers, clubs and special licenses are kept apart so they never add a place.
+    "phx_liquor": ([PHX % i for i in (1, 4, 5, 7, 8, 9, 10)],
                    "LICENSE_STATUS = 'ACTIVE' AND JURISDICTION = 'INSIDE PHOENIX'",
                    ("STATE_LICENSE", "ACCOUNT_ID"), ("BUSINESS_NAME",), "BUSINESS_ADDRESS", "=PHOENIX", "AZ", "ZIP_CODE", None),
+    "phx_liquor_trade": ([PHX % i for i in (0, 2, 3, 6, 11, 12, 13)],
+                         "LICENSE_STATUS = 'ACTIVE' AND JURISDICTION = 'INSIDE PHOENIX'",
+                         ("STATE_LICENSE", "ACCOUNT_ID"), ("BUSINESS_NAME",), "BUSINESS_ADDRESS", "=PHOENIX", "AZ", "ZIP_CODE", None),
     "nash_beer": (["https://services2.arcgis.com/HdTo6HJqh92wn4D8/arcgis/rest/services/Beer_Permit_Locations_Feature_Layer_view/FeatureServer/0"],
                   "Status = 'ISSUED'", ("Permit__",), ("Business_Name",), "Address", "City", "TN", "ZIP", None),
     "mke_food": ([MKE + "9"], "EXPIRATION_DATE > timestamp '%s 00:00:00'" % TODAY.isoformat(),
                  ("LICENSE_ID",), ("TRADE_NAME", "CORP_NAME"), "ENTITY_ADDRESS", "=MILWAUKEE", "WI", None, None),
     "mke_liquor": ([MKE + "0"], "EXPIRATION_DATE > timestamp '%s 00:00:00'" % TODAY.isoformat(),
                    ("LICENSE_ID",), ("TRADE_NAME", "CORP_NAME"), "ENTITY_ADDRESS", "=MILWAUKEE", "WI", None, None),
-    "anc_liquor": (["https://services2.arcgis.com/Ce3DhLRthdwbHlfF/arcgis/rest/services/LiquorLicenses_Hosted/FeatureServer/0"],
-                   "ExpirationYear >= '%d'" % TODAY.year,
+    # the same split for Anchorage, by license type
+    "anc_liquor": ([ANC], "ExpirationYear >= '%d' AND (%s)" % (TODAY.year, ANC_RETAIL),
                    ("LicenseNumber",), ("Establishment",), "ServiceLocation", "=ANCHORAGE", "AK", None, None),
+    "anc_liquor_trade": ([ANC], "ExpirationYear >= '%d' AND NOT (%s)" % (TODAY.year, ANC_RETAIL),
+                         ("LicenseNumber",), ("Establishment",), "ServiceLocation", "=ANCHORAGE", "AK", None, None),
     "sux_food": (["https://gis.siouxfalls.gov/arcgis/rest/services/Data/Safety/MapServer/17"],
                  "SITE_TYPE <> 'MOB'", ("SITE_INV",), ("SITE_NAME",), "FULL_ADDRESS", "=SIOUX FALLS", "SD", None, "INSP_DATE1"),
     "hsv_liquor": (["https://maps.huntsvilleal.gov/server/rest/services/Licenses/AlcoholBeverageLicenses/MapServer/0"],

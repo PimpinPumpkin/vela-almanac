@@ -236,7 +236,10 @@ Kentucky licensed premises, New York lottery retailers, the liquor
 license lists of Nashville, Detroit, Baltimore, Minneapolis and
 Montgomery County, Maryland (each read in its own city: 36 of 40, 38 of
 40, 38 of 40, 23 of 25 and 22 of 23 a storefront of its own; 26 of the
-154 Baltimore adds then found an OSM feature), and Colorado
+154 Baltimore adds then found an OSM feature), the retail license kinds
+of Phoenix and Anchorage (38 of 40 and 28 of 31, once producers,
+wholesalers, clubs and event licenses were split into sources of their
+own that never add a place), and Colorado
 tobacco retailers (held to the stricter duplicate tests below, because a
 station's shop is often licensed under a name the map does not use: 82
 added in the Denver box, 34 of 40 read before those tests were a
@@ -890,7 +893,7 @@ evidence from a different source for the same place.
 | Adding places from Ohio pharmacy licenses (Columbus box) | 59 would be added; nearly all are a long-term-care pharmacy's license inside a nursing home. | Not a storefront. Evidence only. |
 | Adding places from New York salon and barber shop licenses (New York City box) | Added places until 2026-10-12. Of 50 read then, 12 were a person's name, several at an apartment. | The address is the licensed place of business and the name is the business name, which for a sole proprietor is their own. A one-person studio in an apartment or a suite room is not a place someone walks into off a map: taken out the day it was read. Evidence only. |
 | Adding places from New York repair shop and dealer registrations (New York City box) | Added places until 2026-10-12. Of 36 read then, 26 were a shop or dealer. | The rest are city agency garages, a person's name and an estate. Evidence only. |
-| Adding places from the liquor license layers of Phoenix, Anchorage, Huntsville, Milwaukee and Boston | Read in each city. Phoenix: about 22 of 40 a storefront, the rest distributors, importers and spirit brands. Anchorage: 30 of 40, with wholesalers and ball clubs. Huntsville: 30 of 40, with one-day event licenses. Milwaukee: 32 of 40, with vendors on the festival grounds and caterers. Boston's Licensing Board: lodging houses, property trusts and people among the first 40. | Each layer holds license kinds that are not a premises open to the public, and none marks them in a field the reader uses. Evidence only until the license kind is read. |
+| Adding places from every license in the liquor layers of Phoenix, Anchorage, Huntsville, Milwaukee and Boston | Read in each city. Phoenix: about 22 of 40 a storefront, the rest distributors, importers and spirit brands. Anchorage: 30 of 40, with wholesalers and ball clubs. Huntsville: 30 of 40, with one-day event licenses. Milwaukee: 32 of 40, with vendors on the festival grounds and caterers. Boston's Licensing Board: lodging houses, property trusts and people among the first 40. | Each layer holds license kinds that are not a premises open to the public. Phoenix and Anchorage name the kind in a field, and their retail kinds now add places (section 6). Milwaukee's misses hold the same license class as its taverns, and Huntsville and Boston were not split: evidence only. |
 | Adding places from address-only salon licenses (Texas TDLR, Houston box) | 565 would be added; 20 of 40 read were a storefront. | The other half are chair renters in salon suites, salons in a home, and licenses in a person's name. Used as evidence only. |
 | Adding places from NYC weights and measures tests | 94 would be added; most of 40 read are a person's name. | The test is recorded under the licensee, often an individual. A person's name must never become a place. Used as evidence only. |
 | San Francisco: a business location with an end date means closed | San Francisco box, places with no brand and no live location under the same name: independent closed 102, open after the end date 72. | 59%, far below the signals that are kept. The end date marks one registration ending; the shop often carries on under a new one. Held, not emitted. |
