@@ -475,8 +475,17 @@ are left out.
   `CC-BY-4.0` and the city is credited in NOTICE. A new kind of source:
   a list of openings. Occupancy certificates may add places when the
   name reads as a shop (SPEC section 6); certificates that close a
-  building permit are the separate source `fw_co_build` and never do. Other cities publish the same (Los Angeles
-  `data.lacity.org/d/3f9m-afei`, Cambridge `qwvv-deed`); not read yet.
+  building permit are the separate source `fw_co_build` and never do.
+  Looked for the same in other cities on 2026-10-13 and found none as
+  good: Los Angeles (`data.lacity.org/d/3f9m-afei`), New York City,
+  Seattle (`axkr-2p68`), Montgomery County, Maryland (`2fhm-xt6p`),
+  Cambridge (`qwvv-deed`), Detroit, Tucson and Baltimore County certify
+  buildings and name no occupant; Dallas names the business but stopped
+  in 2022 (`www.dallasopendata.com/d/9qet-qt9e`); Miami-Dade's
+  certificates of use (147,000 since 2003, layer
+  `CertificateOfUse_New_gdb`) name the corporation and, as the trade
+  name, often the applicant, and the county's business tax layer already
+  lists the same businesses.
 - Southern Nevada Health District (Clark County: Las Vegas, Henderson,
   North Las Vegas), food establishment permits, from the district's
   nightly file for developers:

@@ -74,6 +74,17 @@ Nothing is done to get around these. They may open up, or answer a request.
 - **Orlando business tax receipts** (119,000): addresses have no ZIP, which
   the address matcher needs. Could be read with the city as the ZIP's stand-in.
 
+## Openings
+
+- **Certificates of occupancy that name the occupant.** Fort Worth's add
+  shops on the day they move in (SPEC section 6). No second city was
+  found on 2026-10-13 (list in SOURCES.md). Worth asking for where a city
+  runs the same permit system as Fort Worth (Accela) and publishes less.
+- **Business license start dates.** Chicago, Seattle, Denver, San
+  Francisco, Las Vegas and others give each license a start or issue
+  date that the adapters do not read. A license issued in the last few
+  months is the same signal as a certificate of occupancy.
+
 ## Closed portals (403 or a challenge page), nothing to do but ask
 
 - **inspections.myhealthdepartment.com**: Tennessee and Virginia
