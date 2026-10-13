@@ -26,6 +26,7 @@ while read -r source; do [ -n "$source" ] && failed+=("$source"); done < "$ALMAN
 echo "== source watch"
 python3 tools/source_watch.py "$CACHE/evidence" "$CACHE/evidence.prev" "$CACHE/watch/sources.txt" "$CACHE/held" ${failed[@]+"${failed[@]}"}
 rm -rf "$CACHE/evidence.prev"
+echo "== address layers";           python3 base/address_layers.py || echo "address layers: last run's files kept where one failed"
 echo "== foursquare closing dates"; signals/fsq_closed.sh >/dev/null
 echo "== alltheplaces";             base/atp.sh us >/dev/null
 echo "== state outlines";           state_outlines
