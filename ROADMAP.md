@@ -4,9 +4,11 @@ What gets built next, in order, and what counts as done. The aim is the
 coverage and freshness people expect from a commercial map, from open
 sources only, United States first.
 
-Where things stand (build of 2026-10-12): 19.5 million places, 13.1% with a
-dated status, 237,000 of them added from a register (the files of that
-day repeat 59,000 of those in a neighboring state; fixed since). Banks 66%, chain
+Where things stand (full local build of 2026-10-13): 19.3 million places,
+12.5% with a dated status, 116,000 of them added from a register. The
+build of 2026-10-12 said 237,000 added and 13.1%: its state files repeated
+register rows from neighboring states and made places of licenses in a
+person's name; both fixed. Category shares below are from 2026-10-12. Banks 66%, chain
 restaurants 61%, gas stations 57% (fewer rows than before: the listings a
 forecourt has under each of its brands are now one place), grocery 49%,
 pharmacies 41%, independent restaurants 35%, bars 28%, everything else 9%.

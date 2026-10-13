@@ -42,21 +42,31 @@ What it reads:
   OpenStreetMap mappers, and places deleted or renamed in OpenStreetMap's
   edit history.
 
-What comes out of the build of 2026-10-12, for all 50 states and DC:
+What comes out of a full local build on 2026-10-13, for all 50 states and
+DC (not published as a release):
 
 | | |
 | --- | ---: |
-| Places | 19.5 million |
-| Added from a register because no map dataset had them | 237,000 |
-| Confirmed open by a dated record from the last two years | 2.4 million |
+| Places | 19.3 million |
+| Added from a register because no map dataset had them | 116,000 |
+| Confirmed open by a dated record from the last two years | 2.3 million |
 | Marked closed, with the date and the source | 147,000 |
+
+The build of 2026-10-12 counted 237,000 added places. That figure was too
+high: a state's file took in register rows from the neighboring states its
+box overlaps, so a bank branch in New Jersey was added again in New York's
+file, and New York salon and repair shop licenses in a person's name were
+becoming places. Both are fixed; no added place now appears in two states.
+Of the 116,000, 23,000 come from rules written since (business rolls,
+food permit lists, Texas sales tax outlets, certificates of occupancy).
 
 Which registers may add a place is decided one at a time, by reading what
 each would add. Liquor licenses, bank branches and food stamp retailers
-pass: they list storefronts. Restaurant inspection lists and salon
-licenses do not, because they also list school kitchens, kiosks inside
-supermarkets and people renting a chair, so those are used only as proof
-that a known place is open. A register that gives an address and no
+pass: they list storefronts. Business license rolls, food permit lists
+and salon licenses also list home businesses, school kitchens and kiosks
+inside supermarkets, so a row from one of those adds a place only when
+its name reads as a shop and, for most, a listed business stands within
+40 m; the rest is used only as proof that a known place is open. A register that gives an address and no
 position adds a place only where the address is a known address point, so
 nothing is dropped in the middle of a street. The numbers for each are in
 [SPEC.md](SPEC.md), sections 6 and 9.
