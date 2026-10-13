@@ -42,6 +42,25 @@ create or replace macro name_words(nn) as
 create or replace macro initials(nn) as
   array_to_string(list_transform(string_split(nn, ' '), lambda w: w[1]), '');
 
+-- A register gives an added place a coarse kind ("licensed premises"). Its
+-- name often says more. Only plain words are read, and a name that says
+-- nothing keeps the register's kind. Values are the tags OSM uses, which
+-- the category groups already know.
+create or replace macro named_category(name, fallback) as
+  case
+    when fallback not in ('licensed_premises', 'grocery_or_convenience_store', 'food_service', 'restaurant') then fallback
+    when regexp_matches(name, '\b(liquors?|spirits|bottle shop|package store|beverage (depot|warehouse|house)|wine (and|&) spirits|wines?( shop| store| cellar| merchants?)?$)', 'i') then 'shop=alcohol'
+    when regexp_matches(name, '\b(smoke|smokes|vape|vapor|tobacco|cigars?|hookah)\b', 'i') then 'shop=tobacco'
+    when regexp_matches(name, '\b(pharmacy|drugs?|rx)\b', 'i') then 'amenity=pharmacy'
+    when regexp_matches(name, '\b(fuels?|gas|petroleum|exxon|shell|chevron|mobil|valero|texaco|citgo|conoco|sunoco|marathon|phillips 66|sinclair|speedway|arco|bp)\b', 'i') then 'amenity=fuel'
+    when regexp_matches(name, '\b(bar|pub|tavern|saloon|lounge|taproom|tap room|brewery|brewing|cantina|nightclub|night club|icehouse|ice house|sports bar)\b', 'i') then 'amenity=bar'
+    when regexp_matches(name, '\b(coffee|cafe|café|espresso|tea house|bakery|donuts?)\b', 'i') then 'amenity=cafe'
+    when regexp_matches(name, '\b(restaurant|grill|grille|kitchen|pizza|pizzeria|taqueria|tacos?|sushi|bbq|barbecue|barbeque|diner|bistro|steakhouse|noodles?|ramen|pho|burgers?|wings|seafood|cuisine|eatery|buffet|deli|tortas|mariscos|hibachi|trattoria|cocina)\b', 'i') then 'amenity=restaurant'
+    when regexp_matches(name, '\b(supermarket|super market|supermercado|carniceria|meat market|market place|marketplace)\b', 'i') then 'shop=supermarket'
+    when regexp_matches(name, '\b(mart|foodmart|market|mini|convenience|c-store|food store|grocery|groceries|quick|kwik|stop|corner store|express|tienda|bodega|7-eleven|circle k)\b', 'i') then 'shop=convenience'
+    else fallback
+  end;
+
 -- leading street number of an address, digits only
 create or replace macro house_number(addr) as
   nullif(regexp_extract(addr, '^\s*#?\s*([0-9]+)', 1), '');

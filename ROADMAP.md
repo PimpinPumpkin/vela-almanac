@@ -115,9 +115,10 @@ Done when "everything else" passes 15% in states with two or more of these.
 - **3.3 Score calibration.** Build a labeled set (places with both a
   register verdict and an independent one) and fit `open_score` to it
   instead of the current rule of thumb.
-- **3.4 Names and categories for places minted from registers.** Done for
-  names and streets: title case, store numbers stripped. Still to do: carry
-  the register's own business type.
+- **3.4 Names and categories for places minted from registers.** Done:
+  title case, store numbers stripped, the trade name after "dba", and a
+  category read from the name where the name states one. Still to do:
+  carry the register's own business type where it has one (license class).
 - **3.5 Duplicates inside Overture.** Done for fuel: the rows a forecourt
   has under each brand it has had are one place (SPEC.md section 6). The
   generic-word fold Vela's map bake uses was measured and left to readers

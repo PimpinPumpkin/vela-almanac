@@ -247,9 +247,13 @@ a place; the trade name after "dba" is used when there is one. A lottery
 agent licensed in a person's name is never added: only a name that reads
 as a shop is, and newsstands, which carry their holder's name, are left
 out (of 40 read after that rule, the rest were delis, groceries,
-pharmacies and liquor stores). The place gets the register's name in title case, a coarse
-category (bank, grocery_or_convenience_store, licensed_premises), and the
-register row as its first evidence.
+pharmacies and liquor stores). The place gets the register's name in title case, the
+register row as its first evidence, and a category: the kind its name
+states in plain words ("Richards Liquors" is `shop=alcohol`, "Murphy
+Chevron" `amenity=fuel`, "Last Call Sports Bar" `amenity=bar`), or else
+the register's coarse kind (bank, grocery_or_convenience_store,
+licensed_premises). In the Houston box 774 of 1,358 added places get a
+kind from their name.
 
 In the District of Columbia box this adds about 450 places to 94,000.
 Forty were read against their most similar neighbor: 39 were new, 1 was a

@@ -333,7 +333,7 @@ create or replace table born as
   qualify row_number() over (partition by u.nn, u.hn, round(u.lat, 1), round(u.lng, 1) order by u.source, u.source_id) = 1;
 
 insert into core_place
-  select place_id, display_name(name), category, null, null,
+  select place_id, display_name(name), named_category(trade_name(name), category), null, null,
          title_case(split_part(address, ', ', 1)), nullif(title_case(split_part(address, ', ', 2)), ''),
          nullif(regexp_extract(address, ', ([A-Z]{2}) [0-9]{5}', 1), ''), zip, null, null,
          lat, lng, null, nn, hn, false, zip, sk

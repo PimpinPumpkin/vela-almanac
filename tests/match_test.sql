@@ -103,3 +103,13 @@ select case when norm_name('Vanguard Restaurant Group LLC dba Fuego') = 'fuego'
                  and not list_has_any(name_words('hibachi express'), name_words('garden room restaurant'))
                  and initials('kentucky fried chicken') = 'kfc'
             then 'ok 6 trade name cases' else error('trade name test failed') end as result;
+
+-- The kind of an added place, read from its name.
+select case when named_category('Richards Liquors', 'licensed_premises') = 'shop=alcohol'
+                 and named_category('Supreme Smoke & Vape 3', 'grocery_or_convenience_store') = 'shop=tobacco'
+                 and named_category('Murphy Chevron', 'grocery_or_convenience_store') = 'amenity=fuel'
+                 and named_category('Last Call Sports Bar', 'licensed_premises') = 'amenity=bar'
+                 and named_category('Fu Shu Restaurant', 'licensed_premises') = 'amenity=restaurant'
+                 and named_category('Tipsy Chango', 'licensed_premises') = 'licensed_premises'
+                 and named_category('First National Bank', 'bank') = 'bank'
+            then 'ok 7 named category cases' else error('named category test failed') end as result;
