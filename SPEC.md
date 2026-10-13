@@ -264,6 +264,17 @@ the register's coarse kind (bank, grocery_or_convenience_store,
 licensed_premises). In the Houston box 774 of 1,358 added places get a
 kind from their name.
 
+A certificate of occupancy is a different kind of register: a city issues
+one when a business moves into a space, so it is a list of openings, each
+with its day, and the freshest source here. Its occupant field is free
+text. A place is added only from an occupancy certificate (not from one
+that closes a building permit) whose name carries a word a shop puts on
+its sign and something besides (`reads_as_shop` in `sql/lib.sql`):
+"Cowser Tire" and "Las Tequileras Cantina", not "Restaurant Taqueria",
+"Tobias Place Bldg 7" or a person's name. The register's coarse kind is
+`commercial_premises`, and the name is read for a trade more widely than
+for a license (salon, tires, car lot, dentist, clinic, gym, laundry).
+
 In the District of Columbia box this adds about 450 places to 94,000.
 Forty were read against their most similar neighbor: 39 were new, 1 was a
 second listing of a place under a longer name (that case is now caught).
@@ -305,6 +316,7 @@ centers, pharmacies and lodging:
 | Florida ABT | Jacksonville | 153 | 38 of 40: food stores, smoke shops, lounges; the others are a delivery warehouse and a retirement community | 5 |
 | Texas licensed child care centers (HHSC) | Houston | 42 | 38 of 40; the others are after-school programs run inside a school | 2 |
 | Texas pharmacies (Board of Pharmacy) | Houston | 40 | 37 of 40: independent, specialty and in-store pharmacies | 3 |
+| Fort Worth certificates of occupancy, occupancy kind, names that read as a shop | Fort Worth | 215 | 40 of 40 were a business with a door, each with the day it moved in: taquerias, food marts, barbers, smoke shops, auto lots, a laundry. Two stand where an older listing under another name is likely the shop they replaced. 65 were certified in 2026 | 3 |
 | Texas dry cleaner registrations (TCEQ) | Houston | 16 | 17 of the 19 first added were a cleaner the map lacked; the other two were a listed cleaner under a new name at the same door, and a dry cleaner registered at the door of a listed dry cleaner or laundry is now taken to be that shop. Too few to read 40 | 3 |
 | Florida lodging licenses (DBPR) | Jacksonville and Miami | 19 | 16 of the 19 the two boxes hold: hotels and motels; too few to read 40 | 3 |
 | Colorado liquor licenses, placed by the state's alcohol outlet points | Denver | 160 | 37 of 40: restaurants, bars, liquor stores; the others are big-box stores the map may hold under a far-off point, and a members' club | 17 |
@@ -705,7 +717,7 @@ signal at all.
 | dhhs_nc_inspections | open | day of the establishment's newest inspection in the last two years | matcher, positions from the Census geocoder |
 | cambridge_food | open | day the permit was issued, last two years | matcher |
 | moco_md_alcohol, childcare_ny, childcare_nyc, nj_inspection, lottery_ny, lottery_fl | open | day the table was last updated | matcher |
-| fw_co | open | day the certificate of occupancy was issued, last three years; an opening, not a roster | matcher |
+| fw_co, fw_co_build | open | day the certificate of occupancy was issued, last three years; an opening, not a roster. fw_co_build holds the certificates that close a building permit | matcher |
 | snhd_nv_food | open | day the nightly file was read; food permits active in Clark County, Nevada, one row per permit, mobile and portable kinds left out | matcher |
 | lac_food | open | day the quarter's inventory was published; restaurants and food markets under a Los Angeles County health permit | matcher |
 | sd_county_food, scc_food, wic_ny | open | day the table was last updated; San Diego County food permits in force for fixed premises, Santa Clara County food businesses, New York WIC stores and pharmacies | matcher; San Diego and New York positions from the Census geocoder |
@@ -915,7 +927,7 @@ evidence from a different source for the same place.
 | Adding places from New York repair shop and dealer registrations (New York City box) | Added places until 2026-10-12. Of 36 read then, 26 were a shop or dealer. | The rest are city agency garages, a person's name and an estate. Evidence only. |
 | Adding places from every license in the liquor layers of Phoenix, Anchorage, Huntsville, Milwaukee and Boston | Read in each city. Phoenix: about 22 of 40 a storefront, the rest distributors, importers and spirit brands. Anchorage: 30 of 40, with wholesalers and ball clubs. Huntsville: 30 of 40, with one-day event licenses. Milwaukee: 32 of 40, with vendors on the festival grounds and caterers. Boston's Licensing Board: lodging houses, property trusts and people among the first 40. | Each layer holds license kinds that are not a premises open to the public. Phoenix and Anchorage name the kind in a field, and their retail kinds now add places (section 6). Milwaukee's misses hold the same license class as its taverns, and Huntsville and Boston were not split: evidence only. |
 | Adding places from Tucson liquor licenses, Louisville tobacco licenses and the WIC store lists of Florida, Arizona and Virginia | As evidence all five read clean: 39 of 40 matches right in Tucson, 40 of 40 in Louisville, Miami, Phoenix and Norfolk. As adders: Tucson would add 92, and of 40 read 7 were wrong (a Costco placed 505 m from itself, a cinema 259 m, a hotel, a distributor under its old name, three court program rows at one county office). Louisville would add 27, 12 of them a bare "Convenience Store", "Food Market" or a person's name next to the shop itself. WIC would add 5 in Miami, 15 in Phoenix and none in Norfolk; the Phoenix 15 are Food City stores under the name "Bashas' - Food City", and Arizona's points sit 120 to 230 m off. | Tucson's points are sometimes hundreds of meters out and Louisville names the license, not the shop. WIC stores are large grocers the base already has. All five: evidence only. |
-| Adding places from Fort Worth certificates of occupancy | 669 would be added in the box, 220 of them certified in 2026. Of 45 read, 32 were a business with a door: taquerias, a cantina, tire and auto lots, salons, smoke shops, a bail bondsman. | The other 13 were a street address standing in for a name, a building or a remodel phase ("Tobias Place Bldg 7", "South Hills HS Phase 5 Remodel"), a landlord, a person, or a bare "Restaurant Taqueria". The occupant field is typed by the applicant and nothing in the row tells a shop from a shell. Evidence only. The idea is right and the list is the freshest seen yet: worth a second try with a name filter. |
+| Adding places from every Fort Worth certificate of occupancy | 669 would be added in the box, 220 of them certified in 2026. Of 45 read, 32 were a business with a door: taquerias, a cantina, tire and auto lots, salons, smoke shops, a bail bondsman. | The other 13 were a street address standing in for a name, a building or a remodel phase ("Tobias Place Bldg 7", "South Hills HS Phase 5 Remodel"), a landlord, a person, or a bare "Restaurant Taqueria". The occupant field is typed by the applicant. Certificates that close a building permit are now a source of their own that never adds a place, and an occupancy certificate adds one only when its name reads as a shop (section 6). |
 | Adding places from Texas sales tax outlets (Houston box) | 11,073 would be added, more than every other register in the box together. Of 50 read, about 22 are a storefront (food marts, cleaners, tire shops, a gun shop). | The rest sell from a house: craft, design and resale businesses on residential streets, and stalls inside a flea market under the stallholder's name. Counting only rows with a listed business within 40 m lifts it to about 20 of 28. Not enough either way: evidence only, and the best argument yet that the long tail cannot be added from a tax roll. |
 | Adding places from address-only salon licenses (Texas TDLR, Houston box) | 565 would be added; 20 of 40 read were a storefront. | The other half are chair renters in salon suites, salons in a home, and licenses in a person's name. Used as evidence only. |
 | Adding places from NYC weights and measures tests | 94 would be added; most of 40 read are a person's name. | The test is recorded under the licensee, often an individual. A person's name must never become a place. Used as evidence only. |

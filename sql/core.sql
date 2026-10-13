@@ -255,6 +255,7 @@ create or replace table storefront_source as
     ('moco_md_alcohol', 'licensed_premises', false, true),
     ('llb_baltimore', 'licensed_premises', false, true),
     ('mpls_liquor', 'licensed_premises', false, true),
+    ('fw_co', 'commercial_premises', false, true),
     ('tceq_tx_cleaners', 'shop=dry_cleaning', true, true),
     ('abc_ca', 'licensed_premises', true, true),
     ('abt_fl', 'licensed_premises', true, true)) t(source, category, pinned, strict);
@@ -305,6 +306,7 @@ create or replace table born as
       -- institution, which a food register cannot name or classify.
       -- A lottery agent is often licensed in the owner's own name. Only a
       -- name that reads as a shop becomes a place; a person's name never does.
+      and (r.source <> 'fw_co' or reads_as_shop(r.name))
       and (r.source <> 'lottery_ny'
            -- a sidewalk newsstand carries its holder's name
            or not regexp_matches(r.name, 'news', 'i') and regexp_matches(r.name, '\b(deli|grocery|groc|pharmacy|drugs?|mart|market|convenien\w*|store|liquors?|wine|check cashing|supermarket|food|shop|discount|cafe|coffee|smoke|vape|tobacco|station|gas|cards?|gifts?|stationery|candy|bodega|cents)\b|#\s*[0-9]', 'i'))

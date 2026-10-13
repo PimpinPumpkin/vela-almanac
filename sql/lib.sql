@@ -10,7 +10,7 @@ create or replace macro clean_name(s) as
 
 -- "Vanguard Restaurant Group LLC dba Fuego" trades as "Fuego"
 create or replace macro trade_name(s) as
-  regexp_replace(s, '^.+\s(dba|d/b/a|d\.b\.a\.?)[: ]\s*', '', 'i');
+  regexp_replace(s, '^.+\s(dba|d/b/a|d\.b\.a\.?)[: ][\s>:-]*', '', 'i');
 
 -- clean_name minus bracketed asides, legal suffixes, articles and trailing
 -- store numbers: "Hillside Heights (UIP Properties)" and "Outten & Golden
@@ -42,13 +42,27 @@ create or replace macro name_words(nn) as
 create or replace macro initials(nn) as
   array_to_string(list_transform(string_split(nn, ' '), lambda w: w[1]), '');
 
+-- A certificate of occupancy names its occupant in the applicant's own
+-- words: a business, a landlord, a person, a building, a street address.
+-- A name becomes a place only when it carries a word a shop puts on its
+-- sign and something besides: "Cowser Tire", not "Restaurant Taqueria",
+-- "Tobias Place Bldg 7" or "Saul Mendoza".
+create or replace macro shop_words() as
+  '\b(restaurante?|taqueria|cantina|cafe|coffee|grill|kitchen|pizza|pizzeria|burgers?|tacos?|bbq|barbecue|bakery|panaderia|donuts?|bar|pub|tavern|brewery|lounge|salon|barber|barbershop|spa|nails?|lashes|beauty|tattoo|smoke|vape|tobacco|liquor|wine|market|mart|grocery|carniceria|store|shop|boutique|outlet|tires?|autos?|motors|cleaners|laundry|pharmacy|dental|dentistry|clinic|chiropractic|fitness|gym|studio|academy|daycare|montessori|bonds|insurance|jewelry|furniture|florist|flowers|pets?|veterinary|bank|hotel|motel|dulceria|fruteria|paleteria|supermercado|creamery|bistro|diner|sushi|pho|wings|chicken|seafood|steakhouse)\b';
+create or replace macro reads_as_shop(name) as
+  regexp_matches(name, shop_words() || '|#\s*[0-9]', 'i')
+  and not regexp_matches(name, '\b(bldg|building|phase|remodel|suite|ste|shell|addition|finish.?out|tenant|properties|property|apartments|residences|holdings|investments|realty|mobile|floor|unit)\b', 'i')
+  -- something is left once the trade words and small words are taken out
+  and length(regexp_replace(regexp_replace(regexp_replace(lower(name), shop_words(), ' ', 'g'),
+                                           '\b(the|and|of|de|la|el|los|las|del|y|no|inc|llc|co)\b', ' ', 'g'), '[^a-z0-9]', '', 'g')) >= 2;
+
 -- A register gives an added place a coarse kind ("licensed premises"). Its
 -- name often says more. Only plain words are read, and a name that says
 -- nothing keeps the register's kind. Values are the tags OSM uses, which
 -- the category groups already know.
 create or replace macro named_category(name, fallback) as
   case
-    when fallback not in ('licensed_premises', 'grocery_or_convenience_store', 'food_service', 'restaurant') then fallback
+    when fallback not in ('licensed_premises', 'grocery_or_convenience_store', 'food_service', 'restaurant', 'commercial_premises') then fallback
     when regexp_matches(name, '\b(liquors?|spirits|bottle shop|package store|beverage (depot|warehouse|house)|wine (and|&) spirits|wines?( shop| store| cellar| merchants?)?$)', 'i') then 'shop=alcohol'
     when regexp_matches(name, '\b(smoke|smokes|vape|vapor|tobacco|cigars?|hookah)\b', 'i') then 'shop=tobacco'
     when regexp_matches(name, '\b(pharmacy|drugs?|rx)\b', 'i') then 'amenity=pharmacy'
@@ -58,6 +72,26 @@ create or replace macro named_category(name, fallback) as
     when regexp_matches(name, '\b(restaurant|grill|grille|kitchen|pizza|pizzeria|taqueria|tacos?|sushi|bbq|barbecue|barbeque|diner|bistro|steakhouse|noodles?|ramen|pho|burgers?|wings|seafood|cuisine|eatery|buffet|deli|tortas|mariscos|hibachi|trattoria|cocina)\b', 'i') then 'amenity=restaurant'
     when regexp_matches(name, '\b(supermarket|super market|supermercado|carniceria|meat market|market place|marketplace)\b', 'i') then 'shop=supermarket'
     when regexp_matches(name, '\b(mart|foodmart|market|mini|convenience|c-store|food store|grocery|groceries|quick|kwik|stop|corner store|express|tienda|bodega|7-eleven|circle k)\b', 'i') then 'shop=convenience'
+    -- a certificate of occupancy says nothing of the trade, so the name is read for more
+    when fallback <> 'commercial_premises' then fallback
+    when regexp_matches(name, '\b(salon|barber|barbershop|hair|braids?)\b', 'i') then 'shop=hairdresser'
+    when regexp_matches(name, '\b(nails?|lashes|beauty|spa|brows?|waxing)\b', 'i') then 'shop=beauty'
+    when regexp_matches(name, '\b(tattoo|ink)\b', 'i') then 'shop=tattoo'
+    when regexp_matches(name, '\b(tires?|llantas)\b', 'i') then 'shop=tyres'
+    when regexp_matches(name, '\b(auto sales?|autos|motors|car sales)\b', 'i') then 'shop=car'
+    when regexp_matches(name, '\b(auto repair|automotive|collision|body shop|mechanic)\b', 'i') then 'shop=car_repair'
+    when regexp_matches(name, '\b(dental|dentistry|orthodontics)\b', 'i') then 'amenity=dentist'
+    when regexp_matches(name, '\b(veterinary|animal hospital)\b', 'i') then 'amenity=veterinary'
+    when regexp_matches(name, '\b(clinic|chiropractic|urgent care)\b', 'i') then 'amenity=clinic'
+    when regexp_matches(name, '\b(fitness|gym|pilates|yoga|crossfit)\b', 'i') then 'leisure=fitness_centre'
+    when regexp_matches(name, '\b(cleaners|laundry|lavanderia|laundromat)\b', 'i') then 'shop=laundry'
+    when regexp_matches(name, '\b(boutique|clothing|apparel)\b', 'i') then 'shop=clothes'
+    when regexp_matches(name, '\b(jewelry|jewelers)\b', 'i') then 'shop=jewelry'
+    when regexp_matches(name, '\b(furniture|mattress)\b', 'i') then 'shop=furniture'
+    when regexp_matches(name, '\b(florist|flowers|floreria)\b', 'i') then 'shop=florist'
+    when regexp_matches(name, '\b(insurance|seguros)\b', 'i') then 'office=insurance'
+    when regexp_matches(name, '\b(hotel|motel|inn|suites)\b', 'i') then 'tourism=hotel'
+    when regexp_matches(name, '\b(daycare|day care|child care|montessori|preschool)\b', 'i') then 'amenity=childcare'
     else fallback
   end;
 

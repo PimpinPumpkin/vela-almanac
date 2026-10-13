@@ -113,3 +113,16 @@ select case when named_category('Richards Liquors', 'licensed_premises') = 'shop
                  and named_category('Tipsy Chango', 'licensed_premises') = 'licensed_premises'
                  and named_category('First National Bank', 'bank') = 'bank'
             then 'ok 7 named category cases' else error('named category test failed') end as result;
+
+-- A certificate of occupancy adds a place only when its name reads as a shop.
+select case when reads_as_shop('Cowser Tire')
+                 and reads_as_shop('5D SMOKE SHOP')
+                 and reads_as_shop('J Crew #1079 Chapel Hill')
+                 and not reads_as_shop('Restaurant Taqueria')
+                 and not reads_as_shop('Tobias Place Bldg 7')
+                 and not reads_as_shop('Saul Mendoza')
+                 and not reads_as_shop('Convenience Store Suite 101')
+                 and display_name('PANCHAJYOTI LLC. -> DBA -> AURA SMOKE SHOP') = 'Aura Smoke Shop'
+                 and named_category('Cowser Tire', 'commercial_premises') = 'shop=tyres'
+                 and named_category('Cowser Tire', 'licensed_premises') = 'licensed_premises'
+            then 'ok 10 certificate name cases' else error('certificate name test failed') end as result;

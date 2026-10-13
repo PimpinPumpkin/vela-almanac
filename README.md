@@ -133,6 +133,8 @@ as [releases](https://github.com/PimpinPumpkin/vela-almanac/releases).
   New York City, Chicago and King County (Seattle), and presence in a chain's own store locator.
 - **New places from registers**: a bank branch, SNAP store or licensed
   premises that none of the three base datasets lists is added as a place.
+  A city's certificates of occupancy do the same for a shop on the day it
+  moves in (Fort Worth so far).
 - **Output**: one row per place with a stable id, merged attributes, every
   source id it was built from, a status of open, closed or unknown with
   the date and source of the evidence that decided it, and an `open_score`
