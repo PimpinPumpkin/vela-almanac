@@ -280,6 +280,8 @@ create or replace table storefront_source as
     ('dca_ca_salon', 'commercial_roll', true, true),
     ('dca_ca_auto', 'commercial_roll', true, true),
     ('dmv_ny', 'commercial_roll', true, true),
+    ('tdlr_tx', 'commercial_roll', true, true),
+    ('dos_ny_salons', 'commercial_roll', true, true),
     ('dbpr_fl_salon', 'commercial_roll', true, true),
     ('biz_seattle', 'commercial_roll', false, true),
     ('vb_biz', 'commercial_roll', false, true),
