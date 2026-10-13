@@ -232,6 +232,7 @@ create or replace table storefront_source as
     ('abc_ky_jefferson', 'licensed_premises', false, false),
     ('lottery_ny', 'grocery_or_convenience_store', false, false),
     ('co_tobacco', 'grocery_or_convenience_store', false, true),
+    ('childcare_tx', 'amenity=childcare', true, true),
     ('cpa_tx_tobacco', 'grocery_or_convenience_store', true, true),
     -- registers that give only an address; see "pinned" below
     ('tabc_tx', 'licensed_premises', true, true),
@@ -289,7 +290,8 @@ create or replace table born as
       -- license at an apartment or a basement is a business run from home
       and not (s.pinned and (regexp_matches(r.name, '\b(eurest|chartwells|aramark|sodexo|compass group|levy|delaware north|dining services|food services?|concessions?|hospitality group|distribut\w*|imports?|wholesale)\b', 'i')
                              or regexp_matches(r.address, '\b(apt|bsmt|basement|lot|trlr)\b', 'i')))
-      and not (s.pinned and (regexp_matches(r.name, '[(@]| at | - (deli|bakery|meat|produce|seafood|starbucks|kitchen|cafe|cafeteria|concession)', 'i')
+      and not (s.pinned and s.category in ('licensed_premises', 'grocery_or_convenience_store', 'food_service')
+               and (regexp_matches(r.name, '[(@]| at | - (deli|bakery|meat|produce|seafood|starbucks|kitchen|cafe|cafeteria|concession)', 'i')
                              or regexp_matches(r.name, '\b(school|elementary|academy|university|college|church|ministr|baptist|methodist|hospital|medical|nursing|rehab|senior|child|daycare|day care|preschool|learning|head start|ymca|club|lodge|vfw|concession|stand|catering|commissary|truck|mobile)', 'i')))
   ),
   lookalike as (
@@ -317,7 +319,8 @@ create or replace table born as
     -- shop, counter or stand inside it, which the map already has under
     -- the host's name.
     select distinct u.id
-    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched where strict) u
+    from (select *, cell_y(lat) as cy, cell_x(lng) as cx from unmatched
+          where strict and category in ('licensed_premises', 'grocery_or_convenience_store', 'food_service')) u
     join (select p.hn, p.lat, p.lng, cell_y(p.lat) + dy.d as cy, cell_x(p.lng) + dx.d as cx
           from core_place p, (values (-1), (0), (1)) dy(d), (values (-1), (0), (1)) dx(d)
           where regexp_matches(coalesce(p.category, ''), 'gas_station|fueling|supermarket|grocery|stadium|arena|college|university|hospital|department_store|warehouse_club|school|airport|convention|casino')) p
