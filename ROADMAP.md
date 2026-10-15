@@ -4,8 +4,9 @@ What gets built next, in order, and what counts as done. The aim is the
 coverage and freshness people expect from a commercial map, from open
 sources only, United States first.
 
-Where things stand (full local build of 2026-10-13): 19.3 million places,
-12.5% with a dated status, 116,000 of them added from a register. The
+Where things stand (full local build of 2026-10-15): 19.3 million places,
+12.5% with a dated status, 120,000 of them added from a register, 246,000
+with the day they opened. The
 build of 2026-10-12 said 237,000 added and 13.1%: its state files repeated
 register rows from neighboring states and made places of licenses in a
 person's name; both fixed. Category shares below are from 2026-10-12. Banks 66%, chain

@@ -137,11 +137,11 @@
 │ closed  │ osm_lifecycle       │    227 │
 │ closed  │ wikidata_p576       │      2 │
 │ open    │ atp                 │  11732 │
-│ open    │ childcare_mn        │   1137 │
+│ open    │ childcare_mn        │   1136 │
 │ open    │ cms_hospitals       │    112 │
-│ open    │ epa_ust_open        │    391 │
+│ open    │ epa_ust_open        │    390 │
 │ open    │ fdic_locations      │   1224 │
-│ open    │ hrsa_health_centers │     29 │
+│ open    │ hrsa_health_centers │     30 │
 │ open    │ irs_eo              │   3294 │
 │ open    │ mda_mn_food         │   3113 │
 │ open    │ mpls_food           │    651 │
@@ -149,7 +149,7 @@
 │ open    │ nces_schools        │   1107 │
 │ open    │ ncua_branches       │    252 │
 │ open    │ nppes_orgs          │   1286 │
-│ open    │ osm_check_date      │   2204 │
+│ open    │ osm_check_date      │   2205 │
 │ open    │ snap_current        │   1324 │
 │ open    │ snap_history        │     40 │
 └─────────┴─────────────────────┴────────┘
@@ -175,8 +175,8 @@
 │ (none)             │ open    │   4529 │
 │ (none)             │ unknown │  75651 │
 │ open               │ closed  │   1845 │
-│ open               │ open    │  19720 │
-│ open               │ unknown │ 189432 │
+│ open               │ open    │  19721 │
+│ open               │ unknown │ 189431 │
 │ permanently_closed │ closed  │     25 │
 │ permanently_closed │ open    │     73 │
 │ permanently_closed │ unknown │   7915 │

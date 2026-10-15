@@ -13,9 +13,9 @@
 │ alltheplaces -> overture │ near      │  1288 │
 │ alltheplaces -> overture │ number    │ 68525 │
 │ alltheplaces -> overture │ spot      │   233 │
-│ osm -> core              │ near      │ 42094 │
-│ osm -> core              │ number    │ 82968 │
-│ osm -> core              │ spot      │  1761 │
+│ osm -> core              │ near      │ 42092 │
+│ osm -> core              │ number    │ 82991 │
+│ osm -> core              │ spot      │  1762 │
 │ overture duplicates      │ duplicate │  6482 │
 │ overture duplicates      │ fuel lot  │  4384 │
 └──────────────────────────┴───────────┴───────┘
@@ -24,24 +24,24 @@
 │  core   │  full   │ osm_only │ atp_only │ from_registers │
 │  int64  │  int64  │  int64   │  int64   │     int64      │
 ├─────────┼─────────┼──────────┼──────────┼────────────────┤
-│ 1645606 │ 1726321 │    80715 │     8650 │          17323 │
+│ 1646926 │ 1727619 │    80693 │     8650 │          18643 │
 └─────────┴─────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌──────────────────┬────────┐
 │      source      │ places │
 │     varchar      │ int64  │
 ├──────────────────┼────────┤
-│ bop_tx           │    218 │
-│ childcare_tx     │    709 │
-│ cpa_tx           │   7141 │
-│ cpa_tx_tobacco   │    444 │
+│ bop_tx           │    274 │
+│ childcare_tx     │    885 │
+│ cpa_tx           │   7335 │
+│ cpa_tx_tobacco   │    458 │
 │ fdic_locations   │   1425 │
 │ fw_co            │    238 │
-│ lottery_tx       │    170 │
-│ snap_current     │   3864 │
-│ tabc_tx          │   1979 │
-│ tceq_tx_cleaners │    109 │
-│ tdlr_tx          │   1026 │
+│ lottery_tx       │    212 │
+│ snap_current     │   3872 │
+│ tabc_tx          │   2559 │
+│ tceq_tx_cleaners │    128 │
+│ tdlr_tx          │   1257 │
 └──────────────────┴────────┘
   11 rows         2 columns
 == status, full layer
@@ -50,8 +50,8 @@
 │ varchar │  int64  │
 ├─────────┼─────────┤
 │ closed  │    9668 │
-│ open    │  275351 │
-│ unknown │ 1441302 │
+│ open    │  276636 │
+│ unknown │ 1441315 │
 └─────────┴─────────┘
 == status, core layer (no OSM)
 ┌─────────┬─────────┐
@@ -59,8 +59,8 @@
 │ varchar │  int64  │
 ├─────────┼─────────┤
 │ closed  │    8049 │
-│ open    │  264321 │
-│ unknown │ 1373236 │
+│ open    │  265632 │
+│ unknown │ 1373245 │
 └─────────┴─────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -68,28 +68,28 @@
 │       varchar       │ varchar │  int64  │  int64  │
 ├─────────────────────┼─────────┼─────────┼─────────┤
 │ austin_food         │ open    │    5844 │    3114 │
-│ bop_tx              │ open    │    4732 │    3342 │
+│ bop_tx              │ open    │    4732 │    3398 │
 │ broward_biz         │ open    │       1 │       0 │
-│ childcare_tx        │ open    │    8731 │    4966 │
+│ childcare_tx        │ open    │    8731 │    5142 │
 │ cms_hospitals       │ open    │     467 │     323 │
-│ cpa_tx              │ open    │  508692 │  166522 │
-│ cpa_tx_tobacco      │ open    │    4503 │    2375 │
-│ epa_ust_open        │ open    │   17647 │    8442 │
+│ cpa_tx              │ open    │  508692 │  166704 │
+│ cpa_tx_tobacco      │ open    │    4503 │    2389 │
+│ epa_ust_open        │ open    │   17647 │    8445 │
 │ fdic_history        │ closed  │    4593 │    1156 │
 │ fdic_locations      │ open    │    6393 │    5859 │
 │ fw_co               │ open    │    2633 │    1063 │
 │ fw_co_build         │ open    │     682 │     245 │
 │ hrsa_health_centers │ open    │     655 │     235 │
 │ irs_eo              │ open    │   89922 │   10898 │
-│ lottery_tx          │ open    │    2589 │    1325 │
+│ lottery_tx          │ open    │    2589 │    1367 │
 │ nces_schools        │ open    │    9774 │    2635 │
 │ ncua_branches       │ open    │    1818 │     959 │
 │ nppes_orgs          │ open    │  166950 │   35399 │
-│ snap_current        │ open    │   20487 │   18150 │
-│ snap_history        │ open    │   21786 │   15068 │
-│ tabc_tx             │ open    │   60683 │   36441 │
-│ tceq_tx_cleaners    │ open    │    1387 │     877 │
-│ tdlr_tx             │ open    │   56902 │   23955 │
+│ snap_current        │ open    │   20487 │   18158 │
+│ snap_history        │ open    │   21786 │   15062 │
+│ tabc_tx             │ open    │   60683 │   37012 │
+│ tceq_tx_cleaners    │ open    │    1387 │     895 │
+│ tdlr_tx             │ open    │   56902 │   24183 │
 └─────────────────────┴─────────┴─────────┴─────────┘
   23 rows                                 4 columns
 == evidence by source and rule (places is distinct places)
@@ -98,7 +98,7 @@
 │     varchar      │ varchar │ varchar │ int64 │ int64  │
 ├──────────────────┼─────────┼─────────┼───────┼────────┤
 │ atp              │ open    │ near    │  1288 │   1235 │
-│ atp              │ open    │ number  │ 68292 │  63102 │
+│ atp              │ open    │ number  │ 68292 │  63100 │
 │ atp              │ open    │ self    │  8596 │   8596 │
 │ atp              │ open    │ spot    │   233 │    217 │
 │ austin_food      │ open    │ address │   307 │    286 │
@@ -108,33 +108,33 @@
 │ bop_tx           │ open    │ address │   624 │    624 │
 │ bop_tx           │ open    │ near    │    27 │     27 │
 │ bop_tx           │ open    │ number  │  3019 │   3018 │
-│ bop_tx           │ open    │ self    │   218 │    218 │
+│ bop_tx           │ open    │ self    │   274 │    274 │
 │ bop_tx           │ open    │ spot    │     2 │      2 │
 │ childcare_tx     │ open    │ address │   428 │    428 │
 │ childcare_tx     │ open    │ near    │    14 │     14 │
 │ childcare_tx     │ open    │ number  │  3858 │   3850 │
-│ childcare_tx     │ open    │ self    │   709 │    709 │
+│ childcare_tx     │ open    │ self    │   885 │    885 │
 │ childcare_tx     │ open    │ spot    │     7 │      7 │
 │ cms_hospitals    │ open    │ address │    75 │     75 │
 │ cms_hospitals    │ open    │ near    │     1 │      1 │
 │      ·           │  ·      │  ·      │     · │      · │
 │      ·           │  ·      │  ·      │     · │      · │
 │      ·           │  ·      │  ·      │     · │      · │
-│ snap_history     │ open    │ spot    │   113 │    113 │
-│ tabc_tx          │ open    │ address │  4799 │   4775 │
-│ tabc_tx          │ open    │ near    │   177 │    175 │
-│ tabc_tx          │ open    │ number  │ 30766 │  30643 │
-│ tabc_tx          │ open    │ self    │  1979 │   1979 │
-│ tabc_tx          │ open    │ spot    │    77 │     77 │
+│ snap_history     │ open    │ spot    │   112 │    112 │
+│ tabc_tx          │ open    │ address │  4796 │   4772 │
+│ tabc_tx          │ open    │ near    │   176 │    174 │
+│ tabc_tx          │ open    │ number  │ 30762 │  30639 │
+│ tabc_tx          │ open    │ self    │  2559 │   2559 │
+│ tabc_tx          │ open    │ spot    │    76 │     76 │
 │ tceq_tx_cleaners │ open    │ address │    64 │     64 │
 │ tceq_tx_cleaners │ open    │ near    │     7 │      7 │
-│ tceq_tx_cleaners │ open    │ number  │   698 │    698 │
-│ tceq_tx_cleaners │ open    │ self    │   109 │    109 │
+│ tceq_tx_cleaners │ open    │ number  │   697 │    697 │
+│ tceq_tx_cleaners │ open    │ self    │   128 │    128 │
 │ tceq_tx_cleaners │ open    │ spot    │     2 │      2 │
 │ tdlr_tx          │ open    │ address │  2411 │   2310 │
-│ tdlr_tx          │ open    │ near    │   146 │    144 │
-│ tdlr_tx          │ open    │ number  │ 20445 │  19652 │
-│ tdlr_tx          │ open    │ self    │  1026 │   1026 │
+│ tdlr_tx          │ open    │ near    │   145 │    143 │
+│ tdlr_tx          │ open    │ number  │ 20443 │  19650 │
+│ tdlr_tx          │ open    │ self    │  1257 │   1257 │
 │ tdlr_tx          │ open    │ spot    │    77 │     74 │
 │ wikidata_p576    │ closed  │ near    │     2 │      2 │
 │ wikidata_p576    │ closed  │ number  │     1 │      1 │
@@ -154,27 +154,27 @@
 │ closed  │ wikidata_p576       │      5 │
 │ open    │ atp                 │  47099 │
 │ open    │ austin_food         │    678 │
-│ open    │ bop_tx              │   1084 │
-│ open    │ childcare_tx        │   4952 │
+│ open    │ bop_tx              │   1140 │
+│ open    │ childcare_tx        │   5128 │
 │ open    │ cms_hospitals       │    245 │
-│ open    │ cpa_tx              │ 146226 │
-│ open    │ cpa_tx_tobacco      │    475 │
+│ open    │ cpa_tx              │ 145061 │
+│ open    │ cpa_tx_tobacco      │    489 │
 │ open    │ epa_ust_open        │   2521 │
 │ open    │ fdic_locations      │   4502 │
-│ open    │ fw_co               │    352 │
-│ open    │ fw_co_build         │     54 │
+│ open    │ fw_co               │    350 │
+│ open    │ fw_co_build         │     53 │
 │ open    │ hrsa_health_centers │    217 │
-│ open    │ irs_eo              │   7142 │
-│ open    │ lottery_tx          │    320 │
-│ open    │ nces_schools        │   2246 │
+│ open    │ irs_eo              │   7137 │
+│ open    │ lottery_tx          │    362 │
+│ open    │ nces_schools        │   2251 │
 │ open    │ ncua_branches       │    825 │
-│ open    │ nppes_orgs          │   5265 │
-│ open    │ osm_check_date      │   7478 │
-│ open    │ snap_current        │   6202 │
+│ open    │ nppes_orgs          │   5260 │
+│ open    │ osm_check_date      │   7469 │
+│ open    │ snap_current        │   6210 │
 │ open    │ snap_history        │    401 │
-│ open    │ tabc_tx             │  19416 │
-│ open    │ tceq_tx_cleaners    │    312 │
-│ open    │ tdlr_tx             │  17339 │
+│ open    │ tabc_tx             │  21340 │
+│ open    │ tceq_tx_cleaners    │    331 │
+│ open    │ tdlr_tx             │  17567 │
 └─────────┴─────────────────────┴────────┘
   28 rows                      3 columns
 == closing signals against independent evidence
@@ -195,11 +195,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │   1888 │
-│ (none)             │ open    │  37276 │
-│ (none)             │ unknown │ 423417 │
+│ (none)             │ open    │  37272 │
+│ (none)             │ unknown │ 423421 │
 │ open               │ closed  │   7289 │
-│ open               │ open    │ 204334 │
-│ open               │ unknown │ 893853 │
+│ open               │ open    │ 204323 │
+│ open               │ unknown │ 893864 │
 │ permanently_closed │ closed  │     81 │
 │ permanently_closed │ open    │    982 │
 │ permanently_closed │ unknown │  50513 │

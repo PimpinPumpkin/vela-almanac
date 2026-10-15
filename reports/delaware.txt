@@ -42,8 +42,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │    370 │
-│ open    │  12341 │
-│ unknown │  47953 │
+│ open    │  12340 │
+│ unknown │  47954 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -51,8 +51,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │    266 │
-│ open    │  11764 │
-│ unknown │  45671 │
+│ open    │  11763 │
+│ unknown │  45672 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -138,7 +138,7 @@
 │ open    │ biz_de              │   7591 │
 │ open    │ childcare_de        │    208 │
 │ open    │ cms_hospitals       │      7 │
-│ open    │ dph_de              │   1447 │
+│ open    │ dph_de              │   1446 │
 │ open    │ epa_ust_open        │     44 │
 │ open    │ fdic_locations      │    215 │
 │ open    │ hrsa_health_centers │      8 │
@@ -171,8 +171,8 @@
 │ (none)             │ open    │   1389 │
 │ (none)             │ unknown │  13966 │
 │ open               │ closed  │    261 │
-│ open               │ open    │   9273 │
-│ open               │ unknown │  29115 │
+│ open               │ open    │   9272 │
+│ open               │ unknown │  29116 │
 │ permanently_closed │ closed  │      4 │
 │ permanently_closed │ open    │     62 │
 │ permanently_closed │ unknown │   2252 │

@@ -43,8 +43,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2840 │
-│ open    │  45515 │
-│ unknown │ 336355 │
+│ open    │  45513 │
+│ unknown │ 336357 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -52,8 +52,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2406 │
-│ open    │  43454 │
-│ unknown │ 316278 │
+│ open    │  43452 │
+│ unknown │ 316280 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -87,7 +87,7 @@
 │     varchar      │ varchar │ varchar │ int64 │ int64  │
 ├──────────────────┼─────────┼─────────┼───────┼────────┤
 │ atp              │ open    │ near    │   315 │    289 │
-│ atp              │ open    │ number  │ 15749 │  14370 │
+│ atp              │ open    │ number  │ 15749 │  14369 │
 │ atp              │ open    │ self    │  1882 │   1882 │
 │ atp              │ open    │ spot    │    60 │     55 │
 │ childcare_az     │ open    │ near    │     5 │      5 │
@@ -152,7 +152,7 @@
 │ open    │ maricopa_food       │  12294 │
 │ open    │ nces_schools        │   1170 │
 │ open    │ ncua_branches       │    171 │
-│ open    │ nppes_orgs          │   1585 │
+│ open    │ nppes_orgs          │   1583 │
 │ open    │ osm_check_date      │    982 │
 │ open    │ phx_liquor          │   1514 │
 │ open    │ phx_liquor_trade    │     44 │
@@ -184,8 +184,8 @@
 │ (none)             │ open    │   5750 │
 │ (none)             │ unknown │  85287 │
 │ open               │ closed  │   2245 │
-│ open               │ open    │  34908 │
-│ open               │ unknown │ 217538 │
+│ open               │ open    │  34906 │
+│ open               │ unknown │ 217540 │
 │ permanently_closed │ closed  │     33 │
 │ permanently_closed │ open    │    195 │
 │ permanently_closed │ unknown │  12541 │

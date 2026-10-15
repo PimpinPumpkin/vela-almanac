@@ -13,8 +13,8 @@
 │ alltheplaces -> overture │ near      │   370 │
 │ alltheplaces -> overture │ number    │ 11303 │
 │ alltheplaces -> overture │ spot      │    41 │
-│ osm -> core              │ near      │  8331 │
-│ osm -> core              │ number    │  9498 │
+│ osm -> core              │ near      │  8332 │
+│ osm -> core              │ number    │  9501 │
 │ osm -> core              │ spot      │   219 │
 │ overture duplicates      │ duplicate │   808 │
 │ overture duplicates      │ fuel lot  │   717 │
@@ -24,17 +24,17 @@
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 233644 │ 249853 │    16209 │     1228 │           1805 │
+│ 233731 │ 249936 │    16205 │     1228 │           1892 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌──────────────────┬────────┐
 │      source      │ places │
 │     varchar      │ int64  │
 ├──────────────────┼────────┤
-│ abc_ky           │    383 │
+│ abc_ky           │    476 │
 │ abc_ky_jefferson │    276 │
 │ fdic_locations   │    173 │
-│ snap_current     │    973 │
+│ snap_current     │    967 │
 └──────────────────┴────────┘
 == status, full layer
 ┌─────────┬────────┐
@@ -42,8 +42,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1568 │
-│ open    │  26400 │
-│ unknown │ 221885 │
+│ open    │  26482 │
+│ unknown │ 221886 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -51,15 +51,15 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1260 │
-│ open    │  25400 │
-│ unknown │ 206984 │
+│ open    │  25486 │
+│ unknown │ 206985 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
 │       source        │  state  │ records │ matched │
 │       varchar       │ varchar │  int64  │  int64  │
 ├─────────────────────┼─────────┼─────────┼─────────┤
-│ abc_ky              │ open    │    8736 │    5513 │
+│ abc_ky              │ open    │    8736 │    5602 │
 │ abc_ky_jefferson    │ open    │    1957 │    1633 │
 │ broward_biz         │ open    │       1 │       1 │
 │ cms_hospitals       │ open    │     103 │      76 │
@@ -73,7 +73,7 @@
 │ nces_schools        │ open    │    1559 │    1216 │
 │ ncua_branches       │ open    │     246 │     155 │
 │ nppes_orgs          │ open    │   24704 │    6072 │
-│ snap_current        │ open    │    4436 │    3844 │
+│ snap_current        │ open    │    4436 │    3838 │
 │ snap_history        │ open    │    4480 │    2908 │
 └─────────────────────┴─────────┴─────────┴─────────┘
   16 rows                                 4 columns
@@ -83,9 +83,9 @@
 │     varchar      │ varchar │ varchar │ int64 │ int64  │
 ├──────────────────┼─────────┼─────────┼───────┼────────┤
 │ abc_ky           │ open    │ address │   932 │    914 │
-│ abc_ky           │ open    │ near    │    57 │     54 │
-│ abc_ky           │ open    │ number  │  4353 │   4294 │
-│ abc_ky           │ open    │ self    │   383 │    383 │
+│ abc_ky           │ open    │ near    │    56 │     53 │
+│ abc_ky           │ open    │ number  │  4350 │   4291 │
+│ abc_ky           │ open    │ self    │   476 │    476 │
 │ abc_ky           │ open    │ spot    │    25 │     25 │
 │ abc_ky_jefferson │ open    │ near    │    18 │     18 │
 │ abc_ky_jefferson │ open    │ number  │  1372 │   1354 │
@@ -118,7 +118,7 @@
 │ osm_lifecycle    │ closed  │ spot    │     2 │      2 │
 │ snap_current     │ open    │ near    │    33 │     33 │
 │ snap_current     │ open    │ number  │  3035 │   3034 │
-│ snap_current     │ open    │ self    │   973 │    973 │
+│ snap_current     │ open    │ self    │   967 │    967 │
 │ snap_current     │ open    │ spot    │    24 │     24 │
 │ snap_history     │ open    │ near    │    32 │     32 │
 │ snap_history     │ open    │ number  │  3074 │   3074 │
@@ -137,7 +137,7 @@
 │ closed  │ osm_history         │    157 │
 │ closed  │ osm_lifecycle       │    142 │
 │ closed  │ wikidata_p576       │      3 │
-│ open    │ abc_ky              │   5670 │
+│ open    │ abc_ky              │   5759 │
 │ open    │ abc_ky_jefferson    │   1661 │
 │ open    │ atp                 │   9810 │
 │ open    │ broward_biz         │      1 │
@@ -150,9 +150,9 @@
 │ open    │ lou_tobacco         │     40 │
 │ open    │ nces_schools        │   1118 │
 │ open    │ ncua_branches       │    128 │
-│ open    │ nppes_orgs          │    878 │
+│ open    │ nppes_orgs          │    877 │
 │ open    │ osm_check_date      │    676 │
-│ open    │ snap_current        │   1653 │
+│ open    │ snap_current        │   1647 │
 │ open    │ snap_history        │     72 │
 └─────────┴─────────────────────┴────────┘
   22 rows                      3 columns
@@ -174,8 +174,8 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    283 │
-│ (none)             │ open    │   3484 │
-│ (none)             │ unknown │  61410 │
+│ (none)             │ open    │   3483 │
+│ (none)             │ unknown │  61411 │
 │ open               │ closed  │   1150 │
 │ open               │ open    │  19062 │
 │ open               │ unknown │ 140398 │

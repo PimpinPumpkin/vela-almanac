@@ -13,9 +13,9 @@
 │ alltheplaces -> overture │ near      │  1075 │
 │ alltheplaces -> overture │ number    │ 24793 │
 │ alltheplaces -> overture │ spot      │    79 │
-│ osm -> core              │ near      │ 22227 │
-│ osm -> core              │ number    │ 46600 │
-│ osm -> core              │ spot      │  1271 │
+│ osm -> core              │ near      │ 22238 │
+│ osm -> core              │ number    │ 46620 │
+│ osm -> core              │ spot      │  1270 │
 │ overture duplicates      │ duplicate │  2322 │
 │ overture duplicates      │ fuel lot  │   925 │
 └──────────────────────────┴───────────┴───────┘
@@ -24,7 +24,7 @@
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 651983 │ 703521 │    51538 │     3794 │           2132 │
+│ 652719 │ 704227 │    51508 │     3794 │           2868 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
@@ -33,16 +33,17 @@
 ├────────────────┼────────┤
 │ achd_pa_food   │    126 │
 │ fdic_locations │    497 │
-│ snap_current   │   1509 │
+│ rev_pa         │    787 │
+│ snap_current   │   1458 │
 └────────────────┴────────┘
 == status, full layer
 ┌─────────┬────────┐
 │ status  │ places │
 │ varchar │ int64  │
 ├─────────┼────────┤
-│ closed  │   6244 │
-│ open    │ 124161 │
-│ unknown │ 573116 │
+│ closed  │   6245 │
+│ open    │ 124835 │
+│ unknown │ 573147 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -50,15 +51,15 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   4606 │
-│ open    │ 115597 │
-│ unknown │ 531780 │
+│ open    │ 116332 │
+│ unknown │ 531781 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
 │       source        │  state  │ records │ matched │
 │       varchar       │ varchar │  int64  │  int64  │
 ├─────────────────────┼─────────┼─────────┼─────────┤
-│ achd_pa_food        │ open    │    5466 │    3478 │
+│ achd_pa_food        │ open    │    5466 │    3477 │
 │ broward_biz         │ open    │       1 │       0 │
 │ childcare_pa        │ open    │    5000 │    2372 │
 │ cms_hospitals       │ open    │     186 │     129 │
@@ -68,15 +69,15 @@
 │ foodsafety_pa       │ open    │   43184 │   20650 │
 │ hrsa_health_centers │ open    │     429 │     166 │
 │ irs_eo              │ open    │   56215 │   10453 │
-│ li_phl              │ open    │    7875 │    3038 │
+│ li_phl              │ open    │    7875 │    3035 │
 │ nces_schools        │ open    │    2949 │     487 │
 │ ncua_branches       │ open    │     990 │     554 │
 │ nppes_orgs          │ open    │   70765 │   18728 │
-│ plcb_pa             │ open    │   14842 │    7412 │
-│ rev_pa              │ open    │  230687 │   68980 │
-│ rev_pa_tobacco      │ open    │   14739 │    6699 │
-│ snap_current        │ open    │    9569 │    8031 │
-│ snap_history        │ open    │    9818 │    6665 │
+│ plcb_pa             │ open    │   14842 │    7410 │
+│ rev_pa              │ open    │  230687 │   69740 │
+│ rev_pa_tobacco      │ open    │   14739 │    6696 │
+│ snap_current        │ open    │    9569 │    7980 │
+│ snap_history        │ open    │    9818 │    6664 │
 └─────────────────────┴─────────┴─────────┴─────────┘
   19 rows                                 4 columns
 == evidence by source and rule (places is distinct places)
@@ -86,7 +87,7 @@
 ├────────────────┼─────────┼─────────┼───────┼────────┤
 │ achd_pa_food   │ open    │ address │   541 │    504 │
 │ achd_pa_food   │ open    │ near    │    27 │     27 │
-│ achd_pa_food   │ open    │ number  │  2825 │   2709 │
+│ achd_pa_food   │ open    │ number  │  2824 │   2708 │
 │ achd_pa_food   │ open    │ self    │   126 │    126 │
 │ achd_pa_food   │ open    │ spot    │    32 │     32 │
 │ atp            │ open    │ near    │  1074 │   1052 │
@@ -107,28 +108,28 @@
 │    ·           │  ·      │  ·      │     · │      · │
 │    ·           │  ·      │  ·      │     · │      · │
 │    ·           │  ·      │  ·      │     · │      · │
-│ plcb_pa        │ open    │ number  │  6787 │   6700 │
 │ plcb_pa        │ open    │ spot    │   144 │    142 │
 │ rev_pa         │ open    │ address │   208 │    205 │
-│ rev_pa         │ open    │ near    │  1165 │   1147 │
-│ rev_pa         │ open    │ number  │ 68334 │  67153 │
+│ rev_pa         │ open    │ near    │  1156 │   1138 │
+│ rev_pa         │ open    │ number  │ 68315 │  67134 │
+│ rev_pa         │ open    │ self    │   787 │    787 │
 │ rev_pa         │ open    │ spot    │   800 │    795 │
 │ rev_pa_tobacco │ open    │ address │    37 │     33 │
-│ rev_pa_tobacco │ open    │ near    │   151 │    148 │
-│ rev_pa_tobacco │ open    │ number  │  6763 │   6432 │
+│ rev_pa_tobacco │ open    │ near    │   150 │    147 │
+│ rev_pa_tobacco │ open    │ number  │  6761 │   6430 │
 │ rev_pa_tobacco │ open    │ spot    │    90 │     85 │
 │ snap_current   │ open    │ near    │    87 │     87 │
 │ snap_current   │ open    │ number  │  6830 │   6818 │
-│ snap_current   │ open    │ self    │  1509 │   1509 │
+│ snap_current   │ open    │ self    │  1458 │   1458 │
 │ snap_current   │ open    │ spot    │    49 │     49 │
 │ snap_history   │ open    │ near    │    96 │     94 │
-│ snap_history   │ open    │ number  │  6970 │   6957 │
+│ snap_history   │ open    │ number  │  6969 │   6956 │
 │ snap_history   │ open    │ spot    │    52 │     52 │
 │ wikidata_p576  │ closed  │ near    │     3 │      3 │
 │ wikidata_p576  │ closed  │ number  │     1 │      1 │
 │ wikidata_p576  │ closed  │ self    │     8 │      8 │
 └────────────────┴─────────┴─────────┴───────┴────────┘
-  78 rows (40 shown)                        5 columns
+  79 rows (40 shown)                        5 columns
 == what decided the status
 ┌─────────┬─────────────────────┬────────┐
 │ status  │    status_source    │ places │
@@ -137,26 +138,26 @@
 │ closed  │ fdic_history        │    821 │
 │ closed  │ fsq_closed          │   3724 │
 │ closed  │ osm_history         │    805 │
-│ closed  │ osm_lifecycle       │    884 │
+│ closed  │ osm_lifecycle       │    885 │
 │ closed  │ wikidata_p576       │     10 │
 │ open    │ achd_pa_food        │   1324 │
-│ open    │ atp                 │  21284 │
-│ open    │ childcare_pa        │   2112 │
+│ open    │ atp                 │  21312 │
+│ open    │ childcare_pa        │   2113 │
 │ open    │ cms_hospitals       │    106 │
 │ open    │ epa_ust_open        │    554 │
 │ open    │ fdic_locations      │   1783 │
-│ open    │ foodsafety_pa       │   7602 │
+│ open    │ foodsafety_pa       │   7601 │
 │ open    │ hrsa_health_centers │    161 │
-│ open    │ irs_eo              │   6496 │
-│ open    │ li_phl              │   3056 │
-│ open    │ nces_schools        │    341 │
+│ open    │ irs_eo              │   6491 │
+│ open    │ li_phl              │   3053 │
+│ open    │ nces_schools        │    346 │
 │ open    │ ncua_branches       │    429 │
-│ open    │ nppes_orgs          │   2016 │
-│ open    │ osm_check_date      │   5902 │
-│ open    │ plcb_pa             │   6633 │
-│ open    │ rev_pa              │  56502 │
-│ open    │ rev_pa_tobacco      │   5285 │
-│ open    │ snap_current        │   2467 │
+│ open    │ nppes_orgs          │   2015 │
+│ open    │ osm_check_date      │   5869 │
+│ open    │ plcb_pa             │   6576 │
+│ open    │ rev_pa              │  57274 │
+│ open    │ rev_pa_tobacco      │   5304 │
+│ open    │ snap_current        │   2416 │
 │ open    │ snap_history        │    108 │
 └─────────┴─────────────────────┴────────┘
   24 rows                      3 columns
@@ -169,7 +170,7 @@
 │ fdic_history  │    969 │              96 │              37 │
 │ fsq_closed    │   3983 │             172 │             122 │
 │ osm_history   │    938 │             116 │              87 │
-│ osm_lifecycle │    991 │              95 │              58 │
+│ osm_lifecycle │    991 │              94 │              58 │
 │ wikidata_p576 │     12 │               2 │               0 │
 └───────────────┴────────┴─────────────────┴─────────────────┘
 == Overture operating_status against our status
@@ -178,11 +179,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │   1120 │
-│ (none)             │ open    │  16004 │
-│ (none)             │ unknown │ 150006 │
-│ open               │ closed  │   4538 │
-│ open               │ open    │  96536 │
-│ open               │ unknown │ 361670 │
+│ (none)             │ open    │  15997 │
+│ (none)             │ unknown │ 150013 │
+│ open               │ closed  │   4539 │
+│ open               │ open    │  96516 │
+│ open               │ unknown │ 361689 │
 │ permanently_closed │ closed  │     56 │
 │ permanently_closed │ open    │    557 │
 │ permanently_closed │ unknown │  15570 │

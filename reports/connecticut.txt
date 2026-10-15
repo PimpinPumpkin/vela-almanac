@@ -135,8 +135,8 @@
 │ closed  │ wikidata_p576       │      4 │
 │ open    │ atp                 │   5684 │
 │ open    │ cms_hospitals       │     29 │
-│ open    │ dmv_ct              │   2444 │
-│ open    │ elicense_ct         │   8027 │
+│ open    │ dmv_ct              │   2447 │
+│ open    │ elicense_ct         │   8024 │
 │ open    │ epa_ust_open        │    234 │
 │ open    │ fdic_locations      │    889 │
 │ open    │ hrsa_health_centers │     60 │

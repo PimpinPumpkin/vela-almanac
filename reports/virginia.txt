@@ -41,8 +41,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   4424 │
-│ open    │  44565 │
-│ unknown │ 426784 │
+│ open    │  44562 │
+│ unknown │ 426787 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -50,8 +50,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   3101 │
-│ open    │  40830 │
-│ unknown │ 393874 │
+│ open    │  40828 │
+│ unknown │ 393876 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -151,8 +151,8 @@
 │ open    │ ncua_branches       │    290 │
 │ open    │ nn_biz              │   1598 │
 │ open    │ norfolk_biz         │   1192 │
-│ open    │ nppes_orgs          │   1599 │
-│ open    │ osm_check_date      │   2991 │
+│ open    │ nppes_orgs          │   1597 │
+│ open    │ osm_check_date      │   2990 │
 │ open    │ snap_current        │   2857 │
 │ open    │ snap_history        │    153 │
 │ open    │ vb_biz              │    467 │
@@ -177,8 +177,8 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    734 │
-│ (none)             │ open    │   6103 │
-│ (none)             │ unknown │ 101816 │
+│ (none)             │ open    │   6101 │
+│ (none)             │ unknown │ 101818 │
 │ open               │ closed  │   3329 │
 │ open               │ open    │  32947 │
 │ open               │ unknown │ 275148 │

@@ -41,8 +41,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2206 │
-│ open    │  34159 │
-│ unknown │ 273080 │
+│ open    │  34156 │
+│ unknown │ 273083 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -50,8 +50,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1579 │
-│ open    │  31829 │
-│ unknown │ 253647 │
+│ open    │  31827 │
+│ unknown │ 253649 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -134,16 +134,16 @@
 │ closed  │ wikidata_p576       │      2 │
 │ open    │ atp                 │  14001 │
 │ open    │ cms_hospitals       │     33 │
-│ open    │ dph_sc_food         │  10208 │
+│ open    │ dph_sc_food         │  10203 │
 │ open    │ epa_ust_open        │    715 │
 │ open    │ fdic_locations      │    761 │
 │ open    │ hrsa_health_centers │     83 │
 │ open    │ irs_eo              │   1618 │
 │ open    │ nces_schools        │    514 │
 │ open    │ ncua_branches       │    219 │
-│ open    │ nppes_orgs          │    979 │
+│ open    │ nppes_orgs          │    978 │
 │ open    │ osm_check_date      │   1764 │
-│ open    │ snap_current        │   3143 │
+│ open    │ snap_current        │   3146 │
 │ open    │ snap_history        │    121 │
 └─────────┴─────────────────────┴────────┘
   18 rows                      3 columns
@@ -165,11 +165,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    458 │
-│ (none)             │ open    │   3885 │
-│ (none)             │ unknown │  71306 │
+│ (none)             │ open    │   3884 │
+│ (none)             │ unknown │  71307 │
 │ open               │ closed  │   1537 │
-│ open               │ open    │  25388 │
-│ open               │ unknown │ 174822 │
+│ open               │ open    │  25387 │
+│ open               │ unknown │ 174823 │
 │ permanently_closed │ closed  │     16 │
 │ permanently_closed │ open    │     80 │
 │ permanently_closed │ unknown │   6173 │

@@ -47,8 +47,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │  14145 │
-│ open    │ 152579 │
-│ unknown │ 984372 │
+│ open    │ 152567 │
+│ unknown │ 984384 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -56,8 +56,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │  11592 │
-│ open    │ 144231 │
-│ unknown │ 928325 │
+│ open    │ 144228 │
+│ unknown │ 928328 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -153,31 +153,31 @@
 │ closed  │ osm_lifecycle       │   1272 │
 │ closed  │ wikidata_p576       │     20 │
 │ open    │ agm_ny              │  12775 │
-│ open    │ atp                 │  27706 │
+│ open    │ atp                 │  27569 │
 │ open    │ childcare_ny        │   1266 │
 │ open    │ childcare_nyc       │    939 │
 │ open    │ cms_hospitals       │    158 │
 │ open    │ dcwp_nyc            │   2849 │
-│ open    │ dmv_ny              │  10430 │
+│ open    │ dmv_ny              │  10530 │
 │ open    │ doh_ny_food         │   4819 │
 │ open    │ dohmh_nyc           │  13564 │
-│ open    │ dos_ny_salons       │  11416 │
+│ open    │ dos_ny_salons       │  11446 │
 │ open    │ epa_ust_open        │   1270 │
 │ open    │ fdic_locations      │   2516 │
 │ open    │ hrsa_health_centers │    240 │
-│ open    │ irs_eo              │   8569 │
+│ open    │ irs_eo              │   8630 │
 │ open    │ lottery_ny          │   3256 │
-│ open    │ nces_schools        │   3208 │
+│ open    │ nces_schools        │   3147 │
 │ open    │ ncua_branches       │    468 │
-│ open    │ nppes_orgs          │   2205 │
+│ open    │ nppes_orgs          │   2202 │
 │ open    │ ocm_ny              │    261 │
-│ open    │ osm_check_date      │   4577 │
+│ open    │ osm_check_date      │   4568 │
 │ open    │ sla_ny              │  34192 │
 │ open    │ snap_current        │   3630 │
-│ open    │ snap_history        │    316 │
-│ open    │ tax_ny_tobacco      │    850 │
+│ open    │ snap_history        │    317 │
+│ open    │ tax_ny_tobacco      │    857 │
 │ open    │ wic_ny              │    208 │
-│ open    │ wm_nyc              │    891 │
+│ open    │ wm_nyc              │    890 │
 └─────────┴─────────────────────┴────────┘
   31 rows                      3 columns
 == closing signals against independent evidence
@@ -201,9 +201,9 @@
 │ (none)             │ open    │  14883 │
 │ (none)             │ unknown │ 265846 │
 │ open               │ closed  │  11247 │
-│ open               │ open    │ 104701 │
-│ open               │ unknown │ 615140 │
+│ open               │ open    │ 104693 │
+│ open               │ unknown │ 615148 │
 │ permanently_closed │ closed  │    114 │
-│ permanently_closed │ open    │    574 │
-│ permanently_closed │ unknown │  43094 │
+│ permanently_closed │ open    │    573 │
+│ permanently_closed │ unknown │  43095 │
 └────────────────────┴─────────┴────────┘

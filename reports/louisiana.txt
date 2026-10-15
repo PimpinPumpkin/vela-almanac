@@ -42,8 +42,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1682 │
-│ open    │  30630 │
-│ unknown │ 230979 │
+│ open    │  30628 │
+│ unknown │ 230981 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -51,8 +51,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1396 │
-│ open    │  29500 │
-│ unknown │ 217733 │
+│ open    │  29498 │
+│ unknown │ 217735 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -80,7 +80,7 @@
 │    varchar     │ varchar │ varchar │ int64 │ int64  │
 ├────────────────┼─────────┼─────────┼───────┼────────┤
 │ atp            │ open    │ near    │   249 │    239 │
-│ atp            │ open    │ number  │ 11144 │  10040 │
+│ atp            │ open    │ number  │ 11144 │  10039 │
 │ atp            │ open    │ self    │  1039 │   1039 │
 │ atp            │ open    │ spot    │    29 │     23 │
 │ biz_nola       │ open    │ near    │    55 │     53 │
@@ -134,7 +134,7 @@
 │ closed  │ osm_history         │    160 │
 │ closed  │ osm_lifecycle       │    129 │
 │ closed  │ wikidata_p576       │      3 │
-│ open    │ atp                 │  10270 │
+│ open    │ atp                 │  10269 │
 │ open    │ biz_nola            │   3809 │
 │ open    │ brla_biz            │   7584 │
 │ open    │ cms_hospitals       │    120 │
@@ -144,7 +144,7 @@
 │ open    │ irs_eo              │   1388 │
 │ open    │ nces_schools        │   1225 │
 │ open    │ ncua_branches       │    134 │
-│ open    │ nppes_orgs          │    788 │
+│ open    │ nppes_orgs          │    787 │
 │ open    │ osm_check_date      │    683 │
 │ open    │ snap_current        │   2234 │
 │ open    │ snap_history        │    195 │
@@ -168,11 +168,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    318 │
-│ (none)             │ open    │   3710 │
-│ (none)             │ unknown │  60735 │
+│ (none)             │ open    │   3709 │
+│ (none)             │ unknown │  60736 │
 │ open               │ closed  │   1259 │
-│ open               │ open    │  23384 │
-│ open               │ unknown │ 151239 │
+│ open               │ open    │  23383 │
+│ open               │ unknown │ 151240 │
 │ permanently_closed │ closed  │      7 │
 │ permanently_closed │ open    │    160 │
 │ permanently_closed │ unknown │   5298 │

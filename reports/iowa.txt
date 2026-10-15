@@ -40,8 +40,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1265 │
-│ open    │  21328 │
-│ unknown │ 180426 │
+│ open    │  21323 │
+│ unknown │ 180431 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -49,8 +49,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1000 │
-│ open    │  20042 │
-│ unknown │ 160473 │
+│ open    │  20038 │
+│ unknown │ 160477 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -134,7 +134,7 @@
 │ open    │ cms_hospitals       │    102 │
 │ open    │ epa_ust_open        │    482 │
 │ open    │ fdic_locations      │   1330 │
-│ open    │ foodsafety_ia       │   5932 │
+│ open    │ foodsafety_ia       │   5927 │
 │ open    │ hrsa_health_centers │     23 │
 │ open    │ irs_eo              │   1870 │
 │ open    │ nces_schools        │    641 │
@@ -162,11 +162,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    265 │
-│ (none)             │ open    │   2646 │
-│ (none)             │ unknown │  46708 │
+│ (none)             │ open    │   2645 │
+│ (none)             │ unknown │  46709 │
 │ open               │ closed  │    907 │
-│ open               │ open    │  15860 │
-│ open               │ unknown │ 109818 │
+│ open               │ open    │  15857 │
+│ open               │ unknown │ 109821 │
 │ permanently_closed │ closed  │     23 │
 │ permanently_closed │ open    │     43 │
 │ permanently_closed │ unknown │   3401 │

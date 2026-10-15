@@ -14,7 +14,7 @@
 │ alltheplaces -> overture │ number    │  9960 │
 │ alltheplaces -> overture │ spot      │    39 │
 │ osm -> core              │ near      │  8371 │
-│ osm -> core              │ number    │  9677 │
+│ osm -> core              │ number    │  9678 │
 │ osm -> core              │ spot      │   289 │
 │ overture duplicates      │ duplicate │   848 │
 │ overture duplicates      │ fuel lot  │   530 │
@@ -24,7 +24,7 @@
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 225800 │ 240781 │    14981 │     1235 │           1022 │
+│ 225882 │ 240862 │    14980 │     1235 │           1104 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
@@ -32,7 +32,8 @@
 │    varchar     │ int64  │
 ├────────────────┼────────┤
 │ fdic_locations │    331 │
-│ snap_current   │    691 │
+│ osdh_ok_food   │     89 │
+│ snap_current   │    684 │
 └────────────────┴────────┘
 == status, full layer
 ┌─────────┬────────┐
@@ -40,8 +41,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1147 │
-│ open    │  22932 │
-│ unknown │ 216702 │
+│ open    │  23007 │
+│ unknown │ 216708 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -49,8 +50,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │    934 │
-│ open    │  21827 │
-│ unknown │ 203039 │
+│ open    │  21905 │
+│ unknown │ 203043 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -67,8 +68,8 @@
 │ nces_schools        │ open    │    1791 │     287 │
 │ ncua_branches       │ open    │     272 │     188 │
 │ nppes_orgs          │ open    │   23572 │    5815 │
-│ osdh_ok_food        │ open    │    6150 │    3428 │
-│ snap_current        │ open    │    3724 │    3339 │
+│ osdh_ok_food        │ open    │    6150 │    3516 │
+│ snap_current        │ open    │    3724 │    3332 │
 │ snap_history        │ open    │    3795 │    2725 │
 └─────────────────────┴─────────┴─────────┴─────────┘
   13 rows                                 4 columns
@@ -100,9 +101,9 @@
 │      ·         │  ·      │  ·      │     · │      · │
 │      ·         │  ·      │  ·      │     · │      · │
 │      ·         │  ·      │  ·      │     · │      · │
-│ osdh_ok_food   │ open    │ address │   218 │    203 │
 │ osdh_ok_food   │ open    │ near    │    26 │     25 │
-│ osdh_ok_food   │ open    │ number  │  3374 │   3271 │
+│ osdh_ok_food   │ open    │ number  │  3373 │   3270 │
+│ osdh_ok_food   │ open    │ self    │    89 │     89 │
 │ osdh_ok_food   │ open    │ spot    │     5 │      5 │
 │ osm_check_date │ open    │ near    │   786 │    770 │
 │ osm_check_date │ open    │ number  │  1157 │   1152 │
@@ -114,14 +115,14 @@
 │ osm_lifecycle  │ closed  │ self    │    28 │     28 │
 │ snap_current   │ open    │ near    │    35 │     35 │
 │ snap_current   │ open    │ number  │  2804 │   2800 │
-│ snap_current   │ open    │ self    │   691 │    691 │
+│ snap_current   │ open    │ self    │   684 │    684 │
 │ snap_current   │ open    │ spot    │    23 │     23 │
 │ snap_history   │ open    │ near    │    38 │     38 │
 │ snap_history   │ open    │ number  │  2884 │   2882 │
 │ snap_history   │ open    │ spot    │    22 │     22 │
 │ wikidata_p576  │ closed  │ number  │     2 │      2 │
 └────────────────┴─────────┴─────────┴───────┴────────┘
-  51 rows (40 shown)                        5 columns
+  52 rows (40 shown)                        5 columns
 == what decided the status
 ┌─────────┬─────────────────────┬────────┐
 │ status  │    status_source    │ places │
@@ -141,10 +142,10 @@
 │ open    │ irs_eo              │   1391 │
 │ open    │ nces_schools        │    251 │
 │ open    │ ncua_branches       │     78 │
-│ open    │ nppes_orgs          │    878 │
-│ open    │ osdh_ok_food        │   3504 │
-│ open    │ osm_check_date      │    853 │
-│ open    │ snap_current        │   1360 │
+│ open    │ nppes_orgs          │    874 │
+│ open    │ osdh_ok_food        │   3592 │
+│ open    │ osm_check_date      │    851 │
+│ open    │ snap_current        │   1353 │
 │ open    │ snap_history        │     77 │
 └─────────┴─────────────────────┴────────┘
   19 rows                      3 columns
@@ -166,11 +167,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    232 │
-│ (none)             │ open    │   3500 │
-│ (none)             │ unknown │  59899 │
+│ (none)             │ open    │   3498 │
+│ (none)             │ unknown │  59901 │
 │ open               │ closed  │    870 │
-│ open               │ open    │  16554 │
-│ open               │ unknown │ 137102 │
+│ open               │ open    │  16550 │
+│ open               │ unknown │ 137106 │
 │ permanently_closed │ closed  │      8 │
 │ permanently_closed │ open    │     61 │
 │ permanently_closed │ unknown │   5317 │

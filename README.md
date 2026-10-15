@@ -42,22 +42,23 @@ What it reads:
   OpenStreetMap mappers, and places deleted or renamed in OpenStreetMap's
   edit history.
 
-What comes out of a full local build on 2026-10-13, for all 50 states and
+What comes out of a full local build on 2026-10-15, for all 50 states and
 DC (not published as a release):
 
 | | |
 | --- | ---: |
 | Places | 19.3 million |
-| Added from a register because no map dataset had them | 116,000 |
+| Added from a register because no map dataset had them | 120,000 |
 | Confirmed open by a dated record from the last two years | 2.3 million |
 | Marked closed, with the date and the source | 147,000 |
+| With the day the business opened at its address | 246,000 (22,000 of them in 2026) |
 
 The build of 2026-10-12 counted 237,000 added places. That figure was too
 high: a state's file took in register rows from the neighboring states its
 box overlaps, so a bank branch in New Jersey was added again in New York's
 file, and New York salon and repair shop licenses in a person's name were
 becoming places. Both are fixed; no added place now appears in two states.
-Of the 116,000, 23,000 come from rules written since (business rolls,
+Of the 116,000 counted on 2026-10-13, 23,000 came from rules written since (business rolls,
 food permit lists, Texas sales tax outlets, certificates of occupancy).
 
 Which registers may add a place is decided one at a time, by reading what

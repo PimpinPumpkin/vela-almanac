@@ -50,8 +50,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1598 │
-│ open    │  33258 │
-│ unknown │ 293949 │
+│ open    │  33257 │
+│ unknown │ 293950 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -147,8 +147,8 @@
 │ open    │ mke_liquor          │    890 │
 │ open    │ nces_schools        │   1508 │
 │ open    │ ncua_branches       │    407 │
-│ open    │ nppes_orgs          │   1123 │
-│ open    │ osm_check_date      │   1324 │
+│ open    │ nppes_orgs          │   1122 │
+│ open    │ osm_check_date      │   1325 │
 │ open    │ snap_current        │   2275 │
 │ open    │ snap_history        │     89 │
 └─────────┴─────────────────────┴────────┘

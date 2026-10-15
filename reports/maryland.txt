@@ -42,8 +42,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2974 │
-│ open    │  28450 │
-│ unknown │ 297786 │
+│ open    │  28441 │
+│ unknown │ 297795 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -51,8 +51,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2222 │
-│ open    │  25987 │
-│ unknown │ 277020 │
+│ open    │  25985 │
+│ unknown │ 277022 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -146,8 +146,8 @@
 │ open    │ moco_md_alcohol     │    935 │
 │ open    │ nces_schools        │   1158 │
 │ open    │ ncua_branches       │    163 │
-│ open    │ nppes_orgs          │   2050 │
-│ open    │ osm_check_date      │   2052 │
+│ open    │ nppes_orgs          │   2048 │
+│ open    │ osm_check_date      │   2045 │
 │ open    │ snap_current        │   2412 │
 │ open    │ snap_history        │    121 │
 └─────────┴─────────────────────┴────────┘
@@ -170,11 +170,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    440 │
-│ (none)             │ open    │   4173 │
-│ (none)             │ unknown │  71379 │
+│ (none)             │ open    │   4172 │
+│ (none)             │ unknown │  71380 │
 │ open               │ closed  │   2280 │
-│ open               │ open    │  20040 │
-│ open               │ unknown │ 193201 │
+│ open               │ open    │  20036 │
+│ open               │ unknown │ 193205 │
 │ permanently_closed │ closed  │     26 │
 │ permanently_closed │ open    │     88 │
 │ permanently_closed │ unknown │  10716 │

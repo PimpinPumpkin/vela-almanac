@@ -40,8 +40,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1482 │
-│ open    │  29144 │
-│ unknown │ 256352 │
+│ open    │  29138 │
+│ unknown │ 256358 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -143,7 +143,7 @@
 │ open    │ nces_schools        │    847 │
 │ open    │ ncua_branches       │    213 │
 │ open    │ nppes_orgs          │    962 │
-│ open    │ osm_check_date      │    958 │
+│ open    │ osm_check_date      │    952 │
 │ open    │ snap_current        │   2701 │
 │ open    │ snap_history        │    137 │
 └─────────┴─────────────────────┴────────┘
@@ -166,11 +166,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    305 │
-│ (none)             │ open    │   3887 │
-│ (none)             │ unknown │  71190 │
+│ (none)             │ open    │   3886 │
+│ (none)             │ unknown │  71191 │
 │ open               │ closed  │   1054 │
-│ open               │ open    │  21405 │
-│ open               │ unknown │ 157026 │
+│ open               │ open    │  21402 │
+│ open               │ unknown │ 157029 │
 │ permanently_closed │ closed  │      8 │
 │ permanently_closed │ open    │     52 │
 │ permanently_closed │ unknown │   4588 │

@@ -41,8 +41,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   5327 │
-│ open    │  55660 │
-│ unknown │ 573234 │
+│ open    │  55657 │
+│ unknown │ 573237 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -50,8 +50,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   4004 │
-│ open    │  52180 │
-│ unknown │ 533733 │
+│ open    │  52177 │
+│ unknown │ 533736 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -80,7 +80,7 @@
 │      varchar      │ varchar │ varchar │ int64 │ int64  │
 ├───────────────────┼─────────┼─────────┼───────┼────────┤
 │ atp               │ open    │ near    │   493 │    479 │
-│ atp               │ open    │ number  │ 52042 │  25096 │
+│ atp               │ open    │ number  │ 52042 │  25097 │
 │ atp               │ open    │ self    │  3587 │   3587 │
 │ atp               │ open    │ spot    │    94 │     89 │
 │ bop_oh            │ open    │ address │   133 │    133 │
@@ -134,18 +134,18 @@
 │ closed  │ osm_history         │    732 │
 │ closed  │ osm_lifecycle       │    609 │
 │ closed  │ wikidata_p576       │     12 │
-│ open    │ atp                 │  28485 │
-│ open    │ bop_oh              │   1332 │
+│ open    │ atp                 │  28486 │
+│ open    │ bop_oh              │   1326 │
 │ open    │ cincinnati_food     │   1002 │
 │ open    │ cms_hospitals       │    159 │
-│ open    │ cph_columbus_food   │   3155 │
+│ open    │ cph_columbus_food   │   3160 │
 │ open    │ epa_ust_open        │   1093 │
 │ open    │ fdic_locations      │   1940 │
-│ open    │ hrsa_health_centers │    132 │
-│ open    │ irs_eo              │   6007 │
+│ open    │ hrsa_health_centers │    133 │
+│ open    │ irs_eo              │   6006 │
 │ open    │ nces_schools        │   2526 │
 │ open    │ ncua_branches       │    232 │
-│ open    │ nppes_orgs          │   2224 │
+│ open    │ nppes_orgs          │   2221 │
 │ open    │ osm_check_date      │   2558 │
 │ open    │ snap_current        │   4529 │
 │ open    │ snap_history        │    286 │
@@ -169,14 +169,14 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    909 │
-│ (none)             │ open    │   8416 │
-│ (none)             │ unknown │ 136411 │
+│ (none)             │ open    │   8415 │
+│ (none)             │ unknown │ 136412 │
 │ open               │ closed  │   3917 │
-│ open               │ open    │  39584 │
-│ open               │ unknown │ 379108 │
+│ open               │ open    │  39581 │
+│ open               │ unknown │ 379111 │
 │ permanently_closed │ closed  │     72 │
-│ permanently_closed │ open    │    129 │
-│ permanently_closed │ unknown │  15979 │
+│ permanently_closed │ open    │    130 │
+│ permanently_closed │ unknown │  15978 │
 │ temporarily_closed │ unknown │      2 │
 └────────────────────┴─────────┴────────┘
   10 rows                     3 columns

@@ -13,8 +13,8 @@
 │ alltheplaces -> overture │ near      │   244 │
 │ alltheplaces -> overture │ number    │ 14122 │
 │ alltheplaces -> overture │ spot      │   157 │
-│ osm -> core              │ near      │ 11553 │
-│ osm -> core              │ number    │ 26811 │
+│ osm -> core              │ near      │ 11554 │
+│ osm -> core              │ number    │ 26815 │
 │ osm -> core              │ spot      │   610 │
 │ overture duplicates      │ duplicate │  1557 │
 │ overture duplicates      │ fuel lot  │   826 │
@@ -24,7 +24,7 @@
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 370536 │ 396388 │    25852 │     2006 │           2311 │
+│ 370580 │ 396427 │    25847 │     2006 │           2355 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
@@ -34,7 +34,7 @@
 │ biz_denver     │    155 │
 │ co_tobacco     │    528 │
 │ fdic_locations │    243 │
-│ led_co         │    975 │
+│ led_co         │   1019 │
 │ snap_current   │    410 │
 └────────────────┴────────┘
 == status, full layer
@@ -43,8 +43,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2979 │
-│ open    │  39253 │
-│ unknown │ 354156 │
+│ open    │  39290 │
+│ unknown │ 354158 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -52,15 +52,15 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2131 │
-│ open    │  35675 │
-│ unknown │ 332730 │
+│ open    │  35717 │
+│ unknown │ 332732 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
 │       source        │  state  │ records │ matched │
 │       varchar       │ varchar │  int64  │  int64  │
 ├─────────────────────┼─────────┼─────────┼─────────┤
-│ biz_denver          │ open    │    4685 │    3352 │
+│ biz_denver          │ open    │    4685 │    3349 │
 │ boulder_food        │ open    │     558 │     388 │
 │ childcare_co        │ open    │    3110 │    1125 │
 │ cms_hospitals       │ open    │      96 │      70 │
@@ -70,7 +70,7 @@
 │ fdic_locations      │ open    │    1388 │    1306 │
 │ hrsa_health_centers │ open    │     207 │      53 │
 │ irs_eo              │ open    │   24109 │    3844 │
-│ led_co              │ open    │   12791 │    9875 │
+│ led_co              │ open    │   12791 │    9914 │
 │ nces_schools        │ open    │    1917 │    1511 │
 │ ncua_branches       │ open    │     391 │     244 │
 │ nppes_orgs          │ open    │   45613 │   11407 │
@@ -89,7 +89,7 @@
 │ atp            │ open    │ spot    │   157 │     42 │
 │ biz_denver     │ open    │ address │    71 │     61 │
 │ biz_denver     │ open    │ near    │    25 │     22 │
-│ biz_denver     │ open    │ number  │  3209 │   2650 │
+│ biz_denver     │ open    │ number  │  3206 │   2648 │
 │ biz_denver     │ open    │ self    │   155 │    155 │
 │ biz_denver     │ open    │ spot    │    20 │     19 │
 │ boulder_food   │ open    │ address │     5 │      5 │
@@ -109,8 +109,8 @@
 │ ncua_branches  │ open    │ number  │   234 │    227 │
 │ nppes_orgs     │ open    │ address │ 12216 │   9603 │
 │ osm_check_date │ open    │ near    │   881 │    869 │
-│ osm_check_date │ open    │ number  │  4148 │   4101 │
-│ osm_check_date │ open    │ self    │  1700 │   1700 │
+│ osm_check_date │ open    │ number  │  4150 │   4103 │
+│ osm_check_date │ open    │ self    │  1698 │   1698 │
 │ osm_check_date │ open    │ spot    │    71 │     71 │
 │ osm_history    │ closed  │ id      │   690 │    690 │
 │ osm_lifecycle  │ closed  │ near    │    30 │     30 │
@@ -148,10 +148,10 @@
 │ open    │ fdic_locations      │   1349 │
 │ open    │ hrsa_health_centers │     51 │
 │ open    │ irs_eo              │   2681 │
-│ open    │ led_co              │  10202 │
+│ open    │ led_co              │  10241 │
 │ open    │ nces_schools        │   1313 │
 │ open    │ ncua_branches       │    131 │
-│ open    │ nppes_orgs          │   1768 │
+│ open    │ nppes_orgs          │   1766 │
 │ open    │ osm_check_date      │   2910 │
 │ open    │ snap_current        │   1000 │
 │ open    │ snap_history        │     88 │
@@ -178,8 +178,8 @@
 │ (none)             │ open    │   5115 │
 │ (none)             │ unknown │  86477 │
 │ open               │ closed  │   2215 │
-│ open               │ open    │  27956 │
-│ open               │ unknown │ 229992 │
+│ open               │ open    │  27954 │
+│ open               │ unknown │ 229994 │
 │ permanently_closed │ closed  │     49 │
 │ permanently_closed │ open    │    106 │
 │ permanently_closed │ unknown │  13741 │

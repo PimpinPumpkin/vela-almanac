@@ -13,8 +13,8 @@
 │ alltheplaces -> overture │ near      │   134 │
 │ alltheplaces -> overture │ number    │  4717 │
 │ alltheplaces -> overture │ spot      │    20 │
-│ osm -> core              │ near      │  4772 │
-│ osm -> core              │ number    │  6065 │
+│ osm -> core              │ near      │  4775 │
+│ osm -> core              │ number    │  6070 │
 │ osm -> core              │ spot      │   143 │
 │ overture duplicates      │ duplicate │   379 │
 │ overture duplicates      │ fuel lot  │   244 │
@@ -24,7 +24,7 @@
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 108233 │ 119685 │    11452 │      783 │            477 │
+│ 108358 │ 119802 │    11444 │      783 │            602 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
@@ -32,8 +32,8 @@
 │    varchar     │ int64  │
 ├────────────────┼────────┤
 │ fdic_locations │    201 │
-│ lcc_ne         │     85 │
-│ snap_current   │    191 │
+│ lcc_ne         │    213 │
+│ snap_current   │    188 │
 └────────────────┴────────┘
 == status, full layer
 ┌─────────┬────────┐
@@ -41,8 +41,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   1129 │
-│ open    │  13765 │
-│ unknown │ 104791 │
+│ open    │  13879 │
+│ unknown │ 104794 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -50,8 +50,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │    945 │
-│ open    │  13069 │
-│ unknown │  94219 │
+│ open    │  13189 │
+│ unknown │  94224 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -65,12 +65,12 @@
 │ fdic_locations      │ open    │    1042 │     882 │
 │ hrsa_health_centers │ open    │      54 │      13 │
 │ irs_eo              │ open    │   10596 │    1724 │
-│ lcc_ne              │ open    │    5119 │    3651 │
+│ lcc_ne              │ open    │    5119 │    3773 │
 │ lcc_ne_other        │ open    │    1990 │     947 │
 │ nces_schools        │ open    │    1115 │     663 │
 │ ncua_branches       │ open    │     152 │      96 │
 │ nppes_orgs          │ open    │   12030 │    3441 │
-│ snap_current        │ open    │    1394 │    1277 │
+│ snap_current        │ open    │    1394 │    1274 │
 │ snap_history        │ open    │    1400 │    1101 │
 └─────────────────────┴─────────┴─────────┴─────────┘
   14 rows                                 4 columns
@@ -116,7 +116,7 @@
 │ osm_lifecycle   │ closed  │ self    │    48 │     48 │
 │ snap_current    │ open    │ near    │    14 │     14 │
 │ snap_current    │ open    │ number  │  1150 │   1150 │
-│ snap_current    │ open    │ self    │   191 │    191 │
+│ snap_current    │ open    │ self    │   188 │    188 │
 │ snap_current    │ open    │ spot    │    12 │     11 │
 │ snap_history    │ open    │ near    │    14 │     14 │
 │ snap_history    │ open    │ number  │  1170 │   1170 │
@@ -141,13 +141,13 @@
 │ open    │ fdic_locations      │    773 │
 │ open    │ hrsa_health_centers │     12 │
 │ open    │ irs_eo              │    992 │
-│ open    │ lcc_ne              │   3696 │
+│ open    │ lcc_ne              │   3818 │
 │ open    │ lcc_ne_other        │    311 │
 │ open    │ nces_schools        │    459 │
 │ open    │ ncua_branches       │     76 │
-│ open    │ nppes_orgs          │    586 │
+│ open    │ nppes_orgs          │    581 │
 │ open    │ osm_check_date      │    378 │
-│ open    │ snap_current        │    486 │
+│ open    │ snap_current        │    483 │
 │ open    │ snap_history        │     28 │
 └─────────┴─────────────────────┴────────┘
   20 rows                      3 columns
@@ -169,11 +169,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    187 │
-│ (none)             │ open    │   1768 │
-│ (none)             │ unknown │  28659 │
+│ (none)             │ open    │   1766 │
+│ (none)             │ unknown │  28661 │
 │ open               │ closed  │    877 │
-│ open               │ open    │  10212 │
-│ open               │ unknown │  63660 │
+│ open               │ open    │  10209 │
+│ open               │ unknown │  63663 │
 │ permanently_closed │ closed  │      4 │
 │ permanently_closed │ open    │     20 │
 │ permanently_closed │ unknown │   1586 │

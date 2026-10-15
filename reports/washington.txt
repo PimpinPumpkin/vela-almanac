@@ -13,8 +13,8 @@
 │ alltheplaces -> overture │ near      │   530 │
 │ alltheplaces -> overture │ number    │ 14840 │
 │ alltheplaces -> overture │ spot      │    82 │
-│ osm -> core              │ near      │ 22944 │
-│ osm -> core              │ number    │ 34992 │
+│ osm -> core              │ near      │ 22946 │
+│ osm -> core              │ number    │ 34996 │
 │ osm -> core              │ spot      │   925 │
 │ overture duplicates      │ duplicate │  1455 │
 │ overture duplicates      │ fuel lot  │   876 │
@@ -24,7 +24,7 @@
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 389276 │ 433062 │    43786 │     2605 │           1991 │
+│ 389319 │ 433099 │    43780 │     2605 │           2034 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
@@ -34,8 +34,8 @@
 │ biz_seattle    │    268 │
 │ fdic_locations │    117 │
 │ kc_wa_food     │    195 │
-│ lcb_wa         │    573 │
-│ snap_current   │    838 │
+│ lcb_wa         │    624 │
+│ snap_current   │    830 │
 └────────────────┴────────┘
 == status, full layer
 ┌─────────┬────────┐
@@ -43,8 +43,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   4669 │
-│ open    │  56733 │
-│ unknown │ 371660 │
+│ open    │  56671 │
+│ unknown │ 371759 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -52,8 +52,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2723 │
-│ open    │  45795 │
-│ unknown │ 340758 │
+│ open    │  45834 │
+│ unknown │ 340762 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -71,12 +71,12 @@
 │ hrsa_health_centers │ open    │     368 │     114 │
 │ irs_eo              │ open    │   25854 │    3845 │
 │ kc_wa_food          │ open    │   12280 │    8074 │
-│ lcb_wa              │ open    │   14579 │   10562 │
+│ lcb_wa              │ open    │   14579 │   10607 │
 │ nces_schools        │ open    │    2572 │    1914 │
 │ ncua_branches       │ open    │     667 │     358 │
 │ nppes_orgs          │ open    │   36719 │    9747 │
-│ snap_current        │ open    │    4827 │    4068 │
-│ snap_history        │ open    │    4753 │    3212 │
+│ snap_current        │ open    │    4827 │    4060 │
+│ snap_history        │ open    │    4753 │    3211 │
 └─────────────────────┴─────────┴─────────┴─────────┘
   17 rows                                 4 columns
 == evidence by source and rule (places is distinct places)
@@ -110,9 +110,9 @@
 │ ncua_branches  │ open    │ near    │     6 │      6 │
 │ ncua_branches  │ open    │ number  │   341 │    337 │
 │ nppes_orgs     │ open    │ address │ 10822 │   9014 │
-│ osm_check_date │ open    │ near    │  4716 │   4659 │
-│ osm_check_date │ open    │ number  │  9318 │   9274 │
-│ osm_check_date │ open    │ self    │  5980 │   5980 │
+│ osm_check_date │ open    │ near    │  4718 │   4661 │
+│ osm_check_date │ open    │ number  │  9321 │   9277 │
+│ osm_check_date │ open    │ self    │  5975 │   5975 │
 │ osm_check_date │ open    │ spot    │   235 │    234 │
 │ osm_history    │ closed  │ id      │  1193 │   1193 │
 │ osm_lifecycle  │ closed  │ near    │   143 │    140 │
@@ -120,11 +120,11 @@
 │ osm_lifecycle  │ closed  │ self    │   468 │    468 │
 │ osm_lifecycle  │ closed  │ spot    │    12 │     12 │
 │ snap_current   │ open    │ near    │    67 │     67 │
-│ snap_current   │ open    │ number  │  3550 │   3547 │
-│ snap_current   │ open    │ self    │   838 │    838 │
+│ snap_current   │ open    │ number  │  3549 │   3546 │
+│ snap_current   │ open    │ self    │   830 │    830 │
 │ snap_current   │ open    │ spot    │    31 │     31 │
-│ snap_history   │ open    │ near    │    76 │     76 │
-│ snap_history   │ open    │ number  │  3532 │   3530 │
+│ snap_history   │ open    │ near    │    75 │     75 │
+│ snap_history   │ open    │ number  │  3531 │   3529 │
 │ snap_history   │ open    │ spot    │    31 │     31 │
 │ wikidata_p576  │ closed  │ self    │     4 │      4 │
 └────────────────┴─────────┴─────────┴───────┴────────┘
@@ -150,12 +150,12 @@
 │ open    │ hrsa_health_centers │    114 │
 │ open    │ irs_eo              │   2730 │
 │ open    │ kc_wa_food          │   2535 │
-│ open    │ lcb_wa              │  10103 │
+│ open    │ lcb_wa              │  10148 │
 │ open    │ nces_schools        │   1692 │
 │ open    │ ncua_branches       │    233 │
-│ open    │ nppes_orgs          │   1391 │
-│ open    │ osm_check_date      │   9459 │
-│ open    │ snap_current        │   1678 │
+│ open    │ nppes_orgs          │   1387 │
+│ open    │ osm_check_date      │   9364 │
+│ open    │ snap_current        │   1670 │
 │ open    │ snap_history        │     98 │
 └─────────┴─────────────────────┴────────┘
   23 rows                      3 columns
@@ -177,11 +177,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    707 │
-│ (none)             │ open    │   6492 │
-│ (none)             │ unknown │  90105 │
+│ (none)             │ open    │   6484 │
+│ (none)             │ unknown │  90113 │
 │ open               │ closed  │   3377 │
-│ open               │ open    │  39654 │
-│ open               │ unknown │ 232415 │
+│ open               │ open    │  39617 │
+│ open               │ unknown │ 232452 │
 │ permanently_closed │ closed  │     94 │
 │ permanently_closed │ open    │    197 │
 │ permanently_closed │ unknown │  11639 │

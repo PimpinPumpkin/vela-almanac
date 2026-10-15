@@ -41,8 +41,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2481 │
-│ open    │  35970 │
-│ unknown │ 368383 │
+│ open    │  35965 │
+│ unknown │ 368388 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -50,8 +50,8 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2071 │
-│ open    │  33862 │
-│ unknown │ 342216 │
+│ open    │  33857 │
+│ unknown │ 342221 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
@@ -80,7 +80,7 @@
 │    varchar     │ varchar │ varchar │ int64 │ int64  │
 ├────────────────┼─────────┼─────────┼───────┼────────┤
 │ atp            │ open    │ near    │   350 │    343 │
-│ atp            │ open    │ number  │ 17346 │  16042 │
+│ atp            │ open    │ number  │ 17346 │  16040 │
 │ atp            │ open    │ self    │  1986 │   1986 │
 │ atp            │ open    │ spot    │    66 │     60 │
 │ childcare_tn   │ open    │ near    │    12 │     12 │
@@ -134,7 +134,7 @@
 │ closed  │ osm_history         │    233 │
 │ closed  │ osm_lifecycle       │    180 │
 │ closed  │ wikidata_p576       │      3 │
-│ open    │ atp                 │  16569 │
+│ open    │ atp                 │  16567 │
 │ open    │ childcare_tn        │    930 │
 │ open    │ cms_hospitals       │     77 │
 │ open    │ epa_ust_open        │    701 │
@@ -144,7 +144,7 @@
 │ open    │ nash_beer           │   1589 │
 │ open    │ nces_schools        │   1559 │
 │ open    │ ncua_branches       │    276 │
-│ open    │ nppes_orgs          │   1329 │
+│ open    │ nppes_orgs          │   1326 │
 │ open    │ osm_check_date      │   1726 │
 │ open    │ snap_current        │   1849 │
 │ open    │ snap_history        │     96 │
@@ -169,11 +169,11 @@
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
 │ (none)             │ closed  │    447 │
-│ (none)             │ open    │   5045 │
-│ (none)             │ unknown │  96207 │
+│ (none)             │ open    │   5043 │
+│ (none)             │ unknown │  96209 │
 │ open               │ closed  │   1874 │
-│ open               │ open    │  26152 │
-│ open               │ unknown │ 235820 │
+│ open               │ open    │  26149 │
+│ open               │ unknown │ 235823 │
 │ permanently_closed │ closed  │     28 │
 │ permanently_closed │ open    │     77 │
 │ permanently_closed │ unknown │   8842 │
