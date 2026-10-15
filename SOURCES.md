@@ -464,6 +464,8 @@ Only a position is taken, as above; no address is published.
   edges, so a few points near a boundary get the neighbor's.
   Wisconsin's statewide NG911 layer has no ZIP field, which the address
   key needs. A layer titled for Wayne County turned out to be Ohio's.
+- Points that come without a postcode (all 260,000 of New Orleans') get
+  the Census ZIP code area they fall in, as for the county layers below.
 - Used for: the position of a register row that has only an address, when
   that row adds a place. Not used to match.
 

@@ -18,12 +18,29 @@ FILES="$(curl -fsS -A "$UA" "$BUCKET/?list-type=2&prefix=release/$RELEASE/theme=
   | tr '<' '\n' | sed -n "s|^Key>\(.*parquet\)$|'$BUCKET/\1'|p" | paste -sd, -)"
 [ -n "$FILES" ] || { echo "no Overture address files for $RELEASE" >&2; exit 1; }
 
+# Some sources come with no postcode (New Orleans: 260,000 points). Where the Census ZIP
+# code areas are at hand (base/zcta.sh), such a point gets the area it falls in.
+# Some sources come with no postcode (New Orleans: 260,000 points). Where the Census ZIP
+# code areas are at hand (base/zcta.sh), such a point gets the area it falls in.
+ZCTA="$CACHE/census/zcta.parquet"
+FILL="select null::varchar as number, null::varchar as street, null::varchar as postcode, null::double as lat, null::double as lng where false"
+if [ "$COUNTRY" = US ] && [ -s "$ZCTA" ]; then
+  FILL="select a.number, a.street, z.zip as postcode, a.lat, a.lng
+        from a join (select zip, geom from '$ZCTA'
+                     where st_xmax(geom) >= $W and st_xmin(geom) <= $E and st_ymax(geom) >= $S and st_ymin(geom) <= $N) z
+          on st_contains(z.geom, st_point(a.lng, a.lat))
+        where a.postcode is null"
+fi
 duck <<SQL
-copy (
+create table a as
   select number, street, postcode, st_y(geometry) as lat, st_x(geometry) as lng
   from read_parquet([$FILES])
   where bbox.xmin >= $W and bbox.xmax <= $E and bbox.ymin >= $S and bbox.ymax <= $N
-    and country = '$COUNTRY' and number is not null and street is not null and postcode is not null
+    and country = '$COUNTRY' and number is not null and street is not null;
+copy (
+  select * from a where postcode is not null
+  union all
+  $FILL
 ) to '$OUT/addresses.parquet.part' (format parquet, compression zstd);
 SQL
 mv "$OUT/addresses.parquet.part" "$OUT/addresses.parquet"
