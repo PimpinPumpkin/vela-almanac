@@ -123,9 +123,11 @@ Rules for adapters:
   `out.row(..., since=day)`. It is written to a file of its own,
   `since/<source>.csv` (source, source_id, since), and becomes the place's
   `opened_date`. It never changes what the row itself says. Read so far:
-  Fort Worth certificates, Texas sales tax outlets, Texas and New York
-  liquor licenses, New Orleans, New York City, Los Angeles and San
-  Francisco business rolls.
+  Fort Worth certificates, Texas sales tax outlets, Texas, New York and
+  California liquor licenses, Clark County licenses, and the New Orleans,
+  New York City, Los Angeles and San Francisco business rolls. Looked at
+  and not usable: Florida's hotel and restaurant files and Oregon's liquor
+  table give only the current term's dates.
 - If the register uses a legal name the public never sees, the adapter maps
   it (see `TRADE_NAMES` in `adapters/fdic.py`). The matcher stays generic.
 - A register that only publishes its last few weeks can be held instead of

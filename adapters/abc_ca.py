@@ -58,8 +58,16 @@ def main():
             # rows go out under their own source name: good for matching, never for adding a place.
             out.row("abc_ca" if r["DBA Name"] else "abc_ca_holder", r["File Number"], r["DBA Name"] or r["Primary Name"],
                     address(r["Prem Addr 1"], r["Prem City"], "%s %s" % (r["Prem State"], r["Prem Zip"][:5])),
-                    None, None, "open", as_of)
+                    None, None, "open", as_of, since=first_issue(r.get("Type Orig Iss Date")))
     out.close(geocode=True)
+
+
+def first_issue(text):
+    """"16-JUL-2009" -> "2009-07-16": the day this license type was first issued here."""
+    try:
+        return datetime.datetime.strptime(text, "%d-%b-%Y").date().isoformat()
+    except (TypeError, ValueError):
+        return None
 
 
 if __name__ == "__main__":
