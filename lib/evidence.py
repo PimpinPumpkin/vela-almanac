@@ -30,12 +30,28 @@ UA = "VelaAlmanac/0.1 (open US places dataset build; https://github.com/PimpinPu
 COLUMNS = ["source", "source_id", "name", "address", "lat", "lng", "state", "date"]
 
 
+_CONTEXT = None
+
+
+def _context():
+    """The default trust store plus lib/extra-ca.pem: public intermediate certificates that
+    some government servers fail to send (gis.nola.gov). Verification stays on."""
+    global _CONTEXT
+    if _CONTEXT is None:
+        import ssl
+        _CONTEXT = ssl.create_default_context()
+        extra = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extra-ca.pem")
+        if os.path.exists(extra):
+            _CONTEXT.load_verify_locations(extra)
+    return _CONTEXT
+
+
 def get(url, tries=4):
     """Fetch a URL with the project User-Agent. Returns bytes."""
     for attempt in range(tries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=120) as r:
+            with urllib.request.urlopen(req, timeout=120, context=_context()) as r:
                 return r.read()
         except Exception as e:  # network errors are retried, then raised
             if getattr(e, "code", None) == 404 or attempt == tries - 1:

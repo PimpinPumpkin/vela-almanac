@@ -441,10 +441,27 @@ Only a position is taken, as above; no address is published.
 - Milwaukee County address points (464,000 active):
   `https://services2.arcgis.com/s1wgJQKbKJihhhaT/arcgis/rest/services/Milwaukee_County_Address_Points/FeatureServer/56`.
   No terms stated.
+- Wisconsin NG911 site and structure address points (2.5 million,
+  statewide), from the state's 911 office:
+  `https://services3.arcgis.com/GoOAGCoqFEhZEh7f/arcgis/rest/services/WI_NG911_Site_Structure_Address_Points_2/FeatureServer/0`.
+  No terms stated. The layer has no ZIP, so each point is given the
+  Census ZIP code tabulation area it falls in (below).
+- New Orleans site address points:
+  `https://gis.nola.gov/arcgis/rest/services/Address/SiteAddressPoint/MapServer/0`.
+  Configured, also ZIP-less. The server leaves its intermediate
+  certificate out; `lib/extra-ca.pem` holds that public certificate
+  (Sectigo Public Server Authentication CA OV R36, from
+  `crt.sectigo.com`) so the connection is still verified. On 2026-10-15
+  every query to the layer timed out at the city's gateway; not read yet.
 - Not found yet: Las Vegas (Clark County publishes only its newest 27,000
-  points), New Orleans (`gis.nola.gov` serves a site address layer whose
-  certificate Python cannot check; left alone), Detroit (its open layer
-  holds 1,042 points).
+  points) and Detroit (its open layer holds 1,042 points).
+
+### Census ZIP code tabulation areas
+- `https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_us_zcta520_500k.zip`
+  (`base/zcta.sh`, kept as `data/cache/census/zcta.parquet`). US federal
+  work, public domain. Used only to give a ZIP to address points from
+  layers that carry none; a ZIP code area and a postal ZIP differ at the
+  edges, so a few points near a boundary get the neighbor's.
   Wisconsin's statewide NG911 layer has no ZIP field, which the address
   key needs. A layer titled for Wayne County turned out to be Ohio's.
 - Used for: the position of a register row that has only an address, when

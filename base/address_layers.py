@@ -30,6 +30,11 @@ LAYERS = {
     # Philadelphia's address index: points on the parcel, not those placed along a street range
     "philadelphia_pa": ("https://services.arcgis.com/fLeGjb7u4uXqeF9q/arcgis/rest/services/AIS_Address_Points/FeatureServer/0",
                         "geocode_type IN ('pwd_parcel', 'dor_parcel', 'ng911')", "street_address", "zip_code"),
+    # no ZIP field: the ZIP is the Census ZIP code area the point falls in
+    "new_orleans_la": ("https://gis.nola.gov/arcgis/rest/services/Address/SiteAddressPoint/MapServer/0",
+                       "1=1", ("ADDRNUM", "FULLNAME"), None),
+    "wi_ng911": ("https://services3.arcgis.com/GoOAGCoqFEhZEh7f/arcgis/rest/services/WI_NG911_Site_Structure_Address_Points_2/FeatureServer/0",
+                 "1=1", ("Add_Number", "St_Name"), None),
     "milwaukee_wi": ("https://services2.arcgis.com/s1wgJQKbKJihhhaT/arcgis/rest/services/Milwaukee_County_Address_Points/FeatureServer/56",
                      "Addr_Status = 'Active'", ("HouseNo", "Dir", "Street", "StType"), "Zip_Code"),
     "allegheny_pa": ("https://gisdata.alleghenycounty.us/arcgis/rest/services/Addressing/Addressing_AddressPoints/MapServer/0",
@@ -73,6 +78,21 @@ def features(layer, where, fields):
         step = min(size, step * 10)
 
 
+def zip_from_areas(path):
+    """Fill the ZIP of every point from the Census ZIP code area (ZCTA) it falls in."""
+    import subprocess
+    areas = os.path.join(CACHE, "census", "zcta.parquet")
+    if not os.path.exists(areas):
+        raise RuntimeError("no %s: see SOURCES.md" % areas)
+    sql = """load spatial;
+copy (select a.number, a.street, z.zip as postcode, a.lat, a.lng
+      from read_csv('{p}', header = true, all_varchar = true) a
+      join '{z}' z on st_contains(z.geom, st_point(a.lng::double, a.lat::double)))
+to '{p}.zip' (header, delimiter ',');""".format(p=path, z=areas)
+    subprocess.run(["duckdb", "-c", sql], check=True)
+    os.replace(path + ".zip", path)
+
+
 def main():
     folder = os.path.join(CACHE, "addresses")
     os.makedirs(folder, exist_ok=True)
@@ -86,16 +106,19 @@ def main():
                 out = csv.writer(f)
                 out.writerow(("number", "street", "postcode", "lat", "lng"))
                 parts = full if isinstance(full, tuple) else (full,)
-                for a, (lat, lng) in features(layer, where, ",".join(parts + (zip_field,))):
+                for a, (lat, lng) in features(layer, where, ",".join(parts + ((zip_field,) if zip_field else ()))):
                     line = " ".join(str(a.get(f) or "").strip() for f in parts if a.get(f) not in (None, ""))
                     m = re.match(r"\s*(\d+)[A-Za-z]?(?:\s+1/2)?\s+(\S.*)$", line)
-                    zip5 = re.match(r"\d{5}", str(a.get(zip_field) or ""))
-                    if not m or not zip5 or lat is None:
+                    zip5 = re.match(r"\d{5}", str(a.get(zip_field) or "")) if zip_field else None
+                    if not m or (zip_field and not zip5) or lat is None:
                         continue
-                    out.writerow((m.group(1), " ".join(m.group(2).split()), zip5.group(0), "%.6f" % lat, "%.6f" % lng))
+                    out.writerow((m.group(1), " ".join(m.group(2).split()), zip5.group(0) if zip5 else "",
+                                  "%.6f" % lat, "%.6f" % lng))
                     n += 1
             if n == 0:
                 raise RuntimeError("no rows")
+            if not zip_field:
+                zip_from_areas(path + ".part")
             os.replace(path + ".part", path)
             print("%s: %d address points" % (name, n))
         except (Exception, SystemExit) as e:  # keep last run's file
