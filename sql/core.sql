@@ -265,6 +265,8 @@ create or replace table storefront_source as
     ('dcwp_nyc', 'commercial_premises', false, true),
     ('det_biz', 'commercial_premises', false, true),
     ('cpa_tx', 'commercial_roll', true, true),
+    ('clark_nv_biz', 'commercial_roll', false, true),
+    ('rev_pa', 'commercial_roll', true, true),
     ('osdh_ok_food', 'food_roll', true, true),
     ('lac_food', 'food_roll', false, true),
     ('alameda_food', 'food_roll', false, true),
@@ -361,6 +363,11 @@ create or replace table born as
       and (s.category not in ('commercial_roll', 'food_roll')
            or not regexp_matches(r.name, '\bby\b|\b(pet (sitting|care|services)|sitting|walking|pool|consult\w*|detailing|rentals?|wholesale|distribut\w*|home|design)\b', 'i')
               and not regexp_matches(r.address, '#|\b(unit|ste|suite)\b', 'i'))
+      -- A chain's store placed on an address point often lands far from where
+      -- the map has that store (a mall, a big lot), so it would be listed twice.
+      -- A roll row placed on a point, with a store number in its name, adds nothing.
+      and not (s.pinned and s.category in ('commercial_roll', 'food_roll')
+               and regexp_matches(r.name, '#\s*[0-9]{2,}|\bstore [0-9]{2,}|^a plus\b|\bamoco\b', 'i'))
       -- a row with no house number sits wherever its register put it
       and (s.category not in ('commercial_premises', 'commercial_roll', 'food_roll') or r.hn is not null)
       -- A food permit names kitchens, counters and outlets as well as shops:

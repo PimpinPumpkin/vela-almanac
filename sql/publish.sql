@@ -20,7 +20,7 @@ create or replace macro license_of(source) as
                     'wic_nj', 'nn_biz', 'sac_tobacco', 'fairfax_food',
                     'abc_nc', 'abc_ky', 'abc_ks', 'plcb_pa', 'tda_tn_food', 'dhhs_nc_inspections',
                     'dph_ga_inspections', 'msdh_ms_food', 'adph_al_food', 'osdh_ok_food',
-                    'norfolk_biz', 'berkeley_biz', 'nj_inspection', 'tceq_tx_cleaners', 'scc_food', 'lac_food', 'snhd_nv_food')
+                    'norfolk_biz', 'berkeley_biz', 'nj_inspection', 'tceq_tx_cleaners', 'scc_food', 'lac_food', 'snhd_nv_food', 'clark_nv_biz')
          or source like 'foodsafety_%'
          or source like 'dca_ca_%' or (source like 'childcare_%' and source not in ('childcare_ca', 'childcare_co', 'childcare_ny', 'childcare_nyc', 'childcare_pa', 'childcare_tx'))
          or source like 'dbpr_fl_%' then 'none-stated'

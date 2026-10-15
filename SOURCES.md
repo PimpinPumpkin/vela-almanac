@@ -434,7 +434,17 @@ Only a position is taken, as above; no address is published.
   okmaps.org as hosted by the University of Oklahoma:
   `https://services.arcgis.com/3xOwF6p0r7IHIjfn/arcgis/rest/services/NG911_Address_Points/FeatureServer/0`.
   No terms stated.
-- Not found yet: Las Vegas (Clark County), New Orleans, Detroit.
+- City of Philadelphia address index (862,000 points on a parcel or a
+  911 point; those placed along a street range are left out):
+  `https://services.arcgis.com/fLeGjb7u4uXqeF9q/arcgis/rest/services/AIS_Address_Points/FeatureServer/0`.
+  City of Philadelphia open data; no license stated on the layer.
+- Milwaukee County address points (464,000 active):
+  `https://services2.arcgis.com/s1wgJQKbKJihhhaT/arcgis/rest/services/Milwaukee_County_Address_Points/FeatureServer/56`.
+  No terms stated.
+- Not found yet: Las Vegas (Clark County publishes only its newest 27,000
+  points), New Orleans (`gis.nola.gov` serves a site address layer whose
+  certificate Python cannot check; left alone), Detroit (its open layer
+  holds 1,042 points).
   Wisconsin's statewide NG911 layer has no ZIP field, which the address
   key needs. A layer titled for Wayne County turned out to be Ohio's.
 - Used for: the position of a register row that has only an address, when
@@ -513,6 +523,14 @@ are left out.
   `CertificateOfUse_New_gdb`) name the corporation and, as the trade
   name, often the applicant, and the county's business tax layer already
   lists the same businesses.
+- Clark County, Nevada, business licenses (unincorporated county: the
+  Strip, Paradise, Spring Valley, Enterprise), with each license's first
+  issue date:
+  `https://maps.clarkcountynv.gov/arcgis/rest/services/BusinessLicense/BusinessLicenseData/FeatureServer/1`.
+  74,000 in force; 40,700 read once kinds with no door (property
+  management, rentals, contractors, brokers, gaming routes, tax accounts)
+  are left out. No license stated; `none-stated`. Phone numbers are not
+  read.
 - Southern Nevada Health District (Clark County: Las Vegas, Henderson,
   North Las Vegas), food establishment permits, from the district's
   nightly file for developers:

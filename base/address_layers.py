@@ -24,8 +24,14 @@ import urllib.parse
 from arcgis import info
 from evidence import CACHE, get
 
-# name: layer, filter, the field holding "1876 GREENLEAF ST", the ZIP field
+# name: layer, filter, the field holding "1876 GREENLEAF ST" (or the fields that make it,
+# in order), the ZIP field
 LAYERS = {
+    # Philadelphia's address index: points on the parcel, not those placed along a street range
+    "philadelphia_pa": ("https://services.arcgis.com/fLeGjb7u4uXqeF9q/arcgis/rest/services/AIS_Address_Points/FeatureServer/0",
+                        "geocode_type IN ('pwd_parcel', 'dor_parcel', 'ng911')", "street_address", "zip_code"),
+    "milwaukee_wi": ("https://services2.arcgis.com/s1wgJQKbKJihhhaT/arcgis/rest/services/Milwaukee_County_Address_Points/FeatureServer/56",
+                     "Addr_Status = 'Active'", ("HouseNo", "Dir", "Street", "StType"), "Zip_Code"),
     "allegheny_pa": ("https://gisdata.alleghenycounty.us/arcgis/rest/services/Addressing/Addressing_AddressPoints/MapServer/0",
                      "STATUS = 'ACTIVE'", "FULL_ADDRESS", "ZIP_CODE"),
     "charleston_sc": ("https://services.arcgis.com/jR9eNCjAkxwH2nLe/arcgis/rest/services/Charleston_County_Addresses/FeatureServer/0",
@@ -79,8 +85,10 @@ def main():
             with open(path + ".part", "w", newline="") as f:
                 out = csv.writer(f)
                 out.writerow(("number", "street", "postcode", "lat", "lng"))
-                for a, (lat, lng) in features(layer, where, "%s,%s" % (full, zip_field)):
-                    m = re.match(r"\s*(\d+)[A-Za-z]?(?:\s+1/2)?\s+(\S.*)$", str(a.get(full) or ""))
+                parts = full if isinstance(full, tuple) else (full,)
+                for a, (lat, lng) in features(layer, where, ",".join(parts + (zip_field,))):
+                    line = " ".join(str(a.get(f) or "").strip() for f in parts if a.get(f) not in (None, ""))
+                    m = re.match(r"\s*(\d+)[A-Za-z]?(?:\s+1/2)?\s+(\S.*)$", line)
                     zip5 = re.match(r"\d{5}", str(a.get(zip_field) or ""))
                     if not m or not zip5 or lat is None:
                         continue
