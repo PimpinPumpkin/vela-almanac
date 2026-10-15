@@ -35,6 +35,9 @@ LAYERS = {
                        "1=1", ("ADDRNUM", "FULLNAME"), None),
     "wi_ng911": ("https://services3.arcgis.com/GoOAGCoqFEhZEh7f/arcgis/rest/services/WI_NG911_Site_Structure_Address_Points_2/FeatureServer/0",
                  "1=1", ("Add_Number", "St_Name"), None),
+    # parcels, taken at their middle: Detroit publishes no address points of its own
+    "detroit_mi": ("https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/parcel_file_current/FeatureServer/0",
+                   "1=1", "address", "zip_code"),
     "milwaukee_wi": ("https://services2.arcgis.com/s1wgJQKbKJihhhaT/arcgis/rest/services/Milwaukee_County_Address_Points/FeatureServer/56",
                      "Addr_Status = 'Active'", ("HouseNo", "Dir", "Street", "StType"), "Zip_Code"),
     "allegheny_pa": ("https://gisdata.alleghenycounty.us/arcgis/rest/services/Addressing/Addressing_AddressPoints/MapServer/0",
@@ -59,7 +62,7 @@ def features(layer, where, fields):
     step = size
     while True:
         q = {"where": "(%s) AND %s > %d" % (where, oid, last), "outFields": "%s,%s" % (oid, fields), "outSR": 4326,
-             "f": "json", "orderByFields": oid, "resultRecordCount": step}
+             "f": "json", "orderByFields": oid, "resultRecordCount": step, "returnCentroid": "true"}
         body = json.loads(get(layer + "/query?" + urllib.parse.urlencode(q)))
         if "error" in body:
             # one bad record can sink a page: ask for less, and at one row step over it
@@ -71,6 +74,16 @@ def features(layer, where, fields):
         feats = body.get("features", [])
         for f in feats:
             g = f.get("geometry") or {}
+            if "rings" in g:
+                # a parcel: its centroid where the server gives one, else the middle of its outline
+                c = f.get("centroid") or {}
+                ring = g["rings"][0] if g["rings"] else []
+                if c.get("x") is not None:
+                    g = c
+                elif ring:
+                    g = {"x": sum(p[0] for p in ring) / len(ring), "y": sum(p[1] for p in ring) / len(ring)}
+                else:
+                    g = {}
             yield f["attributes"], (g.get("y"), g.get("x"))
         if not feats:
             return

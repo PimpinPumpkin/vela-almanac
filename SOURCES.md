@@ -453,8 +453,12 @@ Only a position is taken, as above; no address is published.
   (Sectigo Public Server Authentication CA OV R36, from
   `crt.sectigo.com`) so the connection is still verified. On 2026-10-15
   every query to the layer timed out at the city's gateway; not read yet.
-- Not found yet: Las Vegas (Clark County publishes only its newest 27,000
-  points) and Detroit (its open layer holds 1,042 points).
+- City of Detroit parcels (376,000 with a street address and ZIP), each
+  taken at its centroid, since the city publishes no address points:
+  `https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/parcel_file_current/FeatureServer/0`.
+  Owner names in the layer are not read. No license stated.
+- Not found yet: Las Vegas. Clark County publishes only its newest 27,000
+  address points, and its parcel layer carries no street address.
 
 ### Census ZIP code tabulation areas
 - `https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_us_zcta520_500k.zip`
