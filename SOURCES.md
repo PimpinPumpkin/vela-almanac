@@ -457,8 +457,12 @@ Only a position is taken, as above; no address is published.
   taken at its centroid, since the city publishes no address points:
   `https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/parcel_file_current/FeatureServer/0`.
   Owner names in the layer are not read. No license stated.
-- Not found yet: Las Vegas. Clark County publishes only its newest 27,000
-  address points, and its parcel layer carries no street address.
+- Clark County, Nevada, addresses (1.0 million), a table the City of Las
+  Vegas keeps with each address's latitude and longitude, last edited in
+  2022:
+  `https://services1.arcgis.com/F1v0ufATbBQScMtY/arcgis/rest/services/INFOR_ADDRESS_XY_LATLNG/FeatureServer/0`.
+  No license stated. Clark County's own services hold only its newest
+  27,000 points, and its parcels carry no street address.
 
 ### Census ZIP code tabulation areas
 - `https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_us_zcta520_500k.zip`

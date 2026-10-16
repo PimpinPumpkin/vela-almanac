@@ -38,6 +38,10 @@ LAYERS = {
     # parcels, taken at their middle: Detroit publishes no address points of its own
     "detroit_mi": ("https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/parcel_file_current/FeatureServer/0",
                    "1=1", "address", "zip_code"),
+    # a table, not a layer: the position is in two fields (Clark County, Nevada, kept by the
+    # City of Las Vegas; last edited 2022, and addresses rarely move)
+    "clark_nv": ("https://services1.arcgis.com/F1v0ufATbBQScMtY/arcgis/rest/services/INFOR_ADDRESS_XY_LATLNG/FeatureServer/0",
+                 "1=1", ("STNO", "STNAME", "SUFFIX"), "ZIP", ("LAT", "LONG_")),
     "milwaukee_wi": ("https://services2.arcgis.com/s1wgJQKbKJihhhaT/arcgis/rest/services/Milwaukee_County_Address_Points/FeatureServer/56",
                      "Addr_Status = 'Active'", ("HouseNo", "Dir", "Street", "StType"), "Zip_Code"),
     "allegheny_pa": ("https://gisdata.alleghenycounty.us/arcgis/rest/services/Addressing/Addressing_AddressPoints/MapServer/0",
@@ -59,15 +63,21 @@ def features(layer, where, fields):
     meta = info(layer)
     oid = meta.get("objectIdField") or next(f["name"] for f in meta["fields"] if f["type"] == "esriFieldTypeOID")
     size, last = meta.get("maxRecordCount") or 1000, -1
-    step = size
+    step, skipped = size, 0
     while True:
         q = {"where": "(%s) AND %s > %d" % (where, oid, last), "outFields": "%s,%s" % (oid, fields), "outSR": 4326,
-             "f": "json", "orderByFields": oid, "resultRecordCount": step, "returnCentroid": "true"}
+             "f": "json", "orderByFields": oid, "resultRecordCount": step}
+        if meta.get("geometryType") == "esriGeometryPolygon":
+            q["returnCentroid"] = "true"
         body = json.loads(get(layer + "/query?" + urllib.parse.urlencode(q)))
         if "error" in body:
-            # one bad record can sink a page: ask for less, and at one row step over it
+            # one bad record can sink a page: ask for less, and at one row step over it;
+            # a query the server refuses outright stops the layer
             if step == 1:
                 last += 1
+                skipped += 1
+                if skipped > 50:
+                    raise RuntimeError(str(body["error"])[:100])
             step = max(1, step // 10)
             time.sleep(2)
             continue
@@ -88,6 +98,7 @@ def features(layer, where, fields):
         if not feats:
             return
         last = feats[-1]["attributes"][oid]
+        skipped = 0
         step = min(size, step * 10)
 
 
@@ -111,7 +122,8 @@ def main():
     os.makedirs(folder, exist_ok=True)
     failed = []
     for name in sys.argv[1:] or sorted(LAYERS):
-        layer, where, full, zip_field = LAYERS[name]
+        layer, where, full, zip_field = LAYERS[name][:4]
+        position = LAYERS[name][4] if len(LAYERS[name]) > 4 else None
         path = os.path.join(folder, name + ".csv")
         n = 0
         try:
@@ -119,7 +131,9 @@ def main():
                 out = csv.writer(f)
                 out.writerow(("number", "street", "postcode", "lat", "lng"))
                 parts = full if isinstance(full, tuple) else (full,)
-                for a, (lat, lng) in features(layer, where, ",".join(parts + ((zip_field,) if zip_field else ()))):
+                for a, (lat, lng) in features(layer, where, ",".join(parts + ((zip_field,) if zip_field else ()) + (position or ()))):
+                    if position:
+                        lat, lng = a.get(position[0]), a.get(position[1])
                     line = " ".join(str(a.get(f) or "").strip() for f in parts if a.get(f) not in (None, ""))
                     m = re.match(r"\s*(\d+)[A-Za-z]?(?:\s+1/2)?\s+(\S.*)$", line)
                     zip5 = re.match(r"\d{5}", str(a.get(zip_field) or "")) if zip_field else None
