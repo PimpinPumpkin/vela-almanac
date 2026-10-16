@@ -9,6 +9,9 @@ No address is published from here.
   base/address_layers.py            every layer
   base/address_layers.py ok_ng911   the named ones
 
+Address points hardly move, so a layer fetched less than MAX_AGE_DAYS ago (default 90)
+is kept as it is unless named.
+
 Layer addresses and terms are in SOURCES.md.
 """
 import csv
@@ -121,7 +124,13 @@ def main():
     folder = os.path.join(CACHE, "addresses")
     os.makedirs(folder, exist_ok=True)
     failed = []
+    import time as clock
+    max_age = float(os.environ.get("MAX_AGE_DAYS", "90")) * 86400
     for name in sys.argv[1:] or sorted(LAYERS):
+        kept = os.path.join(folder, name + ".csv")
+        if not sys.argv[1:] and os.path.exists(kept) and clock.time() - os.path.getmtime(kept) < max_age:
+            print("%s: kept, fetched %d days ago" % (name, (clock.time() - os.path.getmtime(kept)) // 86400))
+            continue
         layer, where, full, zip_field = LAYERS[name][:4]
         position = LAYERS[name][4] if len(LAYERS[name]) > 4 else None
         path = os.path.join(folder, name + ".csv")

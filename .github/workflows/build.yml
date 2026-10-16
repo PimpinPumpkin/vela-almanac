@@ -63,6 +63,15 @@ jobs:
           path: data/cache/evidence
           key: evidence-${{ github.run_id }}
           restore-keys: evidence-
+      # Address points from county and state layers, and the Census ZIP code areas. Each layer
+      # is fetched again when it is three months old (base/address_layers.py).
+      - uses: actions/cache@v4
+        with:
+          path: |
+            data/cache/addresses
+            data/cache/census/zcta.parquet
+          key: addresses-${{ github.run_id }}
+          restore-keys: addresses-
       - name: Bring forward the held records from the last release
         env:
           GH_TOKEN: ${{ github.token }}
