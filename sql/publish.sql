@@ -127,6 +127,7 @@ create or replace macro published(place, member, status, conf, hours) as table (
     from query_table(member) group by place_id
   )
   select p.id, p.name, p.category,
+         overture_category_of(p.category) as overture_category,
          coalesce(og.category_group, group_of(p.category)) as category_group,
          coalesce(og.category_subgroup, subgroup_of(p.category)) as category_subgroup,
          p.brand, p.brand_wikidata,
@@ -140,6 +141,7 @@ create or replace macro published(place, member, status, conf, hours) as table (
          round(cf.conf, 2) as openpois_conf,
          ml.missing as missing_license,
          p.overture_status,
+         og.confidence as overture_confidence,
          overture_sources_of(og.datasets) as overture_sources,
          m.sources,
          list_sort(list_distinct(

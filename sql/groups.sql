@@ -97,3 +97,57 @@ create or replace macro subgroup_of(category) as
     when category in ('leisure=fitness_centre', 'leisure=sports_centre', 'leisure=stadium') then 'sport_or_fitness_facility'
     else null
   end;
+
+-- One category vocabulary a reader can key on: Overture's own name for an Overture row, and the
+-- nearest Overture name for an OSM tag or a register's kind. Null where a register says too
+-- little ("licensed_premises" is a bar, a restaurant or a store): category_group still holds.
+create or replace macro overture_category_of(category) as
+  case
+    when category is null then null
+    when category not like '%=%' and category not in ('bank', 'grocery_or_convenience_store', 'food_store',
+         'licensed_premises', 'restaurant', 'food_service', 'commercial_premises', 'vehicle_repair_or_dealer',
+         'salon_or_barber_shop', 'laundry_or_dry_cleaning') then category
+    when category = 'bank' then 'bank_credit_union'
+    when category = 'grocery_or_convenience_store' then 'convenience_store'
+    when category = 'food_store' then 'grocery_store'
+    when category in ('restaurant', 'food_service') then 'restaurant'
+    when category = 'vehicle_repair_or_dealer' then 'automotive_repair'
+    when category = 'salon_or_barber_shop' then 'hair_salon'
+    when category = 'laundry_or_dry_cleaning' then 'dry_cleaner'
+    when category in ('licensed_premises', 'commercial_premises') then null
+    else case category
+      when 'amenity=restaurant' then 'restaurant' when 'amenity=fast_food' then 'fast_food_restaurant'
+      when 'amenity=cafe' then 'coffee_shop' when 'amenity=bar' then 'bar' when 'amenity=pub' then 'pub'
+      when 'amenity=fuel' then 'gas_station' when 'amenity=pharmacy' then 'pharmacy'
+      when 'amenity=bank' then 'bank_credit_union' when 'amenity=atm' then 'atms'
+      when 'amenity=dentist' then 'dentist' when 'amenity=doctors' then 'doctor' when 'amenity=clinic' then 'doctor'
+      when 'amenity=veterinary' then 'veterinarian' when 'amenity=childcare' then 'child_care_and_day_care'
+      when 'amenity=kindergarten' then 'child_care_and_day_care' when 'amenity=cinema' then 'movie_theater'
+      when 'amenity=theatre' then 'theater' when 'amenity=nightclub' then 'dance_club'
+      when 'amenity=ice_cream' then 'ice_cream_shop' when 'amenity=car_wash' then 'car_wash'
+      when 'amenity=car_rental' then 'car_rental_agency' when 'amenity=post_office' then 'post_office'
+      when 'amenity=hospital' then 'hospital' when 'amenity=library' then 'library'
+      when 'amenity=place_of_worship' then 'religious_organization' when 'amenity=school' then 'school'
+      when 'amenity=college' then 'college_university' when 'amenity=university' then 'college_university'
+      when 'amenity=charging_station' then 'ev_charging_station'
+      when 'shop=supermarket' then 'supermarket' when 'shop=convenience' then 'convenience_store'
+      when 'shop=alcohol' then 'liquor_store' when 'shop=tobacco' then 'tobacco_shop'
+      when 'shop=hairdresser' then 'hair_salon' when 'shop=beauty' then 'beauty_salon'
+      when 'shop=tattoo' then 'tattoo_and_piercing' when 'shop=laundry' then 'laundromat'
+      when 'shop=dry_cleaning' then 'dry_cleaner' when 'shop=car' then 'car_dealer'
+      when 'shop=car_repair' then 'automotive_repair' when 'shop=tyres' then 'tire_dealer_and_repair'
+      when 'shop=car_parts' then 'auto_parts_store' when 'shop=clothes' then 'clothing_store'
+      when 'shop=shoes' then 'shoe_store' when 'shop=jewelry' then 'jewelry_store'
+      when 'shop=furniture' then 'furniture_store' when 'shop=florist' then 'florist'
+      when 'shop=bakery' then 'bakery' when 'shop=butcher' then 'butcher_shop'
+      when 'shop=hardware' then 'hardware_store' when 'shop=doityourself' then 'home_improvement_store'
+      when 'shop=electronics' then 'electronics' when 'shop=mobile_phone' then 'mobile_phone_store'
+      when 'shop=department_store' then 'department_store' when 'shop=variety_store' then 'discount_store'
+      when 'shop=pet' then 'pet_store' when 'shop=books' then 'bookstore' when 'shop=sports' then 'sporting_goods'
+      when 'shop=optician' then 'optometrist' when 'shop=chemist' then 'drugstore' when 'shop=mall' then 'shopping_center'
+      when 'shop=gift' then 'gift_shop' when 'shop=massage' then 'massage'
+      when 'tourism=hotel' then 'hotel' when 'tourism=motel' then 'motel' when 'tourism=hostel' then 'hostel'
+      when 'tourism=guest_house' then 'bed_and_breakfast' when 'tourism=museum' then 'museum'
+      when 'leisure=fitness_centre' then 'gym' when 'office=insurance' then 'insurance_agency'
+      else null end
+  end;

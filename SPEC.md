@@ -37,6 +37,7 @@ Both layers have the same columns.
 | id | string | stable id, section 4 |
 | name | string | from the anchor source |
 | category | string | The source's own term: an Overture taxonomy term, an OSM style `key=value` for AllThePlaces and OSM rows, or a coarse word for places minted from registers. |
+| overture_category | string | the category in Overture's own taxonomy for every row: Overture's for an Overture row, the nearest Overture name for an OSM tag or a register's kind (`amenity=cafe` is `coffee_shop`, `shop=alcohol` `liquor_store`). Null where the source says too little, as for a liquor license with no trade in its name, and for most OSM landmarks |
 | category_group | string | One of Overture's thirteen top-level groups (food_and_drink, shopping, health_care, services_and_business, and so on), for every row whatever its source. `sql/groups.sql` maps OSM tags and register categories onto them. Null when the source gave no category. |
 | category_subgroup | string | the second level of the same vocabulary, about 110 values such as `restaurant`, `casual_eatery`, `financial_service`, `personal_or_beauty_service`, `vehicle_service`. Overture's own for Overture rows, mapped from the commonest tags for the rest (`sql/groups.sql`). Null where neither gives one: 8% of rows in the DC box |
 | brand, brand_wikidata | string | |
@@ -55,6 +56,7 @@ Both layers have the same columns.
 | openpois_conf | double | OpenPOIs' confidence that the place exists and is open, full layer only, null when OpenPOIs does not list it |
 | missing_license | boolean | true for a bar in a state with a complete license list when no active license matched it. Null where the question does not apply. Section 7. |
 | overture_status | string | Overture's own operating_status, carried as is. It has no date and does not feed status. |
+| overture_confidence | double | Overture's own confidence for the row, 0 to 1; null for a place Overture does not have |
 | sources | list of {source, id} | every source row this place was built from |
 | licenses | list of string | licenses of the inputs that touched the row, for credit. It is not the row's own license: every row is part of this database and is under the ODbL, whatever its inputs were |
 | evidence | list of {source, source_id, state, date, rule, dist_m} | every evidence record, newest first |
