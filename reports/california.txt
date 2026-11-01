@@ -3,49 +3,49 @@
 │ overture │ alltheplaces │  osm   │ osm_closed_features │
 │  int64   │    int64     │ int64  │        int64        │
 ├──────────┼──────────────┼────────┼─────────────────────┤
-│  2029118 │        86257 │ 277716 │                2843 │
+│  2089300 │        81385 │ 279085 │                2887 │
 └──────────┴──────────────┴────────┴─────────────────────┘
 == merged (rows that joined an existing place, by rule)
 ┌──────────────────────────┬───────────┬────────┐
 │           step           │   rule    │  rows  │
 │         varchar          │  varchar  │ int64  │
 ├──────────────────────────┼───────────┼────────┤
-│ alltheplaces -> overture │ near      │   1190 │
-│ alltheplaces -> overture │ number    │  73989 │
-│ alltheplaces -> overture │ spot      │    265 │
-│ osm -> core              │ near      │  66972 │
-│ osm -> core              │ number    │ 100329 │
-│ osm -> core              │ spot      │   2502 │
-│ overture duplicates      │ duplicate │   7338 │
-│ overture duplicates      │ fuel lot  │   3605 │
+│ alltheplaces -> overture │ near      │   1290 │
+│ alltheplaces -> overture │ number    │  70120 │
+│ alltheplaces -> overture │ spot      │    230 │
+│ osm -> core              │ near      │  67133 │
+│ osm -> core              │ number    │ 101180 │
+│ osm -> core              │ spot      │   2484 │
+│ overture duplicates      │ duplicate │  11168 │
+│ overture duplicates      │ fuel lot  │   3727 │
 └──────────────────────────┴───────────┴────────┘
 == places out
 ┌─────────┬─────────┬──────────┬──────────┬────────────────┐
 │  core   │  full   │ osm_only │ atp_only │ from_registers │
 │  int64  │  int64  │  int64   │  int64   │     int64      │
 ├─────────┼─────────┼──────────┼──────────┼────────────────┤
-│ 2044859 │ 2152772 │   107913 │    10813 │          15871 │
+│ 2099856 │ 2208144 │   108288 │     9745 │          15706 │
 └─────────┴─────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
 │     source     │ places │
 │    varchar     │ int64  │
 ├────────────────┼────────┤
-│ abc_ca         │   5784 │
-│ alameda_food   │    126 │
-│ anaheim_biz    │    166 │
-│ bot_sac        │    245 │
-│ dca_ca_auto    │    579 │
-│ dca_ca_salon   │   1001 │
-│ emd_sac        │   1326 │
-│ fdic_locations │    549 │
-│ lac_biz        │    162 │
-│ lac_food       │   1416 │
-│ longbeach_biz  │    222 │
-│ riverside_food │    106 │
-│ saccounty_biz  │    269 │
+│ abc_ca         │   5747 │
+│ alameda_food   │    124 │
+│ anaheim_biz    │    170 │
+│ bot_sac        │    250 │
+│ dca_ca_auto    │    507 │
+│ dca_ca_salon   │    921 │
+│ emd_sac        │   1325 │
+│ fdic_locations │    547 │
+│ lac_biz        │    164 │
+│ lac_food       │   1414 │
+│ longbeach_biz  │    218 │
+│ riverside_food │     97 │
+│ saccounty_biz  │    263 │
 │ sd_county_food │     89 │
-│ snap_current   │   3831 │
+│ snap_current   │   3870 │
 └────────────────┴────────┘
   15 rows       2 columns
 == status, full layer
@@ -53,183 +53,184 @@
 │ status  │ places  │
 │ varchar │  int64  │
 ├─────────┼─────────┤
-│ closed  │   15076 │
-│ open    │  338493 │
-│ unknown │ 1799203 │
+│ closed  │   15154 │
+│ open    │  336438 │
+│ unknown │ 1856552 │
 └─────────┴─────────┘
 == status, core layer (no OSM)
 ┌─────────┬─────────┐
 │ status  │ places  │
 │ varchar │  int64  │
 ├─────────┼─────────┤
-│ closed  │   10588 │
-│ open    │  320533 │
-│ unknown │ 1713738 │
+│ closed  │   10577 │
+│ open    │  318022 │
+│ unknown │ 1771257 │
 └─────────┴─────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
 │       source        │  state  │ records │ matched │
 │       varchar       │ varchar │  int64  │  int64  │
 ├─────────────────────┼─────────┼─────────┼─────────┤
-│ abc_ca              │ open    │   74671 │   53307 │
-│ abc_ca_holder       │ open    │    3495 │     732 │
-│ alameda_food        │ open    │    5049 │    3752 │
-│ anaheim_biz         │ open    │    8885 │    3600 │
-│ berkeley_biz        │ open    │   10383 │    1340 │
-│ biz_sandiego        │ open    │   55185 │   12510 │
-│ bot_sac             │ open    │   17173 │    6326 │
-│ cdph_ca_facilities  │ open    │   15223 │    6405 │
-│ childcare_ca        │ open    │   11244 │    5513 │
-│ cms_hospitals       │ open    │     377 │     284 │
-│ dca_ca_auto         │ open    │   35601 │   21270 │
-│ dca_ca_pharmacy     │ open    │    5728 │    3801 │
-│ dca_ca_salon        │ open    │   48340 │   26340 │
-│ emd_sac             │ open    │    5816 │    5138 │
-│ epa_ust_open        │ open    │   13570 │    5025 │
-│ fdic_history        │ closed  │    5469 │    1595 │
-│ fdic_locations      │ open    │    5538 │    5242 │
-│ hrsa_health_centers │ open    │    2534 │     886 │
-│ irs_eo              │ open    │  130946 │   18516 │
-│ la_biz              │ open    │  515375 │   58319 │
-│ lac_biz             │ open    │    7953 │    2503 │
-│ lac_food            │ open    │   37242 │   25285 │
-│ longbeach_biz       │ open    │    5764 │    3425 │
-│ marin_food          │ open    │    1170 │     883 │
-│ nces_schools        │ open    │   10407 │    8216 │
-│ ncua_branches       │ open    │    1612 │    1096 │
-│ nppes_orgs          │ open    │  197467 │   46099 │
-│ riverside_food      │ open    │    9594 │    6773 │
-│ sac_tobacco         │ open    │     294 │     173 │
-│ saccounty_biz       │ open    │    9360 │    4272 │
-│ scc_food            │ open    │    9713 │    5731 │
-│ sd_county_food      │ open    │   12994 │    8558 │
-│ sf_biz              │ open    │  100972 │   19513 │
-│ snap_current        │ open    │   29966 │   25613 │
-│ snap_history        │ open    │   24298 │   16617 │
+│ abc_ca              │ open    │   78167 │   54098 │
+│ alameda_food        │ open    │    4963 │    3685 │
+│ anaheim_biz         │ open    │    9009 │    3639 │
+│ berkeley_biz        │ open    │   10504 │    1349 │
+│ biz_sandiego        │ open    │   56117 │   12632 │
+│ bot_sac             │ open    │   17351 │    6389 │
+│ cdph_ca_facilities  │ open    │   15223 │    6419 │
+│ childcare_ca        │ open    │   11205 │    5505 │
+│ cms_hospitals       │ open    │     377 │     286 │
+│ dca_ca_auto         │ open    │   34125 │   20543 │
+│ dca_ca_pharmacy     │ open    │    5706 │    3724 │
+│ dca_ca_salon        │ open    │   46872 │   25669 │
+│ emd_sac             │ open    │    5806 │    5122 │
+│ epa_ust_open        │ open    │   13570 │    5038 │
+│ fdic_history        │ closed  │    5476 │    1615 │
+│ fdic_locations      │ open    │    5532 │    5263 │
+│ hrsa_health_centers │ open    │    2556 │     894 │
+│ irs_eo              │ open    │  131486 │   18646 │
+│ la_biz              │ open    │  514478 │   58362 │
+│ lac_biz             │ open    │    6552 │    2089 │
+│ lac_food            │ open    │   37242 │   25398 │
+│ longbeach_biz       │ open    │    5771 │    3441 │
+│ marin_food          │ open    │    1173 │     881 │
+│ nces_schools        │ open    │   10407 │    8218 │
+│ ncua_branches       │ open    │    1612 │    1101 │
+│ nppes_orgs          │ open    │  198567 │   46383 │
+│ riverside_food      │ open    │    9594 │    6803 │
+│ sac_tobacco         │ open    │     293 │     173 │
+│ saccounty_biz       │ open    │    9379 │    4303 │
+│ scc_food            │ open    │    9713 │    5771 │
+│ sd_county_food      │ open    │   12994 │    8555 │
+│ sf_biz              │ open    │  101381 │   19610 │
+│ snap_current        │ open    │   29867 │   25540 │
+│ snap_history        │ open    │   24298 │   16572 │
 └─────────────────────┴─────────┴─────────┴─────────┘
-  35 rows                                 4 columns
+  34 rows                                 4 columns
 == evidence by source and rule (places is distinct places)
 ┌────────────────┬─────────┬─────────┬───────┬────────┐
 │     source     │  state  │  rule   │ rows  │ places │
 │    varchar     │ varchar │ varchar │ int64 │ int64  │
 ├────────────────┼─────────┼─────────┼───────┼────────┤
-│ abc_ca         │ open    │ address │  2804 │   2773 │
-│ abc_ca         │ open    │ near    │   393 │    393 │
-│ abc_ca         │ open    │ number  │ 45399 │  45205 │
-│ abc_ca         │ open    │ self    │  5784 │   5784 │
-│ abc_ca         │ open    │ spot    │   400 │    400 │
-│ abc_ca_holder  │ open    │ address │    43 │     43 │
-│ abc_ca_holder  │ open    │ near    │    15 │     15 │
-│ abc_ca_holder  │ open    │ number  │   675 │    674 │
-│ abc_ca_holder  │ open    │ spot    │    10 │     10 │
-│ alameda_food   │ open    │ near    │   129 │    127 │
-│ alameda_food   │ open    │ number  │  3567 │   3554 │
-│ alameda_food   │ open    │ self    │   126 │    126 │
-│ alameda_food   │ open    │ spot    │    42 │     42 │
+│ abc_ca         │ open    │ address │  2877 │   2844 │
+│ abc_ca         │ open    │ near    │   427 │    427 │
+│ abc_ca         │ open    │ number  │ 46176 │  45974 │
+│ abc_ca         │ open    │ self    │  5747 │   5747 │
+│ abc_ca         │ open    │ spot    │   408 │    408 │
+│ alameda_food   │ open    │ near    │   122 │    120 │
+│ alameda_food   │ open    │ number  │  3510 │   3497 │
+│ alameda_food   │ open    │ self    │   124 │    124 │
+│ alameda_food   │ open    │ spot    │    41 │     41 │
 │ anaheim_biz    │ open    │ address │     1 │      1 │
-│ anaheim_biz    │ open    │ near    │    32 │     29 │
-│ anaheim_biz    │ open    │ number  │  3382 │   3123 │
-│ anaheim_biz    │ open    │ self    │   166 │    166 │
-│ anaheim_biz    │ open    │ spot    │    62 │     61 │
-│ atp            │ open    │ near    │  1187 │   1132 │
-│ atp            │ open    │ number  │ 73841 │  67055 │
-│  ·             │  ·      │  ·      │     · │      · │
-│  ·             │  ·      │  ·      │     · │      · │
-│  ·             │  ·      │  ·      │     · │      · │
-│ scc_food       │ open    │ spot    │    25 │     24 │
-│ sd_county_food │ open    │ address │   415 │    341 │
-│ sd_county_food │ open    │ near    │    53 │     53 │
-│ sd_county_food │ open    │ number  │  8174 │   8068 │
+│ anaheim_biz    │ open    │ near    │    34 │     31 │
+│ anaheim_biz    │ open    │ number  │  3428 │   3176 │
+│ anaheim_biz    │ open    │ self    │   170 │    170 │
+│ anaheim_biz    │ open    │ spot    │    55 │     54 │
+│ atp            │ open    │ near    │  1287 │   1226 │
+│ atp            │ open    │ number  │ 69928 │  63319 │
+│ atp            │ open    │ self    │  9703 │   9703 │
+│ atp            │ open    │ spot    │   230 │    214 │
+│ berkeley_biz   │ open    │ address │    50 │     50 │
+│ berkeley_biz   │ open    │ near    │    22 │     22 │
+│    ·           │  ·      │  ·      │     · │      · │
+│    ·           │  ·      │  ·      │     · │      · │
+│    ·           │  ·      │  ·      │     · │      · │
+│ scc_food       │ open    │ spot    │    28 │     27 │
+│ sd_county_food │ open    │ address │   421 │    346 │
+│ sd_county_food │ open    │ near    │    55 │     55 │
+│ sd_county_food │ open    │ number  │  8171 │   8068 │
 │ sd_county_food │ open    │ self    │    89 │     89 │
-│ sd_county_food │ open    │ spot    │    44 │     44 │
-│ sf_biz         │ open    │ address │   207 │    194 │
-│ sf_biz         │ open    │ near    │   357 │    317 │
-│ sf_biz         │ open    │ number  │ 18949 │  17286 │
-│ sf_biz         │ open    │ spot    │   423 │    410 │
-│ snap_current   │ open    │ near    │   182 │    180 │
-│ snap_current   │ open    │ number  │ 22859 │  22834 │
-│ snap_current   │ open    │ self    │  3831 │   3831 │
-│ snap_current   │ open    │ spot    │   162 │    162 │
-│ snap_history   │ open    │ near    │   189 │    188 │
-│ snap_history   │ open    │ number  │ 17724 │  17709 │
-│ snap_history   │ open    │ spot    │   105 │    105 │
+│ sd_county_food │ open    │ spot    │    42 │     42 │
+│ sf_biz         │ open    │ address │   210 │    197 │
+│ sf_biz         │ open    │ near    │   347 │    316 │
+│ sf_biz         │ open    │ number  │ 19060 │  17375 │
+│ sf_biz         │ open    │ spot    │   433 │    421 │
+│ snap_current   │ open    │ near    │   215 │    213 │
+│ snap_current   │ open    │ number  │ 22759 │  22731 │
+│ snap_current   │ open    │ self    │  3870 │   3870 │
+│ snap_current   │ open    │ spot    │   165 │    165 │
+│ snap_history   │ open    │ near    │   217 │    216 │
+│ snap_history   │ open    │ number  │ 17690 │  17675 │
+│ snap_history   │ open    │ spot    │   108 │    108 │
 │ wikidata_p576  │ closed  │ near    │     7 │      6 │
 │ wikidata_p576  │ closed  │ number  │    10 │     10 │
 │ wikidata_p576  │ closed  │ self    │    16 │     16 │
 └────────────────┴─────────┴─────────┴───────┴────────┘
-  150 rows (40 shown)                       5 columns
+  144 rows (40 shown)                       5 columns
 == what decided the status
 ┌─────────┬─────────────────────┬────────┐
 │ status  │    status_source    │ places │
 │ varchar │       varchar       │ int64  │
 ├─────────┼─────────────────────┼────────┤
-│ closed  │ fdic_history        │   1408 │
-│ closed  │ fsq_closed          │   9091 │
-│ closed  │ osm_history         │   1998 │
-│ closed  │ osm_lifecycle       │   2558 │
-│ closed  │ wikidata_p576       │     21 │
-│ open    │ abc_ca              │  52344 │
-│ open    │ abc_ca_holder       │    700 │
-│ open    │ alameda_food        │   1857 │
-│ open    │ anaheim_biz         │   2501 │
-│ open    │ atp                 │  57979 │
-│ open    │ berkeley_biz        │   1173 │
-│ open    │ biz_sandiego        │  11253 │
-│ open    │ bot_sac             │   4944 │
-│ open    │ cdph_ca_facilities  │   3067 │
-│ open    │ childcare_ca        │   3996 │
-│ open    │ cms_hospitals       │     14 │
-│ open    │ dca_ca_auto         │  20285 │
-│ open    │ dca_ca_pharmacy     │   2095 │
-│ open    │ dca_ca_salon        │  24608 │
-│ open    │ emd_sac             │   2324 │
-│ open    │ epa_ust_open        │   1676 │
-│ open    │ fdic_locations      │   5476 │
-│ open    │ hrsa_health_centers │    738 │
-│ open    │ irs_eo              │  11987 │
-│ open    │ la_biz              │  44035 │
-│ open    │ lac_biz             │    762 │
-│ open    │ lac_food            │  18094 │
-│ open    │ longbeach_biz       │   2915 │
-│ open    │ marin_food          │    405 │
-│ open    │ nces_schools        │   7325 │
-│ open    │ ncua_branches       │    916 │
-│ open    │ nppes_orgs          │   4472 │
-│ open    │ osm_check_date      │  10851 │
-│ open    │ riverside_food      │   2944 │
-│ open    │ sac_tobacco         │     68 │
-│ open    │ saccounty_biz       │   3592 │
-│ open    │ scc_food            │   3534 │
-│ open    │ sd_county_food      │   2839 │
-│ open    │ sf_biz              │  18088 │
-│ open    │ snap_current        │   8254 │
-│ open    │ snap_history        │    382 │
+│ closed  │ fdic_history        │   1425 │
+│ closed  │ fsq_closed          │   9067 │
+│ closed  │ osm_history         │   2041 │
+│ closed  │ osm_lifecycle       │   2599 │
+│ closed  │ wikidata_p576       │     22 │
+│ open    │ abc_ca              │  32267 │
+│ open    │ alameda_food        │   1829 │
+│ open    │ anaheim_biz         │   3064 │
+│ open    │ atp                 │  66230 │
+│ open    │ berkeley_biz        │   1215 │
+│ open    │ biz_sandiego        │  11540 │
+│ open    │ bot_sac             │   5551 │
+│ open    │ cdph_ca_facilities  │   3066 │
+│ open    │ childcare_ca        │   3990 │
+│ open    │ cms_hospitals       │     22 │
+│ open    │ dca_ca_auto         │  20622 │
+│ open    │ dca_ca_pharmacy     │   3862 │
+│ open    │ dca_ca_salon        │  25663 │
+│ open    │ emd_sac             │   2387 │
+│ open    │ epa_ust_open        │   1706 │
+│ open    │ fdic_locations      │   4795 │
+│ open    │ hrsa_health_centers │    707 │
+│ open    │ irs_eo              │  11952 │
+│ open    │ la_biz              │  48938 │
+│ open    │ lac_biz             │    698 │
+│ open    │ lac_food            │  13256 │
+│ open    │ longbeach_biz       │   2465 │
+│ open    │ marin_food          │    425 │
+│ open    │ nces_schools        │   7477 │
+│ open    │ ncua_branches       │   1056 │
+│ open    │ nppes_orgs          │   4562 │
+│ open    │ osm_check_date      │  11271 │
+│ open    │ riverside_food      │   3080 │
+│ open    │ sac_tobacco         │    175 │
+│ open    │ saccounty_biz       │   3246 │
+│ open    │ scc_food            │   2570 │
+│ open    │ sd_county_food      │   2869 │
+│ open    │ sf_biz              │  17373 │
+│ open    │ snap_current        │  16082 │
+│ open    │ snap_history        │    427 │
 └─────────┴─────────────────────┴────────┘
-  41 rows                      3 columns
+  40 rows                      3 columns
 == closing signals against independent evidence
 == (says_open_after: a different source saw the place open after the closing date)
 ┌───────────────┬────────┬─────────────────┬─────────────────┐
 │    source     │ places │ says_open_after │ says_closed_too │
 │    varchar    │ int64  │      int64      │      int64      │
 ├───────────────┼────────┼─────────────────┼─────────────────┤
-│ fdic_history  │   1683 │             100 │              81 │
-│ fsq_closed    │   9450 │             230 │             179 │
-│ osm_history   │   2238 │             207 │             141 │
-│ osm_lifecycle │   2831 │             262 │              70 │
-│ wikidata_p576 │     32 │               7 │               5 │
+│ fdic_history  │   1707 │             100 │              79 │
+│ fsq_closed    │   9422 │             230 │             176 │
+│ osm_history   │   2287 │             213 │             139 │
+│ osm_lifecycle │   2875 │             266 │              69 │
+│ wikidata_p576 │     32 │               6 │               5 │
 └───────────────┴────────┴─────────────────┴─────────────────┘
 == Overture operating_status against our status
 ┌────────────────────┬─────────┬─────────┐
 │  overture_status   │ status  │ places  │
 │      varchar       │ varchar │  int64  │
 ├────────────────────┼─────────┼─────────┤
-│ (none)             │ closed  │    2321 │
-│ (none)             │ open    │   36165 │
-│ (none)             │ unknown │  457576 │
-│ open               │ closed  │   11123 │
-│ open               │ open    │  260723 │
-│ open               │ unknown │ 1162862 │
-│ permanently_closed │ closed  │     247 │
-│ permanently_closed │ open    │    2852 │
-│ permanently_closed │ unknown │   84306 │
+│ (none)             │ closed  │    2223 │
+│ (none)             │ open    │   30262 │
+│ (none)             │ unknown │  473530 │
+│ open               │ closed  │    8767 │
+│ open               │ open    │  265234 │
+│ open               │ unknown │ 1197307 │
+│ permanently_closed │ closed  │    2770 │
+│ permanently_closed │ open    │    3203 │
+│ permanently_closed │ unknown │   91093 │
+│ temporarily_closed │ open    │       3 │
+│ temporarily_closed │ unknown │      13 │
 └────────────────────┴─────────┴─────────┘
+  11 rows                      3 columns

@@ -3,28 +3,28 @@
 │ overture │ alltheplaces │  osm  │ osm_closed_features │
 │  int64   │    int64     │ int64 │        int64        │
 ├──────────┼──────────────┼───────┼─────────────────────┤
-│   437623 │        21426 │ 92200 │                 574 │
+│   447098 │        20701 │ 92360 │                 581 │
 └──────────┴──────────────┴───────┴─────────────────────┘
 == merged (rows that joined an existing place, by rule)
 ┌──────────────────────────┬───────────┬───────┐
 │           step           │   rule    │ rows  │
 │         varchar          │  varchar  │ int64 │
 ├──────────────────────────┼───────────┼───────┤
-│ alltheplaces -> overture │ near      │   415 │
-│ alltheplaces -> overture │ number    │ 18594 │
-│ alltheplaces -> overture │ spot      │    67 │
-│ osm -> core              │ near      │ 15592 │
-│ osm -> core              │ number    │ 37557 │
-│ osm -> core              │ spot      │  1083 │
-│ overture duplicates      │ duplicate │  2291 │
-│ overture duplicates      │ fuel lot  │  1157 │
+│ alltheplaces -> overture │ near      │   399 │
+│ alltheplaces -> overture │ number    │ 18145 │
+│ alltheplaces -> overture │ spot      │    56 │
+│ osm -> core              │ near      │ 15624 │
+│ osm -> core              │ number    │ 37751 │
+│ osm -> core              │ spot      │  1091 │
+│ overture duplicates      │ duplicate │  3142 │
+│ overture duplicates      │ fuel lot  │  1263 │
 └──────────────────────────┴───────────┴───────┘
 == places out
 ┌────────┬────────┬──────────┬──────────┬────────────────┐
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 437805 │ 475773 │    37968 │     2350 │           1280 │
+│ 446043 │ 483937 │    37894 │     2101 │           1249 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
@@ -32,50 +32,50 @@
 │    varchar     │ int64  │
 ├────────────────┼────────┤
 │ fdic_locations │    238 │
-│ snap_current   │    895 │
-│ vb_biz         │    147 │
+│ snap_current   │    865 │
+│ vb_biz         │    146 │
 └────────────────┴────────┘
 == status, full layer
 ┌─────────┬────────┐
 │ status  │ places │
 │ varchar │ int64  │
 ├─────────┼────────┤
-│ closed  │   4424 │
-│ open    │  44562 │
-│ unknown │ 426787 │
+│ closed  │   4448 │
+│ open    │  44289 │
+│ unknown │ 435200 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
 │ status  │ places │
 │ varchar │ int64  │
 ├─────────┼────────┤
-│ closed  │   3101 │
-│ open    │  40828 │
-│ unknown │ 393876 │
+│ closed  │   3097 │
+│ open    │  40510 │
+│ unknown │ 402436 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
 │       source        │  state  │ records │ matched │
 │       varchar       │ varchar │  int64  │  int64  │
 ├─────────────────────┼─────────┼─────────┼─────────┤
-│ chesapeake_biz      │ open    │    5867 │    2645 │
-│ cms_hospitals       │ open    │      96 │      69 │
-│ dpor_va             │ open    │    7838 │    2349 │
-│ epa_ust_open        │ open    │    5489 │    2537 │
-│ fairfax_food        │ open    │     791 │     604 │
-│ fdic_history        │ closed  │    2301 │     557 │
-│ fdic_locations      │ open    │    1847 │    1728 │
-│ hrsa_health_centers │ open    │     197 │      88 │
-│ irs_eo              │ open    │   35242 │    5699 │
-│ nces_schools        │ open    │    2159 │    1783 │
-│ ncua_branches       │ open    │     602 │     375 │
-│ nn_biz              │ open    │    7916 │    1970 │
-│ norfolk_biz         │ open    │    7597 │    1206 │
-│ nppes_orgs          │ open    │   49052 │   11523 │
-│ snap_current        │ open    │    6061 │    5509 │
-│ snap_history        │ open    │    6032 │    4655 │
-│ vb_biz              │ open    │   25008 │    5083 │
-│ wic_va              │ open    │     798 │     729 │
+│ chesapeake_biz      │ open    │    5867 │    2654 │
+│ cms_hospitals       │ open    │      96 │      70 │
+│ dpor_va             │ open    │    7835 │    2350 │
+│ epa_ust_open        │ open    │    5489 │    2570 │
+│ fairfax_food        │ open    │     796 │     607 │
+│ fdic_history        │ closed  │    2304 │     561 │
+│ fdic_locations      │ open    │    1848 │    1726 │
+│ hrsa_health_centers │ open    │     198 │      87 │
+│ irs_eo              │ open    │   35400 │    5747 │
+│ nces_schools        │ open    │    2159 │    1786 │
+│ ncua_branches       │ open    │     602 │     374 │
+│ nn_biz              │ open    │    7916 │    1990 │
+│ norfolk_biz         │ open    │    7637 │    1223 │
+│ nppes_orgs          │ open    │   49377 │   11583 │
+│ snap_current        │ open    │    6022 │    5464 │
+│ snap_history        │ open    │    6032 │    4676 │
+│ vb_biz              │ open    │   25034 │    5078 │
+│ wic_va              │ open    │     798 │     727 │
 └─────────────────────┴─────────┴─────────┴─────────┘
   18 rows                                 4 columns
 == evidence by source and rule (places is distinct places)
@@ -83,43 +83,43 @@
 │     source     │  state  │  rule   │ rows  │ places │
 │    varchar     │ varchar │ varchar │ int64 │ int64  │
 ├────────────────┼─────────┼─────────┼───────┼────────┤
-│ atp            │ open    │ near    │   415 │    404 │
-│ atp            │ open    │ number  │ 18556 │  17017 │
-│ atp            │ open    │ self    │  2330 │   2330 │
-│ atp            │ open    │ spot    │    67 │     65 │
+│ atp            │ open    │ near    │   399 │    389 │
+│ atp            │ open    │ number  │ 18102 │  16514 │
+│ atp            │ open    │ self    │  2084 │   2084 │
+│ atp            │ open    │ spot    │    56 │     54 │
 │ chesapeake_biz │ open    │ near    │    29 │     29 │
-│ chesapeake_biz │ open    │ number  │  2652 │   2625 │
+│ chesapeake_biz │ open    │ number  │  2664 │   2637 │
 │ chesapeake_biz │ open    │ spot    │    10 │     10 │
 │ cms_hospitals  │ open    │ address │    20 │     20 │
-│ cms_hospitals  │ open    │ number  │    68 │     68 │
-│ dpor_va        │ open    │ address │   136 │    131 │
-│ dpor_va        │ open    │ near    │    28 │     25 │
-│ dpor_va        │ open    │ number  │  2196 │   2140 │
-│ dpor_va        │ open    │ spot    │     7 │      7 │
-│ epa_ust_open   │ open    │ near    │    55 │     55 │
-│ epa_ust_open   │ open    │ number  │  2618 │   2615 │
-│ epa_ust_open   │ open    │ spot    │    17 │     17 │
-│ fairfax_food   │ open    │ near    │    19 │     19 │
-│ fairfax_food   │ open    │ number  │   626 │    626 │
-│ fairfax_food   │ open    │ spot    │     9 │      9 │
+│ cms_hospitals  │ open    │ number  │    72 │     72 │
+│ dpor_va        │ open    │ address │   141 │    136 │
+│ dpor_va        │ open    │ near    │    29 │     26 │
+│ dpor_va        │ open    │ number  │  2196 │   2143 │
+│ dpor_va        │ open    │ spot    │     6 │      6 │
+│ epa_ust_open   │ open    │ near    │    54 │     54 │
+│ epa_ust_open   │ open    │ number  │  2653 │   2650 │
+│ epa_ust_open   │ open    │ spot    │    18 │     18 │
+│ fairfax_food   │ open    │ near    │    16 │     16 │
+│ fairfax_food   │ open    │ number  │   641 │    641 │
+│ fairfax_food   │ open    │ spot    │     8 │      8 │
 │ fdic_history   │ closed  │ near    │    23 │     23 │
 │      ·         │   ·     │  ·      │     · │      · │
 │      ·         │   ·     │  ·      │     · │      · │
 │      ·         │   ·     │  ·      │     · │      · │
-│ osm_lifecycle  │ closed  │ self    │   256 │    256 │
+│ osm_lifecycle  │ closed  │ self    │   258 │    258 │
 │ osm_lifecycle  │ closed  │ spot    │     8 │      8 │
-│ snap_current   │ open    │ near    │    51 │     51 │
-│ snap_current   │ open    │ number  │  4979 │   4975 │
-│ snap_current   │ open    │ self    │   895 │    895 │
-│ snap_current   │ open    │ spot    │    32 │     32 │
-│ snap_history   │ open    │ near    │    52 │     52 │
-│ snap_history   │ open    │ number  │  5019 │   5016 │
-│ snap_history   │ open    │ spot    │    31 │     31 │
-│ vb_biz         │ open    │ address │   408 │    263 │
-│ vb_biz         │ open    │ near    │    31 │     27 │
-│ vb_biz         │ open    │ number  │  4559 │   3014 │
-│ vb_biz         │ open    │ self    │   147 │    147 │
-│ vb_biz         │ open    │ spot    │     5 │      5 │
+│ snap_current   │ open    │ near    │    55 │     55 │
+│ snap_current   │ open    │ number  │  4958 │   4957 │
+│ snap_current   │ open    │ self    │   865 │    865 │
+│ snap_current   │ open    │ spot    │    34 │     34 │
+│ snap_history   │ open    │ near    │    54 │     54 │
+│ snap_history   │ open    │ number  │  5036 │   5033 │
+│ snap_history   │ open    │ spot    │    32 │     32 │
+│ vb_biz         │ open    │ address │   419 │    267 │
+│ vb_biz         │ open    │ near    │    32 │     28 │
+│ vb_biz         │ open    │ number  │  4550 │   3006 │
+│ vb_biz         │ open    │ self    │   146 │    146 │
+│ vb_biz         │ open    │ spot    │     9 │      6 │
 │ wic_va         │ open    │ near    │    14 │     14 │
 │ wic_va         │ open    │ number  │   937 │    937 │
 │ wic_va         │ open    │ spot    │     4 │      4 │
@@ -133,30 +133,30 @@
 │ status  │    status_source    │ places │
 │ varchar │       varchar       │ int64  │
 ├─────────┼─────────────────────┼────────┤
-│ closed  │ fdic_history        │    478 │
-│ closed  │ fsq_closed          │   2577 │
-│ closed  │ osm_history         │    810 │
-│ closed  │ osm_lifecycle       │    553 │
+│ closed  │ fdic_history        │    483 │
+│ closed  │ fsq_closed          │   2570 │
+│ closed  │ osm_history         │    829 │
+│ closed  │ osm_lifecycle       │    560 │
 │ closed  │ wikidata_p576       │      6 │
-│ open    │ atp                 │  19454 │
-│ open    │ chesapeake_biz      │   2221 │
-│ open    │ cms_hospitals       │     80 │
-│ open    │ dpor_va             │   2253 │
-│ open    │ epa_ust_open        │   1216 │
-│ open    │ fairfax_food        │    195 │
-│ open    │ fdic_locations      │   1141 │
-│ open    │ hrsa_health_centers │     87 │
-│ open    │ irs_eo              │   4059 │
-│ open    │ nces_schools        │   1760 │
-│ open    │ ncua_branches       │    290 │
-│ open    │ nn_biz              │   1598 │
-│ open    │ norfolk_biz         │   1192 │
-│ open    │ nppes_orgs          │   1597 │
-│ open    │ osm_check_date      │   2990 │
-│ open    │ snap_current        │   2857 │
-│ open    │ snap_history        │    153 │
-│ open    │ vb_biz              │    467 │
-│ open    │ wic_va              │    952 │
+│ open    │ atp                 │  18095 │
+│ open    │ chesapeake_biz      │   2215 │
+│ open    │ cms_hospitals       │     83 │
+│ open    │ dpor_va             │   2310 │
+│ open    │ epa_ust_open        │   1266 │
+│ open    │ fairfax_food        │    665 │
+│ open    │ fdic_locations      │   1599 │
+│ open    │ hrsa_health_centers │     86 │
+│ open    │ irs_eo              │   4123 │
+│ open    │ nces_schools        │   1741 │
+│ open    │ ncua_branches       │    357 │
+│ open    │ nn_biz              │   1588 │
+│ open    │ norfolk_biz         │   1174 │
+│ open    │ nppes_orgs          │   1646 │
+│ open    │ osm_check_date      │   3030 │
+│ open    │ snap_current        │   3543 │
+│ open    │ snap_history        │    185 │
+│ open    │ vb_biz              │    494 │
+│ open    │ wic_va              │     89 │
 └─────────┴─────────────────────┴────────┘
   24 rows                      3 columns
 == closing signals against independent evidence
@@ -165,10 +165,10 @@
 │    source     │ places │ says_open_after │ says_closed_too │
 │    varchar    │ int64  │      int64      │      int64      │
 ├───────────────┼────────┼─────────────────┼─────────────────┤
-│ fdic_history  │    568 │              14 │              49 │
-│ fsq_closed    │   2655 │              10 │             106 │
-│ osm_history   │    888 │              59 │              76 │
-│ osm_lifecycle │    570 │              10 │              48 │
+│ fdic_history  │    571 │              15 │              46 │
+│ fsq_closed    │   2647 │              10 │             103 │
+│ osm_history   │    904 │              57 │              72 │
+│ osm_lifecycle │    577 │              10 │              48 │
 │ wikidata_p576 │      7 │               0 │               1 │
 └───────────────┴────────┴─────────────────┴─────────────────┘
 == Overture operating_status against our status
@@ -176,13 +176,15 @@
 │  overture_status   │ status  │ places │
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
-│ (none)             │ closed  │    734 │
-│ (none)             │ open    │   6101 │
-│ (none)             │ unknown │ 101818 │
-│ open               │ closed  │   3329 │
-│ open               │ open    │  32947 │
-│ open               │ unknown │ 275148 │
-│ permanently_closed │ closed  │     57 │
-│ permanently_closed │ open    │    151 │
-│ permanently_closed │ unknown │  13890 │
+│ (none)             │ closed  │    694 │
+│ (none)             │ open    │   5094 │
+│ (none)             │ unknown │  99324 │
+│ open               │ closed  │   2667 │
+│ open               │ open    │  33913 │
+│ open               │ unknown │ 285004 │
+│ permanently_closed │ closed  │    781 │
+│ permanently_closed │ open    │    181 │
+│ permanently_closed │ unknown │  15031 │
+│ temporarily_closed │ unknown │      4 │
 └────────────────────┴─────────┴────────┘
+  10 rows                     3 columns

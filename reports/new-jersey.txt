@@ -3,77 +3,77 @@
 │ overture │ alltheplaces │  osm  │ osm_closed_features │
 │  int64   │    int64     │ int64 │        int64        │
 ├──────────┼──────────────┼───────┼─────────────────────┤
-│   462379 │        18686 │ 61187 │                 264 │
+│   472250 │        17594 │ 61401 │                 265 │
 └──────────┴──────────────┴───────┴─────────────────────┘
 == merged (rows that joined an existing place, by rule)
 ┌──────────────────────────┬───────────┬───────┐
 │           step           │   rule    │ rows  │
 │         varchar          │  varchar  │ int64 │
 ├──────────────────────────┼───────────┼───────┤
-│ alltheplaces -> overture │ near      │   532 │
-│ alltheplaces -> overture │ number    │ 15721 │
-│ alltheplaces -> overture │ spot      │    77 │
-│ osm -> core              │ near      │ 16193 │
-│ osm -> core              │ number    │ 19489 │
-│ osm -> core              │ spot      │   477 │
-│ overture duplicates      │ duplicate │  1699 │
-│ overture duplicates      │ fuel lot  │   912 │
+│ alltheplaces -> overture │ near      │   522 │
+│ alltheplaces -> overture │ number    │ 14990 │
+│ alltheplaces -> overture │ spot      │    58 │
+│ osm -> core              │ near      │ 16260 │
+│ osm -> core              │ number    │ 19593 │
+│ osm -> core              │ spot      │   478 │
+│ overture duplicates      │ duplicate │  2648 │
+│ overture duplicates      │ fuel lot  │   960 │
 └──────────────────────────┴───────────┴───────┘
 == places out
 ┌────────┬────────┬──────────┬──────────┬────────────────┐
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 463771 │ 488799 │    25028 │     2356 │           1647 │
+│ 472303 │ 497373 │    25070 │     2024 │           1637 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
 │     source     │ places │
 │    varchar     │ int64  │
 ├────────────────┼────────┤
-│ abc_nj         │    268 │
-│ fdic_locations │    233 │
-│ snap_current   │   1146 │
+│ abc_nj         │    278 │
+│ fdic_locations │    235 │
+│ snap_current   │   1124 │
 └────────────────┴────────┘
 == status, full layer
 ┌─────────┬────────┐
 │ status  │ places │
 │ varchar │ int64  │
 ├─────────┼────────┤
-│ closed  │   3816 │
-│ open    │  38284 │
-│ unknown │ 446699 │
+│ closed  │   3830 │
+│ open    │  37735 │
+│ unknown │ 455808 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
 │ status  │ places │
 │ varchar │ int64  │
 ├─────────┼────────┤
-│ closed  │   3203 │
-│ open    │  35219 │
-│ unknown │ 425349 │
+│ closed  │   3198 │
+│ open    │  34618 │
+│ unknown │ 434487 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌─────────────────────┬─────────┬─────────┬─────────┐
 │       source        │  state  │ records │ matched │
 │       varchar       │ varchar │  int64  │  int64  │
 ├─────────────────────┼─────────┼─────────┼─────────┤
-│ abc_nj              │ open    │    7384 │    4020 │
+│ abc_nj              │ open    │    7384 │    4036 │
 │ broward_biz         │ open    │       1 │       0 │
-│ childcare_nj        │ open    │    4083 │    1978 │
+│ childcare_nj        │ open    │    4090 │    1984 │
 │ cms_hospitals       │ open    │      78 │      46 │
-│ epa_ust_open        │ open    │    3998 │    1177 │
-│ fdic_history        │ closed  │    2513 │     757 │
-│ fdic_locations      │ open    │    2233 │    2020 │
-│ hrsa_health_centers │ open    │     133 │      48 │
-│ irs_eo              │ open    │   35244 │    4337 │
-│ nces_schools        │ open    │    2575 │    1863 │
+│ epa_ust_open        │ open    │    3998 │    1187 │
+│ fdic_history        │ closed  │    2519 │     765 │
+│ fdic_locations      │ open    │    2229 │    2021 │
+│ hrsa_health_centers │ open    │     131 │      47 │
+│ irs_eo              │ open    │   35323 │    4372 │
+│ nces_schools        │ open    │    2575 │    1869 │
 │ ncua_branches       │ open    │     317 │     159 │
-│ nj_inspection       │ open    │     863 │     343 │
-│ nppes_orgs          │ open    │   66401 │   14441 │
-│ snap_current        │ open    │    5313 │    4367 │
-│ snap_history        │ open    │    5564 │    3310 │
-│ wic_nj              │ open    │    1003 │     527 │
+│ nj_inspection       │ open    │     863 │     341 │
+│ nppes_orgs          │ open    │   66737 │   14512 │
+│ snap_current        │ open    │    5270 │    4327 │
+│ snap_history        │ open    │    5564 │    3313 │
+│ wic_nj              │ open    │    1003 │     533 │
 └─────────────────────┴─────────┴─────────┴─────────┘
   16 rows                                 4 columns
 == evidence by source and rule (places is distinct places)
@@ -81,46 +81,46 @@
 │     source     │  state  │  rule   │ rows  │ places │
 │    varchar     │ varchar │ varchar │ int64 │ int64  │
 ├────────────────┼─────────┼─────────┼───────┼────────┤
-│ abc_nj         │ open    │ address │   299 │    299 │
-│ abc_nj         │ open    │ near    │    56 │     56 │
-│ abc_nj         │ open    │ number  │  3391 │   3389 │
-│ abc_nj         │ open    │ self    │   268 │    268 │
-│ abc_nj         │ open    │ spot    │    86 │     86 │
-│ atp            │ open    │ near    │   532 │    523 │
-│ atp            │ open    │ number  │ 15672 │  14218 │
-│ atp            │ open    │ self    │  2342 │   2342 │
-│ atp            │ open    │ spot    │    77 │     67 │
+│ abc_nj         │ open    │ address │   298 │    298 │
+│ abc_nj         │ open    │ near    │    55 │     55 │
+│ abc_nj         │ open    │ number  │  3401 │   3399 │
+│ abc_nj         │ open    │ self    │   278 │    278 │
+│ abc_nj         │ open    │ spot    │    88 │     88 │
+│ atp            │ open    │ near    │   522 │    516 │
+│ atp            │ open    │ number  │ 14941 │  13692 │
+│ atp            │ open    │ self    │  2010 │   2010 │
+│ atp            │ open    │ spot    │    58 │     48 │
 │ childcare_nj   │ open    │ near    │    62 │     62 │
-│ childcare_nj   │ open    │ number  │  1909 │   1908 │
-│ childcare_nj   │ open    │ spot    │    36 │     36 │
+│ childcare_nj   │ open    │ number  │  1917 │   1916 │
+│ childcare_nj   │ open    │ spot    │    35 │     35 │
 │ cms_hospitals  │ open    │ address │    11 │     11 │
-│ cms_hospitals  │ open    │ number  │    48 │     48 │
+│ cms_hospitals  │ open    │ number  │    50 │     50 │
 │ epa_ust_open   │ open    │ near    │    65 │     65 │
-│ epa_ust_open   │ open    │ number  │  1113 │   1113 │
-│ epa_ust_open   │ open    │ spot    │    20 │     20 │
-│ fdic_history   │ closed  │ near    │    43 │     41 │
-│ fdic_history   │ closed  │ number  │   729 │    721 │
+│ epa_ust_open   │ open    │ number  │  1123 │   1123 │
+│ epa_ust_open   │ open    │ spot    │    21 │     21 │
+│ fdic_history   │ closed  │ near    │    44 │     42 │
+│ fdic_history   │ closed  │ number  │   736 │    728 │
 │ fdic_history   │ closed  │ spot    │     6 │      6 │
 │      ·         │  ·      │  ·      │     · │      · │
 │      ·         │  ·      │  ·      │     · │      · │
 │      ·         │  ·      │  ·      │     · │      · │
-│ osm_check_date │ open    │ near    │   891 │    878 │
-│ osm_check_date │ open    │ number  │  3055 │   3003 │
-│ osm_check_date │ open    │ self    │  1034 │   1034 │
-│ osm_check_date │ open    │ spot    │    54 │     53 │
-│ osm_history    │ closed  │ id      │   379 │    379 │
-│ osm_lifecycle  │ closed  │ near    │    53 │     53 │
-│ osm_lifecycle  │ closed  │ number  │    64 │     64 │
-│ osm_lifecycle  │ closed  │ self    │   147 │    147 │
-│ snap_current   │ open    │ near    │    37 │     37 │
-│ snap_current   │ open    │ number  │  3399 │   3391 │
-│ snap_current   │ open    │ self    │  1146 │   1146 │
-│ snap_current   │ open    │ spot    │    35 │     35 │
-│ snap_history   │ open    │ near    │    46 │     46 │
-│ snap_history   │ open    │ number  │  3480 │   3455 │
-│ snap_history   │ open    │ spot    │    36 │     36 │
-│ wic_nj         │ open    │ near    │     7 │      7 │
-│ wic_nj         │ open    │ number  │   632 │    632 │
+│ osm_check_date │ open    │ near    │   894 │    881 │
+│ osm_check_date │ open    │ number  │  3076 │   3024 │
+│ osm_check_date │ open    │ self    │  1050 │   1050 │
+│ osm_check_date │ open    │ spot    │    52 │     51 │
+│ osm_history    │ closed  │ id      │   397 │    397 │
+│ osm_lifecycle  │ closed  │ near    │    51 │     51 │
+│ osm_lifecycle  │ closed  │ number  │    66 │     66 │
+│ osm_lifecycle  │ closed  │ self    │   148 │    148 │
+│ snap_current   │ open    │ near    │    41 │     41 │
+│ snap_current   │ open    │ number  │  3385 │   3378 │
+│ snap_current   │ open    │ self    │  1124 │   1124 │
+│ snap_current   │ open    │ spot    │    33 │     33 │
+│ snap_history   │ open    │ near    │    54 │     54 │
+│ snap_history   │ open    │ number  │  3481 │   3457 │
+│ snap_history   │ open    │ spot    │    37 │     37 │
+│ wic_nj         │ open    │ near    │     9 │      9 │
+│ wic_nj         │ open    │ number  │   638 │    638 │
 │ wic_nj         │ open    │ spot    │     7 │      7 │
 │ wikidata_p576  │ closed  │ near    │     6 │      6 │
 │ wikidata_p576  │ closed  │ self    │     6 │      6 │
@@ -131,26 +131,26 @@
 │ status  │    status_source    │ places │
 │ varchar │       varchar       │ int64  │
 ├─────────┼─────────────────────┼────────┤
-│ closed  │ fdic_history        │    711 │
-│ closed  │ fsq_closed          │   2484 │
-│ closed  │ osm_history         │    353 │
-│ closed  │ osm_lifecycle       │    257 │
+│ closed  │ fdic_history        │    720 │
+│ closed  │ fsq_closed          │   2471 │
+│ closed  │ osm_history         │    369 │
+│ closed  │ osm_lifecycle       │    259 │
 │ closed  │ wikidata_p576       │     11 │
-│ open    │ abc_nj              │   3934 │
-│ open    │ atp                 │  17027 │
-│ open    │ childcare_nj        │   2004 │
-│ open    │ cms_hospitals       │     56 │
-│ open    │ epa_ust_open        │    723 │
-│ open    │ fdic_locations      │   1202 │
-│ open    │ hrsa_health_centers │     56 │
-│ open    │ irs_eo              │   3267 │
-│ open    │ nces_schools        │   1798 │
-│ open    │ ncua_branches       │    128 │
-│ open    │ nj_inspection       │    333 │
-│ open    │ nppes_orgs          │   1749 │
-│ open    │ osm_check_date      │   2386 │
-│ open    │ snap_current        │   3287 │
-│ open    │ snap_history        │    180 │
+│ open    │ abc_nj              │   3935 │
+│ open    │ atp                 │  15472 │
+│ open    │ childcare_nj        │   2011 │
+│ open    │ cms_hospitals       │     58 │
+│ open    │ epa_ust_open        │    747 │
+│ open    │ fdic_locations      │   1879 │
+│ open    │ hrsa_health_centers │     55 │
+│ open    │ irs_eo              │   3339 │
+│ open    │ nces_schools        │   1791 │
+│ open    │ ncua_branches       │    159 │
+│ open    │ nj_inspection       │    331 │
+│ open    │ nppes_orgs          │   1815 │
+│ open    │ osm_check_date      │   2435 │
+│ open    │ snap_current        │   3348 │
+│ open    │ snap_history        │    206 │
 │ open    │ wic_nj              │    154 │
 └─────────┴─────────────────────┴────────┘
   21 rows                      3 columns
@@ -160,10 +160,10 @@
 │    source     │ places │ says_open_after │ says_closed_too │
 │    varchar    │ int64  │      int64      │      int64      │
 ├───────────────┼────────┼─────────────────┼─────────────────┤
-│ fdic_history  │    767 │              16 │              27 │
-│ fsq_closed    │   2534 │              12 │              50 │
-│ osm_history   │    379 │              24 │              41 │
-│ osm_lifecycle │    264 │               4 │              20 │
+│ fdic_history  │    775 │              16 │              26 │
+│ fsq_closed    │   2522 │              12 │              51 │
+│ osm_history   │    397 │              25 │              42 │
+│ osm_lifecycle │    265 │               3 │              19 │
 │ wikidata_p576 │     12 │               0 │               1 │
 └───────────────┴────────┴─────────────────┴─────────────────┘
 == Overture operating_status against our status
@@ -171,13 +171,15 @@
 │  overture_status   │ status  │ places │
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
-│ (none)             │ closed  │    847 │
-│ (none)             │ open    │   5789 │
-│ (none)             │ unknown │ 114365 │
-│ open               │ closed  │   2743 │
-│ open               │ open    │  26953 │
-│ open               │ unknown │ 293190 │
-│ permanently_closed │ closed  │     31 │
-│ permanently_closed │ open    │    113 │
-│ permanently_closed │ unknown │  15737 │
+│ (none)             │ closed  │    807 │
+│ (none)             │ open    │   4614 │
+│ (none)             │ unknown │ 112096 │
+│ open               │ closed  │   2189 │
+│ open               │ open    │  27881 │
+│ open               │ unknown │ 303188 │
+│ permanently_closed │ closed  │    637 │
+│ permanently_closed │ open    │    137 │
+│ permanently_closed │ unknown │  17086 │
+│ temporarily_closed │ unknown │      7 │
 └────────────────────┴─────────┴────────┘
+  10 rows                     3 columns

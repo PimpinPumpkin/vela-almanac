@@ -3,45 +3,45 @@
 │ overture │ alltheplaces │  osm  │ osm_closed_features │
 │  int64   │    int64     │ int64 │        int64        │
 ├──────────┼──────────────┼───────┼─────────────────────┤
-│   377827 │        14101 │ 66913 │                 380 │
+│   385723 │        13275 │ 67503 │                 394 │
 └──────────┴──────────────┴───────┴─────────────────────┘
 == merged (rows that joined an existing place, by rule)
 ┌──────────────────────────┬───────────┬───────┐
 │           step           │   rule    │ rows  │
 │         varchar          │  varchar  │ int64 │
 ├──────────────────────────┼───────────┼───────┤
-│ alltheplaces -> overture │ near      │   290 │
-│ alltheplaces -> overture │ number    │ 12048 │
-│ alltheplaces -> overture │ spot      │    31 │
-│ osm -> core              │ near      │ 11364 │
-│ osm -> core              │ number    │ 21136 │
-│ osm -> core              │ spot      │   866 │
-│ overture duplicates      │ duplicate │  1350 │
-│ overture duplicates      │ fuel lot  │   529 │
+│ alltheplaces -> overture │ near      │   275 │
+│ alltheplaces -> overture │ number    │ 11458 │
+│ alltheplaces -> overture │ spot      │    26 │
+│ osm -> core              │ near      │ 11608 │
+│ osm -> core              │ number    │ 21279 │
+│ osm -> core              │ spot      │   880 │
+│ overture duplicates      │ duplicate │  2106 │
+│ overture duplicates      │ fuel lot  │   555 │
 └──────────────────────────┴───────────┴───────┘
 == places out
 ┌────────┬────────┬──────────┬──────────┬────────────────┐
 │  core  │  full  │ osm_only │ atp_only │ from_registers │
 │ int64  │ int64  │  int64   │  int64   │     int64      │
 ├────────┼────────┼──────────┼──────────┼────────────────┤
-│ 378985 │ 412532 │    33547 │     1732 │           1305 │
+│ 385855 │ 419591 │    33736 │     1516 │           1277 │
 └────────┴────────┴──────────┴──────────┴────────────────┘
 == places minted from a register
 ┌────────────────┬────────┐
 │     source     │ places │
 │    varchar     │ int64  │
 ├────────────────┼────────┤
-│ fdic_locations │    319 │
-│ snap_current   │    986 │
+│ fdic_locations │    318 │
+│ snap_current   │    959 │
 └────────────────┴────────┘
 == status, full layer
 ┌─────────┬────────┐
 │ status  │ places │
 │ varchar │ int64  │
 ├─────────┼────────┤
-│ closed  │   3808 │
-│ open    │  32992 │
-│ unknown │ 375732 │
+│ closed  │   3829 │
+│ open    │  32527 │
+│ unknown │ 383235 │
 └─────────┴────────┘
 == status, core layer (no OSM)
 ┌─────────┬────────┐
@@ -49,30 +49,30 @@
 │ varchar │ int64  │
 ├─────────┼────────┤
 │ closed  │   2955 │
-│ open    │  29065 │
-│ unknown │ 346965 │
+│ open    │  28428 │
+│ unknown │ 354472 │
 └─────────┴────────┘
 == register records in the box and how many found a place
 ┌───────────────────────┬─────────┬─────────┬─────────┐
 │        source         │  state  │ records │ matched │
 │        varchar        │ varchar │  int64  │  int64  │
 ├───────────────────────┼─────────┼─────────┼─────────┤
-│ cambridge_food        │ open    │     953 │     645 │
-│ childcare_ma          │ open    │    2569 │    1309 │
-│ cms_hospitals         │ open    │      84 │      61 │
-│ epa_ust_open          │ open    │    3461 │    1426 │
-│ fdic_history          │ closed  │    1458 │     444 │
-│ fdic_locations        │ open    │    1869 │    1617 │
-│ hrsa_health_centers   │ open    │     225 │      84 │
-│ irs_eo                │ open    │   31569 │    5305 │
-│ isd_boston_food       │ open    │    3338 │    1958 │
-│ isd_boston_inspection │ open    │     760 │     423 │
-│ lb_boston             │ open    │    3611 │    1988 │
-│ nces_schools          │ open    │    1844 │    1441 │
-│ ncua_branches         │ open    │     482 │     284 │
-│ nppes_orgs            │ open    │   36461 │   10878 │
-│ snap_current          │ open    │    5270 │    4494 │
-│ snap_history          │ open    │    5031 │    3417 │
+│ cambridge_food        │ open    │     954 │     648 │
+│ childcare_ma          │ open    │    2569 │    1317 │
+│ cms_hospitals         │ open    │      84 │      60 │
+│ epa_ust_open          │ open    │    3461 │    1435 │
+│ fdic_history          │ closed  │    1463 │     447 │
+│ fdic_locations        │ open    │    1866 │    1617 │
+│ hrsa_health_centers   │ open    │     233 │      90 │
+│ irs_eo                │ open    │   31641 │    5377 │
+│ isd_boston_food       │ open    │    3346 │    1953 │
+│ isd_boston_inspection │ open    │    4103 │    2242 │
+│ lb_boston             │ open    │    3541 │    1946 │
+│ nces_schools          │ open    │    1844 │    1440 │
+│ ncua_branches         │ open    │     482 │     281 │
+│ nppes_orgs            │ open    │   36639 │   10947 │
+│ snap_current          │ open    │    5215 │    4452 │
+│ snap_history          │ open    │    5031 │    3423 │
 └───────────────────────┴─────────┴─────────┴─────────┘
   16 rows                                   4 columns
 == evidence by source and rule (places is distinct places)
@@ -80,46 +80,46 @@
 │     source     │  state  │  rule   │ rows  │ places │
 │    varchar     │ varchar │ varchar │ int64 │ int64  │
 ├────────────────┼─────────┼─────────┼───────┼────────┤
-│ atp            │ open    │ near    │   290 │    288 │
-│ atp            │ open    │ number  │ 12030 │  10813 │
-│ atp            │ open    │ self    │  1722 │   1722 │
-│ atp            │ open    │ spot    │    31 │     28 │
-│ cambridge_food │ open    │ near    │    25 │     25 │
-│ cambridge_food │ open    │ number  │   625 │    617 │
+│ atp            │ open    │ near    │   275 │    272 │
+│ atp            │ open    │ number  │ 11439 │  10314 │
+│ atp            │ open    │ self    │  1506 │   1506 │
+│ atp            │ open    │ spot    │    26 │     25 │
+│ cambridge_food │ open    │ near    │    27 │     27 │
+│ cambridge_food │ open    │ number  │   627 │    618 │
 │ cambridge_food │ open    │ spot    │    14 │     14 │
-│ childcare_ma   │ open    │ near    │    23 │     23 │
-│ childcare_ma   │ open    │ number  │  1280 │   1277 │
-│ childcare_ma   │ open    │ spot    │    18 │     16 │
+│ childcare_ma   │ open    │ near    │    26 │     26 │
+│ childcare_ma   │ open    │ number  │  1286 │   1283 │
+│ childcare_ma   │ open    │ spot    │    19 │     17 │
 │ cms_hospitals  │ open    │ address │     5 │      5 │
 │ cms_hospitals  │ open    │ near    │     1 │      1 │
-│ cms_hospitals  │ open    │ number  │   129 │    129 │
-│ epa_ust_open   │ open    │ near    │    52 │     52 │
-│ epa_ust_open   │ open    │ number  │  1408 │   1407 │
+│ cms_hospitals  │ open    │ number  │   131 │    131 │
+│ epa_ust_open   │ open    │ near    │    54 │     54 │
+│ epa_ust_open   │ open    │ number  │  1414 │   1413 │
 │ epa_ust_open   │ open    │ spot    │    28 │     28 │
 │ fdic_history   │ closed  │ near    │    16 │     16 │
-│ fdic_history   │ closed  │ number  │   431 │    423 │
+│ fdic_history   │ closed  │ number  │   434 │    426 │
 │ fdic_history   │ closed  │ spot    │     3 │      3 │
-│ fdic_locations │ open    │ near    │    25 │     25 │
+│ fdic_locations │ open    │ near    │    26 │     26 │
 │     ·          │  ·      │  ·      │     · │      · │
 │     ·          │  ·      │  ·      │     · │      · │
 │     ·          │  ·      │  ·      │     · │      · │
-│ nppes_orgs     │ open    │ address │ 12132 │   9582 │
-│ osm_check_date │ open    │ near    │   993 │    980 │
-│ osm_check_date │ open    │ number  │  3103 │   3081 │
-│ osm_check_date │ open    │ self    │  1411 │   1411 │
-│ osm_check_date │ open    │ spot    │   113 │    113 │
-│ osm_history    │ closed  │ id      │   524 │    524 │
-│ osm_lifecycle  │ closed  │ near    │    64 │     64 │
-│ osm_lifecycle  │ closed  │ number  │   108 │    108 │
-│ osm_lifecycle  │ closed  │ self    │   204 │    204 │
-│ osm_lifecycle  │ closed  │ spot    │     4 │      4 │
-│ snap_current   │ open    │ near    │    58 │     58 │
-│ snap_current   │ open    │ number  │  3527 │   3519 │
-│ snap_current   │ open    │ self    │   986 │    986 │
-│ snap_current   │ open    │ spot    │    56 │     56 │
-│ snap_history   │ open    │ near    │    57 │     57 │
-│ snap_history   │ open    │ number  │  3429 │   3423 │
-│ snap_history   │ open    │ spot    │    62 │     62 │
+│ nppes_orgs     │ open    │ address │ 12195 │   9653 │
+│ osm_check_date │ open    │ near    │  1034 │   1019 │
+│ osm_check_date │ open    │ number  │  3177 │   3154 │
+│ osm_check_date │ open    │ self    │  1453 │   1453 │
+│ osm_check_date │ open    │ spot    │   115 │    115 │
+│ osm_history    │ closed  │ id      │   531 │    531 │
+│ osm_lifecycle  │ closed  │ near    │    67 │     67 │
+│ osm_lifecycle  │ closed  │ number  │   114 │    114 │
+│ osm_lifecycle  │ closed  │ self    │   210 │    210 │
+│ osm_lifecycle  │ closed  │ spot    │     3 │      3 │
+│ snap_current   │ open    │ near    │    59 │     59 │
+│ snap_current   │ open    │ number  │  3516 │   3511 │
+│ snap_current   │ open    │ self    │   959 │    959 │
+│ snap_current   │ open    │ spot    │    57 │     57 │
+│ snap_history   │ open    │ near    │    60 │     60 │
+│ snap_history   │ open    │ number  │  3435 │   3429 │
+│ snap_history   │ open    │ spot    │    65 │     65 │
 │ wikidata_p576  │ closed  │ near    │     1 │      1 │
 │ wikidata_p576  │ closed  │ number  │     2 │      2 │
 │ wikidata_p576  │ closed  │ self    │     8 │      8 │
@@ -131,27 +131,27 @@
 │ varchar │        varchar        │ int64  │
 ├─────────┼───────────────────────┼────────┤
 │ closed  │ fdic_history          │    410 │
-│ closed  │ fsq_closed            │   2527 │
-│ closed  │ osm_history           │    495 │
-│ closed  │ osm_lifecycle         │    367 │
+│ closed  │ fsq_closed            │   2524 │
+│ closed  │ osm_history           │    505 │
+│ closed  │ osm_lifecycle         │    381 │
 │ closed  │ wikidata_p576         │      9 │
-│ open    │ atp                   │  12266 │
-│ open    │ cambridge_food        │    516 │
-│ open    │ childcare_ma          │   1239 │
-│ open    │ cms_hospitals         │    104 │
-│ open    │ epa_ust_open          │    769 │
-│ open    │ fdic_locations        │   1646 │
-│ open    │ hrsa_health_centers   │     91 │
-│ open    │ irs_eo                │   4125 │
-│ open    │ isd_boston_food       │    555 │
-│ open    │ isd_boston_inspection │     18 │
-│ open    │ lb_boston             │   1950 │
-│ open    │ nces_schools          │   1454 │
-│ open    │ ncua_branches         │    198 │
-│ open    │ nppes_orgs            │   1332 │
-│ open    │ osm_check_date        │   3166 │
-│ open    │ snap_current          │   3386 │
-│ open    │ snap_history          │    177 │
+│ open    │ atp                   │  11555 │
+│ open    │ cambridge_food        │    525 │
+│ open    │ childcare_ma          │   1248 │
+│ open    │ cms_hospitals         │    107 │
+│ open    │ epa_ust_open          │    766 │
+│ open    │ fdic_locations        │   1647 │
+│ open    │ hrsa_health_centers   │     97 │
+│ open    │ irs_eo                │   4228 │
+│ open    │ isd_boston_food       │    562 │
+│ open    │ isd_boston_inspection │     86 │
+│ open    │ lb_boston             │   1934 │
+│ open    │ nces_schools          │   1436 │
+│ open    │ ncua_branches         │    277 │
+│ open    │ nppes_orgs            │   1353 │
+│ open    │ osm_check_date        │   3305 │
+│ open    │ snap_current          │   3210 │
+│ open    │ snap_history          │    191 │
 └─────────┴───────────────────────┴────────┘
   22 rows                        3 columns
 == closing signals against independent evidence
@@ -160,10 +160,10 @@
 │    source     │ places │ says_open_after │ says_closed_too │
 │    varchar    │ int64  │      int64      │      int64      │
 ├───────────────┼────────┼─────────────────┼─────────────────┤
-│ fdic_history  │    442 │              10 │              13 │
-│ fsq_closed    │   2577 │               9 │              62 │
-│ osm_history   │    524 │              17 │              42 │
-│ osm_lifecycle │    380 │               8 │              17 │
+│ fdic_history  │    445 │              10 │              15 │
+│ fsq_closed    │   2574 │               8 │              63 │
+│ osm_history   │    531 │              14 │              42 │
+│ osm_lifecycle │    394 │               8 │              20 │
 │ wikidata_p576 │     11 │               2 │               0 │
 └───────────────┴────────┴─────────────────┴─────────────────┘
 == Overture operating_status against our status
@@ -171,13 +171,16 @@
 │  overture_status   │ status  │ places │
 │      varchar       │ varchar │ int64  │
 ├────────────────────┼─────────┼────────┤
-│ (none)             │ closed  │    598 │
-│ (none)             │ open    │   4210 │
-│ (none)             │ unknown │  86371 │
-│ open               │ closed  │   2934 │
-│ open               │ open    │  23725 │
-│ open               │ unknown │ 245794 │
-│ permanently_closed │ closed  │     39 │
-│ permanently_closed │ open    │     94 │
-│ permanently_closed │ unknown │  12183 │
+│ (none)             │ closed  │    558 │
+│ (none)             │ open    │   3358 │
+│ (none)             │ unknown │  84493 │
+│ open               │ closed  │   2412 │
+│ open               │ open    │  24267 │
+│ open               │ unknown │ 254019 │
+│ permanently_closed │ closed  │    616 │
+│ permanently_closed │ open    │    119 │
+│ permanently_closed │ unknown │  13213 │
+│ temporarily_closed │ open    │      1 │
+│ temporarily_closed │ unknown │      6 │
 └────────────────────┴─────────┴────────┘
+  11 rows                     3 columns
